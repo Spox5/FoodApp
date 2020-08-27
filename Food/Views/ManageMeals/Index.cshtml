@@ -1,0 +1,38 @@
+﻿@model Food.ViewModel.SearchMealViewModel
+
+<div id="main">
+
+    <div id="title">Twoje posiłki:</div>
+
+    <form>
+
+        @foreach (var meal in Model.Meals)
+        {
+            <label>
+                <input id="@meal.Name" type="radio" required> @meal.Name
+            </label>
+        }
+
+        <input id="modal_window" type="button" value="Edytuj">
+        <input type="submit" value="Usuń">
+
+    </form>
+
+    <form>
+
+        <div>
+
+            <input type="text" class="inputfield" placeholder="Nazwa nowego posiłku" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwa nowego posiłku'" name="new_category" required>
+            @foreach (var ingredient in Model.Ingredients)
+            {
+                <label>
+                    <input id="@ingredient.Name" type="checkbox" required /> @ingredient.Name
+                </label>
+            }
+            <input type="submit" class="pushbutton ok_pushbutton" value="Dodaj">
+
+        </div>
+
+    </form>
+
+</div>

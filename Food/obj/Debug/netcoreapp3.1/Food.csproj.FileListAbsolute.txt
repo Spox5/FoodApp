@@ -1,0 +1,6 @@
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.AssemblyInfoInputs.cache
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.AssemblyInfo.cs
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.csproj.CoreCompileInputs.cache
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.RazorAssemblyInfo.cache
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.RazorAssemblyInfo.cs

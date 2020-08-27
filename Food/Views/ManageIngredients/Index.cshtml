@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Food.Data.Models.Ingredient>
+
+<div id="main">
+
+    <div id="title">Twoje składniki:</div>
+
+    <form>
+
+        @foreach (var ingredient in Model)
+        {
+            <label>
+                <input id="@ingredient.Name" type="radio" required> @ingredient.Name
+            </label>
+        }
+
+        <input id="modal_window" type="button" value="Edytuj">
+        <input type="submit" value="Usuń">
+
+    </form>
+
+    <form>
+
+        <div>
+
+            <input type="text" class="inputfield" placeholder="Nazwa nowego składnika" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwa nowego składnika'" name="new_category" required>
+            <input type="submit" class="pushbutton ok_pushbutton" value="Dodaj">
+
+        </div>
+
+    </form>
+
+</div>

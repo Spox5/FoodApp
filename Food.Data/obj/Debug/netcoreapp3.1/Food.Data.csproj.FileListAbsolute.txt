@@ -1,0 +1,3 @@
+C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.AssemblyInfoInputs.cache
+C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.AssemblyInfo.cs
+C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.csproj.CoreCompileInputs.cache

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Food.Data.Models.Ingredient>
+
+<div id="main">
+
+    <div id="title">Co masz w lodówce?</div>
+
+    <form id="formIncome">
+
+       @foreach (var ingredient in Model)
+       {
+            <p>Nazwa posiłku: @ingredient.Name</p>
+       }
+
+       <div><input type="submit" value="Szukaj"></div>
+
+    </form>
+
+</div>
