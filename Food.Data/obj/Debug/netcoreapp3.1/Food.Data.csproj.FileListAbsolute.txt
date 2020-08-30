@@ -3,10 +3,10 @@ C:\Users\mateu\source\repos\Food\Food.Data\bin\Debug\netcoreapp3.1\Food.Data.run
 C:\Users\mateu\source\repos\Food\Food.Data\bin\Debug\netcoreapp3.1\Food.Data.runtimeconfig.dev.json
 C:\Users\mateu\source\repos\Food\Food.Data\bin\Debug\netcoreapp3.1\Food.Data.dll
 C:\Users\mateu\source\repos\Food\Food.Data\bin\Debug\netcoreapp3.1\Food.Data.pdb
+C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.csprojAssemblyReference.cache
 C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.AssemblyInfoInputs.cache
 C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.AssemblyInfo.cs
 C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.csproj.CoreCompileInputs.cache
 C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.dll
 C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.pdb
 C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.genruntimeconfig.cache
-C:\Users\mateu\source\repos\Food\Food.Data\obj\Debug\netcoreapp3.1\Food.Data.csprojAssemblyReference.cache

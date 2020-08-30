@@ -132,8 +132,11 @@ C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.RazorAssembly
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.TagHelpers.input.cache
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.TagHelpers.output.cache
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.RazorCoreGenerate.cache
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\ManageIngredients\Index.cshtml.g.cs
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\ManageMeals\Index.cshtml.g.cs
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\SearchMeal\Index.cshtml.g.cs
+C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.RazorTargetAssemblyInfo.cache
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.RazorTargetAssemblyInfo.cs
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.Views.pdb
@@ -143,6 +146,3 @@ C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\staticwebassets\Fo
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.dll
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.pdb
 C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Food.genruntimeconfig.cache
-C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\ManageIngredients\Index.cshtml.g.cs
-C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\mateu\source\repos\Food\Food\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs

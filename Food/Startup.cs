@@ -36,6 +36,7 @@ namespace Food
                     pattern: "{controller=ManageMeals}/{action=Index}/{userId=1}");
                 
             });
+            app.UseStaticFiles();
         }
     }
 }
