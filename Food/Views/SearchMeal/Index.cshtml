@@ -1,18 +1,58 @@
 ﻿@model IEnumerable<Food.Data.Models.Ingredient>
 
-<div id="main">
+<div>
 
-    <div id="title">Co masz w lodówce?</div>
+    <div>Co masz w lodówce?</div>
 
-    <form id="formIncome">
+    <div class="ingredients">
 
        @foreach (var ingredient in Model)
        {
-            <p>Nazwa posiłku: @ingredient.Name</p>
+           @ingredient.Name <input value="@ingredient.Id" type="checkbox">
        }
 
-       <div><input type="submit" value="Szukaj"></div>
+    <button class="search-button" type="button">Wyszukaj</button>
 
-    </form>
+    </div>
+
+    <div class="meal-result-container">
+    </div>
 
 </div>
+
+<script>
+    const searchButton = document.querySelector('.search-button');
+    const ingredientsContainer = document.querySelector('.ingredients');
+    const mealResultContainer = document.querySelector('.meal-result-container');
+
+
+    searchButton.onclick = () => {
+
+        const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
+        const selectedIngredients = ingredients
+            .filter(ingredient => ingredient.checked)
+            .map(ingredient => parseInt(ingredient.value))
+
+        const requestData = {
+            ingredientIds: selectedIngredients
+        }
+
+        fetch("/SearchMeal/Search", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            for (const meal of data) {
+
+                const mealElement = document.createElement('div');
+                mealElement.innerHTML = `${meal.name}. Skladniki: ${meal.mealIngredients.map(mi => mi.ingredientId).toString()}`;
+                mealResultContainer.appendChild(mealElement);
+            }
+        });
+    }
+</script>
