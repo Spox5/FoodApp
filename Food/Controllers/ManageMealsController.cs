@@ -1,5 +1,6 @@
 ﻿using Food.Data.Models;
 using Food.Data.Repositories;
+using Food.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,21 @@ namespace Food.Controllers
      public class ManageMealsController : Controller    
      {
         private readonly MealRepository mealRepository;
+        private readonly IngredientRepository ingredientRepository;
 
-        public ManageMealsController(MealRepository mealRepository)
+        public ManageMealsController(MealRepository mealRepository, IngredientRepository ingredientRepository)
         {
             this.mealRepository = mealRepository;
+            this.ingredientRepository = ingredientRepository;
         }
 
         [HttpGet]
         public IActionResult Index(int userID)
         {
-            var meals = mealRepository.GetByUserId(userID);
+            var mealsIngredients = new SearchMealViewModel();
+            mealsIngredients.Meals= mealRepository.GetByUserId(userID);
+            mealsIngredients.Ingredients = ingredientRepository.GetByUserId(userID);
+            
 
             //var meals = new List<Meal>
             //{
@@ -28,7 +34,7 @@ namespace Food.Controllers
             //   new Meal{Name="Płatki z mlekiem"},
             //};
 
-            return View(meals);
+            return View(mealsIngredients);
 
         }
      }

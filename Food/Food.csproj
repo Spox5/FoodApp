@@ -5,16 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\ManageIngredients\Index.cshtml" />
-    <Content Remove="Views\Shared\_Layout.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\ManageIngredients\Index.cshtml" />
-    <None Include="Views\Shared\_Layout.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
@@ -22,6 +12,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Food.Data\Food.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Styles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\main.css" />
   </ItemGroup>
 
 </Project>

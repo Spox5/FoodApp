@@ -33,7 +33,8 @@ namespace Food
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=SearchMeal}/{action=Index}");
+                    pattern: "{controller=ManageMeals}/{action=Index}/{userId=1}");
+                
             });
         }
     }

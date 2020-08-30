@@ -26,6 +26,15 @@ namespace Food.Data.Repositories
                 .ToList();
         }
 
+        public List<Meal> GetByIngredients(List<Ingredient> ingredients)
+        {
+            List<Meal> meals =null;
+
+            
+
+            return meals;
+        }
+
         public void Add(Meal meal)
         {
             foodContext.Meals.Add(meal);

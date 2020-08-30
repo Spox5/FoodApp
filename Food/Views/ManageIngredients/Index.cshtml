@@ -6,12 +6,12 @@
 
     <form>
 
-        @foreach (var ingredient in Model)
-        {
-            <label>
-                <input id="@ingredient.Name" type="radio" required> @ingredient.Name
-            </label>
-        }
+       @foreach (var ingredient in Model)
+            {
+                <label>
+                    <input id="@ingredient.Name" type="radio" required> @ingredient.Name
+                </label>
+            }
 
         <input id="modal_window" type="button" value="Edytuj">
         <input type="submit" value="Usuń">

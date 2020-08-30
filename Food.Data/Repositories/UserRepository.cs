@@ -15,10 +15,10 @@ namespace Food.Data.Repositories
             this.foodContext = foodContext;
         }
 
-        public List<User> GetUserByName(int name)
-        {
-            return foodContext.Users.Where(user => user.Name == name);
+        //public List<User> GetUserByName(int name)
+        //{
+        //    return foodContext.Users.Where(user => user.Name == name);
 
-        }
+        //}
     }
 }
