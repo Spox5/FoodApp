@@ -6,12 +6,12 @@
 
     <form>
 
-       @foreach (var ingredient in Model)
-            {
-                <label>
-                    <input id="@ingredient.Name" type="radio" required> @ingredient.Name
-                </label>
-            }
+        @foreach (var ingredient in Model)
+        {
+            <label>
+                <input id="@ingredient.Name" type="radio" required> @ingredient.Name
+            </label>
+        }
 
         <input id="modal_window" type="button" value="Edytuj">
         <input type="submit" value="Usuń">
@@ -22,11 +22,48 @@
 
         <div>
 
-            <input type="text" class="inputfield" placeholder="Nazwa nowego składnika" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwa nowego składnika'" name="new_category" required>
-            <input type="submit" class="pushbutton ok_pushbutton" value="Dodaj">
+            <input type="text" class="input-field" placeholder="Nazwa nowego składnika" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwa nowego składnika'" name="new_category" required>
+            <button class="add-button" type="button">Dodaj</button>
 
         </div>
 
     </form>
 
+    <p id= "demo">adsasdadssad</p>
+
 </div>
+
+<script>
+    const addButton = document.querySelector('.add-button');
+    const addIngredientName = document.querySelector('.input-field');
+    
+
+    addButton.onclick = () => {
+
+        
+
+        var ingredient = {
+            id: "5",
+            Name: "Pieprz",
+            UserId: "1"
+        };
+
+        document.getElementById("demo").innerHTML = ingredient.Name;
+
+        fetch("/ManageIngredients/AddIngredient", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Origin": "*"
+            },
+            body: JSON.stringify({
+                Name: "Pieprz",
+                UserId: "5"
+            })
+
+        })
+            .then(response => response.json());
+        
+        
+    }
+</script>

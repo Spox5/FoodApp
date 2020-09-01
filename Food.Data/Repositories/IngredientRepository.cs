@@ -1,4 +1,5 @@
 ﻿using Food.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,12 @@ namespace Food.Data.Repositories
                 .Where(ingredient => ingredient.UserId == userId)
                 .ToList();
         }
+
+        //public void Add(Ingredient ingredient)
+        //{
+        //    foodContext.Ingredients.Add(ingredient);
+        //    foodContext.SaveChanges();
+        //}
 
         public void Add(Ingredient ingredient)
         {

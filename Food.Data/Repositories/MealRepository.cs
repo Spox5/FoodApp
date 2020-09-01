@@ -1,4 +1,5 @@
 ﻿using Food.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Text;
 
 namespace Food.Data.Repositories
 {
-    
     public class MealRepository
     {
         private readonly FoodContext foodContext;
@@ -26,13 +26,12 @@ namespace Food.Data.Repositories
                 .ToList();
         }
 
-        public List<Meal> GetByIngredients(List<Ingredient> ingredients)
+        public List<Meal> GetByIngredients(List<int> ingredientIds)
         {
-            List<Meal> meals =null;
-
-            
-
-            return meals;
+            return foodContext.Meals
+                .Include(meal => meal.MealIngredients)
+                .Where(meal => meal.MealIngredients.All(mealIngredient => ingredientIds.Contains(mealIngredient.IngredientId)))
+                .ToList();
         }
 
         public void Add(Meal meal)

@@ -23,28 +23,15 @@ namespace Food.Controllers
         [HttpGet]
         public IActionResult Index(int userId)
         {
-            var meal = ingredientRepository.GetByUserId(userId);
+            var ingredients = ingredientRepository.GetByUserId(userId);
 
-            var ingredients = new List<Ingredient>
-            {
-                new Ingredient
-                {
-                    Id = 4,
-                },
-                new Ingredient
-                {
-                    Id = 4,
-                },
-                new Ingredient
-                {
-                    Id = 4,
-                },
-            };
-            var meals = mealRepository.GetByIngredients(ingredients);
+            return View(ingredients);
+        }
 
-
-            //var viewModel = new SearchMealViewModel();
-            return View(userId);
+        [HttpPost]
+        public List<Meal> Search([FromBody] SearchMealPostViewModel searchMealPostViewModel)
+        {
+            return mealRepository.GetByIngredients(searchMealPostViewModel.IngredientIds);
         }
     }
 }
