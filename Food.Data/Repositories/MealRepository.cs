@@ -44,5 +44,11 @@ namespace Food.Data.Repositories
             foodContext.Meals.Remove(meal);
             foodContext.SaveChanges();
         }
+
+        public void Update(Meal meal)
+        {
+            foodContext.Meals.Update(meal);
+            foodContext.SaveChanges();
+        }
     }
 }

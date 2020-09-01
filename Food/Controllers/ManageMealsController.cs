@@ -26,16 +26,20 @@ namespace Food.Controllers
             var mealsIngredients = new SearchMealViewModel();
             mealsIngredients.Meals= mealRepository.GetByUserId(userID);
             mealsIngredients.Ingredients = ingredientRepository.GetByUserId(userID);
-            
-
-            //var meals = new List<Meal>
-            //{
-            //   new Meal{Name="Kanapka z masłem"},
-            //   new Meal{Name="Płatki z mlekiem"},
-            //};
 
             return View(mealsIngredients);
-
         }
-     }
+
+        [HttpPatch]
+        public void Update([FromBody]Meal meal)
+        {
+            mealRepository.Update(meal);
+        }
+
+        [HttpDelete]
+        public void Delete([FromBody]Meal meal)
+        {
+            mealRepository.Delete(meal);
+        }
+    }
 }

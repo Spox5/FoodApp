@@ -1,6 +1,6 @@
 ﻿@model Food.ViewModel.SearchMealViewModel
 
-@{ 
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,12 +13,17 @@
         @foreach (var meal in Model.Meals)
         {
             <label>
-                <input id="@meal.Name" type="radio" required> @meal.Name
+                <input class="meal-input" value="@meal.Id" type="radio" required> @meal.Name
             </label>
         }
 
-        <input id="modal_window" type="button" value="Edytuj">
-        <input type="submit" value="Usuń">
+        <div class="meal-name-form">
+            Nowa nazwa posilku <input class="meal-name-input" type="text">
+            <input class="save-button" type="button" value="Zapisz">
+        </div>
+
+        <input class="edit-button" type="button" value="Edytuj">
+        <input class="delete-button" type="button" value="Usuń">
 
     </form>
 
@@ -40,3 +45,66 @@
     </form>
 
 </div>
+
+<script>
+    const editButton = document.querySelector('.edit-button')
+    const deleteButton = document.querySelector('.delete-button')
+    const editInput = document.querySelector('.meal-name-input')
+    const editForm = document.querySelector('.meal-name-form')
+    const saveButton = document.querySelector('.save-button')
+
+    hideEditForm();
+    bindEvents();
+
+    function bindEvents() {
+        editButton.onclick = displayEditForm
+        deleteButton.onclick = deleteMeal
+        saveButton.onclick = updateMeal
+    }
+
+    function updateMeal() {
+        hideEditForm()
+        const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked)
+
+        const meal = {
+            Id: parseInt(selectedMeal.value),
+            Name: editInput.value,
+            userId: 1
+        }
+
+        fetch("/ManageMeals/Update", {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(meal)
+        })
+    }
+
+    function deleteMeal() {
+        const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked)
+
+        const meal = {
+            id: parseInt(selectedMeal.value),
+            name: 'fds',
+            userId: 1
+        }
+
+        fetch("/ManageMeals/Delete", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(meal)
+        })
+    }
+
+    function displayEditForm() {
+        editForm.style.display = 'block'
+    }
+
+    function hideEditForm() {
+        editForm.style.display = 'none'
+    }
+
+</script>

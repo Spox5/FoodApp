@@ -16,7 +16,7 @@ namespace Food
     public class Startup
     {
         //trusted_connection=true - jak serwer na innej maszynie to wyrzuciæ
-        private string connectionString = "Server=KOMPUTER-KARINA\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
+        private string connectionString = "Server=DESKTOP-D0B1296\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,7 +33,7 @@ namespace Food
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=ManageIngredients}/{action=Index}/{userId=1}");
+                    pattern: "{controller=ManageMeals}/{action=Index}/{userId=1}");
                 
             });
             app.UseStaticFiles();

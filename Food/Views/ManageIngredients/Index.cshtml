@@ -29,41 +29,26 @@
 
     </form>
 
-    <p id= "demo">adsasdadssad</p>
-
 </div>
 
 <script>
     const addButton = document.querySelector('.add-button');
     const addIngredientName = document.querySelector('.input-field');
-    
 
     addButton.onclick = () => {
 
-        
-
         var ingredient = {
-            id: "5",
-            Name: "Pieprz",
-            UserId: "1"
+            name: addIngredientName.value,
+            userId: 1
         };
-
-        document.getElementById("demo").innerHTML = ingredient.Name;
 
         fetch("/ManageIngredients/AddIngredient", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                "Access-Control-Origin": "*"
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                Name: "Pieprz",
-                UserId: "5"
-            })
+            body: JSON.stringify(ingredient)
 
-        })
-            .then(response => response.json());
-        
-        
+        })        
     }
 </script>

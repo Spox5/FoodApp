@@ -16,6 +16,8 @@ namespace Food.Controllers
         {
             this.ingredientRepository = ingredientRepository;
         }
+
+        [HttpGet]
         public IActionResult Index(int userId)
         {
             var ingredients = ingredientRepository.GetByUserId(userId);
@@ -23,6 +25,7 @@ namespace Food.Controllers
             return View(ingredients);
         }
 
+        [HttpPost]
         public void AddIngredient([FromBody]Ingredient ingredient)
         {
             ingredientRepository.Add(ingredient);

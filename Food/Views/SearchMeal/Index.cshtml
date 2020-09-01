@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Food.Data.Models.Ingredient>
 
-<div>
+<div class="search-meal-container" data-ingredients='@Html.Raw(Json.Serialize(Model))'>
 
     <div>Co masz w lodówce?</div>
 
@@ -8,7 +8,9 @@
 
         @foreach (var ingredient in Model)
         {
-            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+            <div>
+                <input value="@ingredient.Id" type="checkbox"> @ingredient.Name
+            </div>
         }
 
         <button class="search-button" type="button">Wyszukaj</button>
@@ -24,14 +26,32 @@
     const searchButton = document.querySelector('.search-button');
     const ingredientsContainer = document.querySelector('.ingredients');
     const mealResultContainer = document.querySelector('.meal-result-container');
+    const ingredientsData = JSON.parse(document.querySelector('.search-meal-container').dataset.ingredients)
 
-    searchButton.onclick = () => {
+    bindEvents()
 
-        const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
-        const selectedIngredients = ingredients
-            .filter(ingredient => ingredient.checked)
-            .map(ingredient => parseInt(ingredient.value))
+    function bindEvents() {
+        searchButton.onclick = () => {
+            const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
+            const selectedIngredients = ingredients
+                .filter(ingredient => ingredient.checked)
+                .map(ingredient => parseInt(ingredient.value))
 
+            mealResultContainer.innerHTML = ""
+            getMealsByIngredients(selectedIngredients)
+        }
+    }
+
+    function displayMealResult(meals) {
+        for (const meal of meals) {
+
+            const mealElement = document.createElement('div');
+            mealElement.innerHTML = `${meal.name}. Skladniki: ${getMealIngredients(meal)}`;
+            mealResultContainer.appendChild(mealElement);
+        }
+    }
+
+    function getMealsByIngredients(selectedIngredients) {
         const requestData = {
             ingredientIds: selectedIngredients
         }
@@ -44,14 +64,16 @@
             body: JSON.stringify(requestData)
         })
             .then(response => response.json())
-            .then(data => {
+            .then(displayMealResult);
+    }
 
-                for (const meal of data) {
+    function getMealIngredients(meal) {
+        const ingredients = meal.mealIngredients.map(mi => getIngredientNameById(mi.ingredientId))
 
-                    const mealElement = document.createElement('div');
-                    mealElement.innerHTML = `${meal.name}. Skladniki: ${meal.mealIngredients.map(mi => mi.ingredientId).toString()}`;
-                    mealResultContainer.appendChild(mealElement);
-                }
-            });
+        return ingredients.toString()
+    }
+
+    function getIngredientNameById(id) {
+        return ingredientsData.find(ingredient => ingredient.id === id).name
     }
 </script>
