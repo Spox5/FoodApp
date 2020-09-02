@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Food.Data.Models.Ingredient>
+
+    <div id="main">
+        Logowanie:
+        Nazwa <input class="username-input" type="text" required>
+        Haslo <input class="password-input" type="password" required>
+        <button class="login-button" type="button">Zaloguj</button>
+
+        Rejestracja:
+        Nazwa <input class="username-register-input" type="text" required>
+        Haslo <input class="password-register-input" type="password" required>
+        <button class="register-button" type="button">Utworz konto</button>
+    </div>
+
+<script>
+
+    const loginButton = document.querySelector('.login-button');
+    const usernameInput = document.querySelector('.username-input');
+    const passwordInput = document.querySelector('.password-input');
+
+    const registerButton = document.querySelector('.register-button');
+    const usernameRegisterInput = document.querySelector('.username-register-input');
+    const passwordRegisterInput = document.querySelector('.password-register-input');
+
+    bindEvents();
+
+    function bindEvents() {
+        loginButton.onclick = login
+        registerButton.onclick = register
+    }
+
+    function login() {
+        var user = {
+            //tu działa parser małe litery pierwsze na wielkie
+            name: usernameInput.value,
+            password: passwordInput.value
+        };
+
+        fetch(`/User/Login?username=${user.name}&password=${user.password}`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(user => {
+            sessionStorage.setItem('token', user.token);
+            sessionStorage.setItem('userId', user.id);
+        })
+    }
+
+    function register() {
+        var user = {
+            //tu działa parser małe litery pierwsze na wielkie
+            name: usernameRegisterInput.value,
+            password: passwordRegisterInput.value
+        };
+        
+        fetch(`/User/Register?username=${user.name}&password=${user.password}`, {
+            method: 'POST'
+        })
+    }
+
+</script>

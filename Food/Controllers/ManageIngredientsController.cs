@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Food.Data.Models;
 using Food.Data.Repositories;
 using Food.ViewModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Food.Controllers
@@ -29,6 +31,7 @@ namespace Food.Controllers
             ingredientRepository.Add(ingredient);
         }
 
+        [HttpDelete]
         public void DeleteIngredient([FromBody] Ingredient ingredient)
         {
             ingredientRepository.Delete(ingredient);

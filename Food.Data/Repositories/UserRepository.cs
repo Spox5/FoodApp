@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Food.Data.Repositories
 {
-    class UserRepository
+    public class UserRepository
     {
         private readonly FoodContext foodContext;
 
@@ -15,10 +15,15 @@ namespace Food.Data.Repositories
             this.foodContext = foodContext;
         }
 
-        //public List<User> GetUserByName(int name)
-        //{
-        //    return foodContext.Users.Where(user => user.Name == name);
+        public User GetByName(string name)
+        {
+            return foodContext.Users.FirstOrDefault(user => user.Name == name);
+        }
 
-        //}
+        public void Add(User user)
+        {
+            foodContext.Users.Add(user);
+            foodContext.SaveChanges();
+        }
     }
 }

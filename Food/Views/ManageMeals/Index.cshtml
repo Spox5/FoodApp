@@ -136,7 +136,7 @@
         const meal = {
             Id: parseInt(selectedMeal.value),
             Name: editInput.value,
-            userId: 1
+            userId: parseInt(window.sessionStorage.getItem("userId"))
         }
 
 

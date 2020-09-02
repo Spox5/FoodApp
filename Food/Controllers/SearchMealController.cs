@@ -1,6 +1,8 @@
 ﻿using Food.Data.Models;
 using Food.Data.Repositories;
 using Food.ViewModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Food.Controllers
 {
+
     public class SearchMealController : Controller
     {
         private readonly IngredientRepository ingredientRepository;

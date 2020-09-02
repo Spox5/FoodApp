@@ -9,7 +9,7 @@
         @foreach (var ingredient in Model)
         {
             <label>
-                <input class="ingredient-input" value="@ingredient.Id" type="radio" required> @ingredient.Name
+                <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio" required> @ingredient.Name
             </label>
         }
 
@@ -41,8 +41,8 @@
     bindEvents();
 
     function bindEvents() {
-        addButton.onclick = addIngredient();
-        deleteButton.onclick = deleteIngredient();
+        addButton.onclick = addIngredient
+        deleteButton.onclick = deleteIngredient
     }
 
     function addIngredient()
@@ -50,7 +50,7 @@
         var ingredient = {
             //tu działa parser małe litery pierwsze na wielkie
             name: addIngredientName.value,
-            userId: 1
+            userId: parseInt(window.sessionStorage.getItem("userId"))
         };
 
         fetch("/ManageIngredients/AddIngredient", {
@@ -73,12 +73,12 @@
         const ingredient = {
             id: parseInt(selectedIngredient.value),
             name: 'daa',
-            userId: 1
+            userId: parseInt(window.sessionStorage.getItem("userId"))
         }
 
         fetch('/ManageIngredients/DeleteIngredient', {
             method: 'DELETE',
-            header: {
+            headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(ingredient)
