@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Food.Data.Models.Ingredient>
 
-<div>
+<div class="search-meal-container" data-ingredients='@Html.Raw(Json.Serialize(Model))'>
 
     <div>Co masz w lodówce?</div>
 
@@ -8,6 +8,9 @@
 
         @foreach (var ingredient in Model)
         {
+            <div>
+
+            </div>
             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
         }
 
@@ -21,37 +24,133 @@
 
 
 <script>
-    const searchButton = document.querySelector('.search-button');
-    const ingredientsContainer = document.querySelector('.ingredients');
-    const mealResultContainer = document.querySelector('.meal-result-container');
+    //const searchButton = document.querySelector('.search-button');
+    //const ingredientsContainer = document.querySelector('.ingredients');
+    //const mealResultContainer = document.querySelector('.meal-result-container');
+    //const ingredientsData = JSON.parse(document.querySelector('.search-meal-container').dataset.ingredients);
 
-    searchButton.onclick = () => {
+    //bindEvents();
 
-        const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
-        const selectedIngredients = ingredients
-            .filter(ingredient => ingredient.checked)
-            .map(ingredient => parseInt(ingredient.value))
+    //function bindEvents() {
+    //    searchButton.onclick = () => {
 
+    //        const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
+    //        const selectedIngredients = ingredients
+    //            .filter(ingredient => ingredient.checked)
+    //            .map(ingredient => parseInt(ingredient.value))
+
+    //        getMealsByIngredients(selectedIngredients)
+    //}
+
+    //function displayMealResult(meals) {
+    //    for (const meal of meals) {
+
+    //        const mealElement = document.createElement('div');
+    //        mealElement.innerHTML = `${meal.name}. Skladniki: ${getMealIngredients(meal)}`;
+    //        mealResultContainer.appendChild(mealElement);
+
+    //    }
+    //}
+
+    //function getMealsByIngredients(selectedIngredients) {
+    //    const requestData = {
+    //        ingredientIds: selectedIngredients
+    //    }
+    //}
+
+
+    //      fetch("/SearchMeal/Search", {
+    //        method: 'POST',
+    //        headers: {
+    //            'Content-Type': 'application/json'
+    //        },
+    //        body: JSON.stringify(requestData)
+    //    })
+    //        .then(response => response.json())
+    //        .then(displayMealResult);
+    //}
+
+    //function getMealIngredients(meal) {
+    //    const ingredients = meal.mealIngredients.map(mi => getIngredientNameById(mi.ingredientId))
+
+    //    return ingredients.toString();
+    //}
+
+    //function getingredientNameById(id) {
+    //    return ingredientsData.find(ingredient => ingredient.id === id).name
+    //}
+
+        const searchButton = document.querySelector('.search-button');
+        const ingredientsContainer = document.querySelector('.ingredients');
+        const mealResultContainer = document.querySelector('.meal-result-container');
+        const ingredientsData = JSON.parse(document.querySelector('.search-meal-container').dataset.ingredients)
+
+
+
+        bindEvents()
+
+
+
+    function bindEvents() {
+            searchButton.onclick = () => {
+                const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
+                const selectedIngredients = ingredients
+                    .filter(ingredient => ingredient.checked)
+                    .map(ingredient => parseInt(ingredient.value))
+
+
+                mealResultContainer.innerHTML = "";
+                getMealsByIngredients(selectedIngredients)
+            }
+        }
+
+
+
+    function displayMealResult(meals) {
+        for (const meal of meals) {
+
+
+
+            const mealElement = document.createElement('div');
+            mealElement.innerHTML = `${meal.name}. Skladniki: ${getMealIngredients(meal)}`;
+            mealResultContainer.appendChild(mealElement);
+        }
+    }
+
+
+
+    function getMealsByIngredients(selectedIngredients) {
         const requestData = {
             ingredientIds: selectedIngredients
         }
 
+
+
         fetch("/SearchMeal/Search", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
             },
             body: JSON.stringify(requestData)
         })
             .then(response => response.json())
-            .then(data => {
-
-                for (const meal of data) {
-
-                    const mealElement = document.createElement('div');
-                    mealElement.innerHTML = `${meal.name}. Skladniki: ${meal.mealIngredients.map(mi => mi.ingredientId).toString()}`;
-                    mealResultContainer.appendChild(mealElement);
-                }
-            });
+            .then(displayMealResult);
     }
+
+
+
+    function getMealIngredients(meal) {
+        const ingredients = meal.mealIngredients.map(mi => getIngredientNameById(mi.ingredientId))
+
+
+
+        return ingredients.toString()
+    }
+
+
+
+    function getIngredientNameById(id) {
+        return ingredientsData.find(ingredient => ingredient.id === id).name
+    }
+
 </script>

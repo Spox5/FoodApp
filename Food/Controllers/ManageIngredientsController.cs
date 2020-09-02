@@ -23,9 +23,15 @@ namespace Food.Controllers
             return View(ingredients);
         }
 
+        [HttpPost]
         public void AddIngredient([FromBody]Ingredient ingredient)
         {
             ingredientRepository.Add(ingredient);
+        }
+
+        public void DeleteIngredient([FromBody] Ingredient ingredient)
+        {
+            ingredientRepository.Delete(ingredient);
         }
     }
 }

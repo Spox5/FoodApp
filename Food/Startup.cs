@@ -33,7 +33,7 @@ namespace Food
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=ManageIngredients}/{action=Index}/{userId=1}");
+                    pattern: "{controller=ManageMeals}/{action=Index}/{userId=1}");
                 
             });
             app.UseStaticFiles();
