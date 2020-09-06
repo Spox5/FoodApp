@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Food.Data.Models.Ingredient>
 
-@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{ Layout = "~/Views/Shared/_LayoutWithoutNavigation.cshtml"; }
 
 
 <div class="col-md-12 centered">
@@ -73,8 +73,10 @@
         })
             .then(response => response.json())
             .then(user => {
-                sessionStorage.setItem('token', user.token);
-                sessionStorage.setItem('userId', user.id);
+                localStorage.setItem('token', user.token);
+                localStorage.setItem('userId', user.id);
+
+                window.location.href = "\searchmeal"
             })
     }
 
@@ -87,6 +89,16 @@
 
         fetch(`/User/Register?username=${user.name}&password=${user.password}`, {
             method: 'POST'
+        })
+        .then(response => response.json())
+        .then(isRegistered => {
+            if (isRegistered) {
+                registerButton.textContent = "Zarejstrowano"
+            }
+            else {
+                registerButton.textContent = "Nie Zarejstrowano"
+            }
+            
         })
     }
 

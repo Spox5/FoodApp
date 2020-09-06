@@ -7,10 +7,12 @@ namespace Food.Data.Models
 {
     public class MealIngredient
     {
+        [JsonIgnore]
         public int MealId { get; set; }
 
         [JsonIgnore]
         public Meal Meal { get; set; }
+
         public int IngredientId { get; set; }
 
         [JsonIgnore]

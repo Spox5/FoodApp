@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Food.Controllers;
 using Food.Data;
 using Food.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,7 +21,7 @@ namespace Food
     public class Startup
     {
         //trusted_connection=true - jak serwer na innej maszynie to wyrzuciæ
-        private string connectionString = "Server=KOMPUTER-KARINA\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
+        private string connectionString = "Server=DESKTOP-D0B1296\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
         private const string securityKey = "gjknlfgdnjkl32423";
 
         public void ConfigureServices(IServiceCollection services)
@@ -46,6 +48,7 @@ namespace Food
                      ValidateIssuer = false,
                      ValidateAudience = false
                  };
+
                  options.Events = new JwtBearerEvents
                  {
                      OnMessageReceived = context =>
@@ -54,7 +57,13 @@ namespace Food
 
                          if (doesTokenCookieExist)
                          {
-                             context.Token = context.Request.Cookies.First(cookie => cookie.Key == "token").Value;
+                             var tokenValue = context.Request.Cookies.First(cookie => cookie.Key == "token").Value;
+                             var tokenCookie = new Cookie("token", tokenValue);
+
+                             if (!tokenCookie.Expired)
+                             {
+                                 context.Token = tokenValue;
+                             }
                          }
 
                          return Task.CompletedTask;
@@ -65,6 +74,20 @@ namespace Food
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var foodContext = scope.ServiceProvider.GetService<FoodContext>();
+                foodContext.Database.Migrate();
+            }
+
+            app.UseStatusCodePages(async context =>
+            {
+                if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
+                {
+                    context.HttpContext.Response.Redirect($"/{nameof(UserController).Replace("Controller", "")}");
+                }
+            });
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

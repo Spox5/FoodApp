@@ -38,7 +38,7 @@
         <div>
              @foreach (var ingredient in Model.Ingredients)
              {
-             <label class="btn btn-outline-primary">
+             <label class="btn btn-outline-primary ingredients">
                    <input class="ingredients-checkboxes" value="@ingredient.Id" type="checkbox" required /> @ingredient.Name
              </label>
                 }
@@ -64,8 +64,7 @@
     const editForm = document.querySelector('.meal-name-form')
     const saveButton = document.querySelector('.save-button')
 
-
-    hideEditForm();
+    editForm.style.display = 'none'
     bindEvents();
 
 
@@ -83,9 +82,9 @@
             .map(ingredient => parseInt(ingredient.value))
         const meal = {
             name: addMealName.value,
-            //userId: parseInt(window.sessionStorage.getItem("userId"))
-            userId: 1,
-            recipe: addMealRecipe.value
+            userId: parseInt(window.localStorage.getItem("userId")),
+            recipe: addMealRecipe.value,
+            mealIngredients: selectedIngredients.map(ingredient => ({ ingredientId: ingredient }))
         }
 
         fetch("/ManageMeals/Add", {
@@ -154,10 +153,10 @@
     }
 
     function displayOrHideEditForm() {
-        if (editForm.style.display = 'none') {
+        if (editForm.style.display == 'none') {
             editForm.style.display = 'block'
         }
-        else if (editForm.style.display = 'block') {
+        else if (editForm.style.display == 'block') {
             editForm.style.display = 'none'
         }
     }

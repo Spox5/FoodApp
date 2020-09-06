@@ -44,7 +44,10 @@ namespace Food.Controllers
             {
                 var token = GetJwtToken(user.Id);
 
-                Response.Cookies.Append("token", token);
+                Response.Cookies.Append("token", token, new Microsoft.AspNetCore.Http.CookieOptions
+                {
+                    Expires = new DateTimeOffset(DateTime.Now.AddMinutes(1))
+                });
 
                 return new UserViewModel
                 {
@@ -57,8 +60,20 @@ namespace Food.Controllers
         }
 
         [HttpPost]
-        public void Register(string username, string password)
+        public bool Register(string username, string password)
         {
+            var isPasswordCorrect = password.Length > 6 && password.Any(character => char.IsUpper(character));
+            if (isPasswordCorrect)
+            {
+                return false;
+            }
+
+            var existingUSer = userRepository.GetByName(username);
+            if (existingUSer != null)
+            {
+                return false;
+            }
+
             (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
 
             var user = new User
@@ -69,6 +84,16 @@ namespace Food.Controllers
             };
 
             userRepository.Add(user);
+
+            return true;
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Delete("token");
+
+            return Redirect($"/{nameof(UserController).Replace("Controller", "")}");
         }
 
         private byte[] GetHash(string password, byte[] salt)
