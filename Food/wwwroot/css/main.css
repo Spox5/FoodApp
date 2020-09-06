@@ -2,6 +2,41 @@
     background-color: white;
 }
 
-.napis{
-    color: aqua;
+.header {
+    padding: 20px;
+    text-align: center;
+    font-size: 50px;
+    letter-spacing: 2px;
+    color: #00b300;
+}
+
+.main {
+    margin-top: 40px;
+    font-size: 15px;
+    text-align: center;
+    width: 90%;
+
+}
+
+.title {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #e60000
+}
+
+.meal-result-container {
+    border: 1px solid #00b300;
+    border-radius: 10px;
+}
+
+.login-text-form {
+    
+    text-align: center;
+}
+
+.centered {
+    
+    align-items: center;
+    justify-content: center;
 }

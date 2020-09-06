@@ -1,21 +1,23 @@
 ﻿@model IEnumerable<Food.Data.Models.Ingredient>
 
-<div class="search-meal-container" data-ingredients='@Html.Raw(Json.Serialize(Model))'>
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-    <div>Co masz w lodówce?</div>
+<div class="main search-meal-container" data-ingredients='@Html.Raw(Json.Serialize(Model))'>
+
+    <div class="title">Co masz w lodówce?</div>
 
     <div class="ingredients">
 
         @foreach (var ingredient in Model)
         {
-            <div>
-
-            </div>
+        <label class="btn btn-outline-primary">
             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+        </label>
         }
-
-        <button class="search-button" type="button">Wyszukaj</button>
-
+    <div>
+        <button class="search-button btn btn-secondary" type="button">Wyszukaj</button>
+    </div>
+        
     </div>
 
     <div class="meal-result-container"></div>
@@ -24,72 +26,14 @@
 
 
 <script>
-    //const searchButton = document.querySelector('.search-button');
-    //const ingredientsContainer = document.querySelector('.ingredients');
-    //const mealResultContainer = document.querySelector('.meal-result-container');
-    //const ingredientsData = JSON.parse(document.querySelector('.search-meal-container').dataset.ingredients);
 
-    //bindEvents();
+    const searchButton = document.querySelector('.search-button');
+    const ingredientsContainer = document.querySelector('.ingredients');
+    const mealResultContainer = document.querySelector('.meal-result-container');
+    const ingredientsData = JSON.parse(document.querySelector('.search-meal-container').dataset.ingredients)
 
-    //function bindEvents() {
-    //    searchButton.onclick = () => {
-
-    //        const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
-    //        const selectedIngredients = ingredients
-    //            .filter(ingredient => ingredient.checked)
-    //            .map(ingredient => parseInt(ingredient.value))
-
-    //        getMealsByIngredients(selectedIngredients)
-    //}
-
-    //function displayMealResult(meals) {
-    //    for (const meal of meals) {
-
-    //        const mealElement = document.createElement('div');
-    //        mealElement.innerHTML = `${meal.name}. Skladniki: ${getMealIngredients(meal)}`;
-    //        mealResultContainer.appendChild(mealElement);
-
-    //    }
-    //}
-
-    //function getMealsByIngredients(selectedIngredients) {
-    //    const requestData = {
-    //        ingredientIds: selectedIngredients
-    //    }
-    //}
-
-
-    //      fetch("/SearchMeal/Search", {
-    //        method: 'POST',
-    //        headers: {
-    //            'Content-Type': 'application/json'
-    //        },
-    //        body: JSON.stringify(requestData)
-    //    })
-    //        .then(response => response.json())
-    //        .then(displayMealResult);
-    //}
-
-    //function getMealIngredients(meal) {
-    //    const ingredients = meal.mealIngredients.map(mi => getIngredientNameById(mi.ingredientId))
-
-    //    return ingredients.toString();
-    //}
-
-    //function getingredientNameById(id) {
-    //    return ingredientsData.find(ingredient => ingredient.id === id).name
-    //}
-
-        const searchButton = document.querySelector('.search-button');
-        const ingredientsContainer = document.querySelector('.ingredients');
-        const mealResultContainer = document.querySelector('.meal-result-container');
-        const ingredientsData = JSON.parse(document.querySelector('.search-meal-container').dataset.ingredients)
-
-
-
-        bindEvents()
-
-
+    hideRecipeAtStart()
+    bindEvents()
 
     function bindEvents() {
             searchButton.onclick = () => {
@@ -100,31 +44,26 @@
 
 
                 mealResultContainer.innerHTML = "";
+                mealResultContainer.style.visibility = 'visible';
                 getMealsByIngredients(selectedIngredients)
             }
         }
 
 
-
     function displayMealResult(meals) {
         for (const meal of meals) {
 
-
-
             const mealElement = document.createElement('div');
-            mealElement.innerHTML = `${meal.name}. Skladniki: ${getMealIngredients(meal)}`;
+            mealElement.innerHTML = `${meal.name}. Skladniki: ${getMealIngredients(meal)}. Przepis: ${meal.recipe}`;
             mealResultContainer.appendChild(mealElement);
         }
     }
-
 
 
     function getMealsByIngredients(selectedIngredients) {
         const requestData = {
             ingredientIds: selectedIngredients
         }
-
-
 
         fetch("/SearchMeal/Search", {
             method: 'POST',
@@ -138,19 +77,18 @@
     }
 
 
-
     function getMealIngredients(meal) {
         const ingredients = meal.mealIngredients.map(mi => getIngredientNameById(mi.ingredientId))
-
-
-
         return ingredients.toString()
     }
 
 
-
     function getIngredientNameById(id) {
         return ingredientsData.find(ingredient => ingredient.id === id).name
+    }
+
+    function hideRecipeAtStart() {
+        mealResultContainer.style.visibility = 'hidden';
     }
 
 </script>

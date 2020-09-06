@@ -1,111 +1,63 @@
 ﻿@model Food.ViewModel.SearchMealViewModel
 
 
-
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 
+<div class="main">
 
-<div id="main">
-
-    <div id="title">Twoje posiłki:</div>
+    <div class="title">Twoje posiłki:</div>
 
     <form>
 
         @foreach (var meal in Model.Meals)
         {
-        <label>
+        <label class="btn btn-outline-primary">
             <input class="meal-input" value="@meal.Id" type="radio" required> @meal.Name
-        </label>}
+        </label>
+        }
                 
         <div class="meal-name-form">
-            Nowa nazwa posilku <input class="meal-name-input" type="text">
-            <input class="save-button" type="button" value="Zapisz">
+            <input class="meal-name-input form-control" type="text" placeholder="Nowa nazwa posiłku">
+            <input class="save-button btn btn-outline-primary m-2" type="button" value="Zapisz">
         </div>
-
-        <input class="edit-button" type="button" value="Edytuj">
-        <input class="delete-button" type="button" value="Usuń">
-
-        </form>
-
-    <form>
 
         <div>
-
-            <input type="text" class="inputfield" placeholder="Nazwa nowego posiłku" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwa nowego posiłku'" name="new_category" required>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                <label>
-                    <input id="@ingredient.Name" type="checkbox" required /> @ingredient.Name
-                    </label>            }
-                <input type="submit" class="pushbutton ok_pushbutton" value="Dodaj">
-
+            <input class="edit-button btn btn-outline-warning m-2" type="button" value="Edytuj">
+            <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń">
         </div>
+        
+        </form>
 
-    </form>
+    <div class="ingredients">
+
+        <div class="title">Stwórz nowy posiłek</div>
+
+        <div><input class="input-field form-control w-25 mx-auto" type="text" placeholder="Nazwa nowego posiłku" required></div>
+        
+        <div>
+             @foreach (var ingredient in Model.Ingredients)
+             {
+             <label class="btn btn-outline-primary">
+                   <input class="ingredients-checkboxes" value="@ingredient.Id" type="checkbox" required /> @ingredient.Name
+             </label>
+                }
+        </div>
+        <textarea class="input-meal-recipe-field form-control w-50 mx-auto" type="text" required></textarea>
+
+        <button class="add-button btn btn-outline-success" type="button">Dodaj</button>
+
+    </div>
 
 </div>
 
 
-
 <script>
-    //const editButton = document.querySelector('.edit-button')
-    //const deleteButton = document.querySelector('.delete-button')
-    //const editInput = document.querySelector('.meal-name-input')
-    //const editForm = document.querySelector('.meal-name-form')
-    //const saveButton = document.querySelector('.save-button')
 
-    //bindEvents();
-
-    //function bindEvents() {
-    //    editButton.onclick = displayEditForm
-    //    deleteButton.onclick = deleteMeal
-    //    saveButton.onclick = updateMeal
-
-    //}
-
-    //function updateMeal() {
-    //    const meal = {
-
-    //    }
-
-    //    fetch("/ManageMeals/Update", {
-    //        method: 'PATCH',
-    //        headers: {
-    //            'Content-Type': 'application/json'
-    //        },
-    //        body: JSON.stringify(requestData)
-    //    })
-    //}
-
-
-
-    //function deleteMeal() {
-
-    //    const selectedMeal = Array.from(document.querySelectorAll('meal-input')).find(meal => meal.checked)
-
-    //    const meal = {
-    //        id : parseInt(selectedMeal.value)
-    //    }
-
-    //        fetch("/ManageMeals/Delete", {
-    //            method: 'DELETE',
-    //            headers: {
-    //                'Content-Type': 'application/json'
-    //            },
-    //            body: meal
-    //        })
-    //}
-
-    //function displayEditForm() {
-    //    editInput.style.display = 'block'
-
-    //}
-
-    //function hideEditForm() {
-    //    editInput.style.display = 'none'
-
-    //}
+    const ingredientsContainer = document.querySelector('.ingredients')
+    const addButton = document.querySelector('.add-button')
+    const addMealName = document.querySelector('.input-field')
+    const addMealRecipe = document.querySelector('.input-meal-recipe-field')
     const editButton = document.querySelector('.edit-button')
     const deleteButton = document.querySelector('.delete-button')
     const editInput = document.querySelector('.meal-name-input')
@@ -113,33 +65,54 @@
     const saveButton = document.querySelector('.save-button')
 
 
-
     hideEditForm();
     bindEvents();
 
 
-
     function bindEvents() {
-        editButton.onclick = displayEditForm
-        deleteButton.onclick = deleteMeal
+        addButton.onclick = addMeal
+        editButton.onclick = displayOrHideEditForm
         saveButton.onclick = updateMeal
+        deleteButton.onclick = deleteMeal
+    }
+
+    function addMeal() {
+        const ingredients = Array.from(ingredientsContainer.querySelectorAll('.ingredients-checkboxes'));
+        const selectedIngredients = ingredients
+            .filter(ingredient => ingredient.checked)
+            .map(ingredient => parseInt(ingredient.value))
+        const meal = {
+            name: addMealName.value,
+            //userId: parseInt(window.sessionStorage.getItem("userId"))
+            userId: 1,
+            recipe: addMealRecipe.value
+        }
+
+        fetch("/ManageMeals/Add", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(meal)
+        })
+
+        setTimeout(function () {
+            window.location.reload();
+        }, 500); 
+
     }
 
 
-
     function updateMeal() {
-        hideEditForm()
+
         const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked)
-
-
 
         const meal = {
             Id: parseInt(selectedMeal.value),
             Name: editInput.value,
-            userId: parseInt(window.sessionStorage.getItem("userId"))
+            //userId: parseInt(window.sessionStorage.getItem("userId")),
+            userId: 1
         }
-
-
 
         fetch("/ManageMeals/Update", {
             method: 'PATCH',
@@ -148,13 +121,16 @@
             },
             body: JSON.stringify(meal)
         })
-    }
 
+        setTimeout(function () {
+            window.location.reload();
+        }, 500); 
+
+    }
 
 
     function deleteMeal() {
         const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked)
-
 
 
         const meal = {
@@ -164,7 +140,6 @@
         }
 
 
-
         fetch("/ManageMeals/Delete", {
             method: 'DELETE',
             headers: {
@@ -172,20 +147,20 @@
             },
             body: JSON.stringify(meal)
         })
+
+        setTimeout(function () {
+            window.location.reload();
+        }, 500); 
     }
 
-
-
-    function displayEditForm() {
-        editForm.style.display = 'block'
+    function displayOrHideEditForm() {
+        if (editForm.style.display = 'none') {
+            editForm.style.display = 'block'
+        }
+        else if (editForm.style.display = 'block') {
+            editForm.style.display = 'none'
+        }
     }
-
-
-
-    function hideEditForm() {
-        editForm.style.display = 'none'
-    }
-
 
 
 </script>
