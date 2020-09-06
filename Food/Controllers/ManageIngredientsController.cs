@@ -31,6 +31,12 @@ namespace Food.Controllers
             ingredientRepository.Add(ingredient);
         }
 
+        [HttpPatch]
+        public void UpdateIngredient([FromBody]Ingredient ingredient)
+        {
+            ingredientRepository.Update(ingredient);
+        }
+
         [HttpDelete]
         public void DeleteIngredient([FromBody] Ingredient ingredient)
         {

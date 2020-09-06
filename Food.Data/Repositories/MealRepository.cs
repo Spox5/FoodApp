@@ -21,16 +21,12 @@ namespace Food.Data.Repositories
             return foodContext.Meals.ToList();
         }
 
-
-
         public List<Meal> GetByUserId(int userId)
         {
             return foodContext.Meals
                 .Where(meal => meal.UserId == userId)
                 .ToList();
         }
-
-
 
         public List<Meal> GetByIngredients(List<int> ingredientIds)
         {
@@ -40,24 +36,21 @@ namespace Food.Data.Repositories
                 .ToList();
         }
 
-
-
         public void Add(Meal meal)
         {
             foodContext.Meals.Add(meal);
             foodContext.SaveChanges();
         }
-        public void Delete(Meal meal)
-        {
-            foodContext.Meals.Remove(meal);
-            foodContext.SaveChanges();
-        }
-
-
 
         public void Update(Meal meal)
         {
             foodContext.Meals.Update(meal);
+            foodContext.SaveChanges();
+        }
+
+        public void Delete(Meal meal)
+        {
+            foodContext.Meals.Remove(meal);
             foodContext.SaveChanges();
         }
     }

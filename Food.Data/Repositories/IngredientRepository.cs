@@ -27,15 +27,15 @@ namespace Food.Data.Repositories
                 .ToList();
         }
 
-        //public void Add(Ingredient ingredient)
-        //{
-        //    foodContext.Ingredients.Add(ingredient);
-        //    foodContext.SaveChanges();
-        //}
-
         public void Add(Ingredient ingredient)
         {
             foodContext.Ingredients.Add(ingredient);
+            foodContext.SaveChanges();
+        }
+
+        public void Update(Ingredient ingredient)
+        {
+            foodContext.Ingredients.Update(ingredient);
             foodContext.SaveChanges();
         }
 

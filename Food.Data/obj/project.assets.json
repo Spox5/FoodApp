@@ -5721,20 +5721,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pawel\\.nuget\\packages\\": {}
+    "C:\\Users\\mateu\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Mati\\FoodApp\\Food.Data\\Food.Data.csproj",
+      "projectUniqueName": "C:\\Users\\mateu\\source\\repos\\Food\\Food.Data\\Food.Data.csproj",
       "projectName": "Food.Data",
-      "projectPath": "C:\\Mati\\FoodApp\\Food.Data\\Food.Data.csproj",
-      "packagesPath": "C:\\Users\\Pawel\\.nuget\\packages\\",
-      "outputPath": "C:\\Mati\\FoodApp\\Food.Data\\obj\\",
+      "projectPath": "C:\\Users\\mateu\\source\\repos\\Food\\Food.Data\\Food.Data.csproj",
+      "packagesPath": "C:\\Users\\mateu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mateu\\source\\repos\\Food\\Food.Data\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Pawel\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\mateu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -5787,7 +5792,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

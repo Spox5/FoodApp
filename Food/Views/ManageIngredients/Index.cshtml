@@ -1,56 +1,74 @@
 ﻿@model IEnumerable<Food.Data.Models.Ingredient>
 
-<div id="main">
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-    <div id="title">Twoje składniki:</div>
+<div class="main">
+
+    <div class="title">Twoje składniki:</div>
 
     <form>
 
         @foreach (var ingredient in Model)
         {
-            <label>
+            <label class="btn btn-outline-primary">
                 <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio" required> @ingredient.Name
             </label>
         }
 
-        <input id="modal_window" type="button" value="Edytuj">
-        <button class="delete-button" type="button">Usuń</button>
+        <div>
+            @*<input class="update-button btn btn-secondary m-2" type="button" value="Edytuj">*@
+            <input class="delete-button btn btn-outline-warning m-2" type="button" value="Usuń składnik">
+        </div>
+
+        <div class="ingredient-name-form">
+            @*Nowa nazwa składnika <input class="ingredient-name-input" type="text">*@
+            <input class="save-button" type="button" value="Zapisz">
+        </div>
 
     </form>
+
+    <div class="title">Dodaj nowy składnik do Twojej bazy</div>
+
 
     <form>
 
         <div>
 
-            <input type="text" class="input-field" placeholder="Nazwa nowego składnika" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwa nowego składnika'" name="new_category" required>
-            <button class="add-button" type="button">Dodaj</button>
+            <input type="text" class="input-field form-control" placeholder="Nazwa nowego składnika" required>
+            <input class="add-button btn btn-outline-success m-2" type="button" value="Dodaj składnik">
 
         </div>
 
     </form>
-
 
 </div>
 
 <script>
 
     const addButton = document.querySelector('.add-button');
-    const deleteButton = document.querySelector('.delete-button');
     const addIngredientName = document.querySelector('.input-field');
+    const deleteButton = document.querySelector('.delete-button');
+    const updateButton = document.querySelector('.update-button');
+    const editInput = document.querySelector('.ingredient-name-input');
+    const editForm = document.querySelector('.ingredient-name-form');
+    const saveButton = document.querySelector('.save-button');
 
+    hideEditForm();
     bindEvents();
 
     function bindEvents() {
         addButton.onclick = addIngredient
+        updateButton.onclick = displayEditForm
+        saveButton.onclick = updateIngredient
         deleteButton.onclick = deleteIngredient
     }
 
-    function addIngredient()
-    {
+    function addIngredient() {
         var ingredient = {
             //tu działa parser małe litery pierwsze na wielkie
             name: addIngredientName.value,
-            userId: parseInt(window.sessionStorage.getItem("userId"))
+            //userId: parseInt(window.sessionStorage.getItem("userId"))
+            userId: 1
         };
 
         fetch("/ManageIngredients/AddIngredient", {
@@ -62,18 +80,44 @@
 
         })
 
+        setTimeout(function () {
+            window.location.reload();
+        }, 500); 
+
     }
 
-    function deleteIngredient()
-    {
+    function updateIngredient() {
+        hideEditForm()
         const selectedIngredient = Array.from(document.querySelectorAll('.ingredient-input')).find(ingredient => ingredient.checked);
 
-        console.log(selectedIngredient);
+        const ingredient = {
+            id: parseInt(selectedIngredient.value),
+            Name: editInput.value,
+            //userId: parseInt(window.sessionStorage.getItem("userId")),
+            userId: 1
+        }
+
+        fetch('/ManageIngredients/UpdateIngredient', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ingredient)
+        })
+
+        setTimeout(function () {
+            window.location.reload();
+        }, 500); 
+    }
+
+    function deleteIngredient() {
+        const selectedIngredient = Array.from(document.querySelectorAll('.ingredient-input')).find(ingredient => ingredient.checked);
 
         const ingredient = {
             id: parseInt(selectedIngredient.value),
             name: 'daa',
-            userId: parseInt(window.sessionStorage.getItem("userId"))
+            //userId: parseInt(window.sessionStorage.getItem("userId"))
+            userId: 1
         }
 
         fetch('/ManageIngredients/DeleteIngredient', {
@@ -83,29 +127,19 @@
             },
             body: JSON.stringify(ingredient)
         })
+
+        setTimeout(function () {
+            window.location.reload();
+        }, 500); 
     }
 
-    //addButton.onclick = () => {
+    function displayEditForm() {
+        editForm.style.display = 'block'
+    }
 
 
-
-    //    var ingredient = {
-    //        //tu działa parser małe litery pierwsze na wielkie
-    //        name: addIngredientName.value,
-    //        userId: 1
-    //    };
-
-
-
-    //    fetch("/ManageIngredients/AddIngredient", {
-    //        method: 'POST',
-    //        headers: {
-    //            'Content-Type': 'application/json'
-    //        },
-    //        body: JSON.stringify(ingredient)
-
-    //    })
-    //}
-
+    function hideEditForm() {
+        editForm.style.display = 'none'
+    }
 
 </script>

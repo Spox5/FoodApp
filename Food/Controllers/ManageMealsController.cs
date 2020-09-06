@@ -20,13 +20,11 @@ namespace Food.Controllers
         private readonly IngredientRepository ingredientRepository;
 
 
-
         public ManageMealsController(MealRepository mealRepository, IngredientRepository ingredientRepository)
         {
             this.mealRepository = mealRepository;
             this.ingredientRepository = ingredientRepository;
         }
-
 
 
         [HttpGet]
@@ -41,14 +39,17 @@ namespace Food.Controllers
             return View(mealsIngredients);
         }
 
-
+        [HttpPost]
+        public void Add([FromBody] Meal meal)
+        {
+            mealRepository.Add(meal);
+        }
 
         [HttpPatch]
         public void Update([FromBody] Meal meal)
         {
             mealRepository.Update(meal);
         }
-
 
 
         [HttpDelete]

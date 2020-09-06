@@ -8,7 +8,7 @@ namespace Food.Data
 {
     class FoodContextFactory : IDesignTimeDbContextFactory<FoodContext>
     {
-        private string connectionString = "Server=DESKTOP-D0B1296\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
+        private string connectionString = "Server=KOMPUTER-KARINA\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
         public FoodContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<FoodContext>();

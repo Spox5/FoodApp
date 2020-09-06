@@ -1,16 +1,48 @@
 ﻿@model IEnumerable<Food.Data.Models.Ingredient>
 
-    <div id="main">
-        Logowanie:
-        Nazwa <input class="username-input" type="text" required>
-        Haslo <input class="password-input" type="password" required>
-        <button class="login-button" type="button">Zaloguj</button>
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-        Rejestracja:
-        Nazwa <input class="username-register-input" type="text" required>
-        Haslo <input class="password-register-input" type="password" required>
-        <button class="register-button" type="button">Utworz konto</button>
+
+<div class="col-md-12 centered">
+    <div class="row align-items-center ">
+        <div class="col-md-6 text-center">
+            
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tortor erat, euismod at massa a, tempus mattis diam.
+                Nam mattis eu sem at hendrerit. Aenean egestas velit a nisi ullamcorper, tempor mattis urna laoreet.
+                Maecenas elementum vitae quam eget egestas. Praesent id magna scelerisque, dictum turpis non, interdum eros.
+                Suspendisse malesuada lectus mauris, eget luctus mi cursus id. Nulla ut dui id arcu eleifend cursus ut id metus.
+                Maecenas vestibulum fermentum lectus, vel sagittis lacus facilisis non. Nullam eget lobortis quam. In ornare dapibus consectetur.
+                Ut eget facilisis quam.
+                Nullam vehicula dui quis eros tincidunt fringilla. Fusce mauris risus, tristique ac dolor sit amet, lobortis viverra justo.
+                Nam egestas nunc eu risus fringilla feugiat. Nullam at purus at mi consectetur blandit ut vitae elit.
+                Sed sagittis tempus nisl, id scelerisque lectus tempus sit amet. Sed commodo est sit amet dui viverra pellentesque.
+                Integer odio lectus, porta ac ante sed, lacinia hendrerit tortor. Integer nec libero mi.
+            
+        </div>
+
+        <div class="col-md-6 text-center">
+            
+                <form class="m-5">
+                    <label class="title">Logowanie:</label>
+                    <div><input class="username-input form-control col-xs-2 m-2" type="text" placeholder="Nazwa użytkownika" required></div>
+                    <div><input class="password-input form-control col-xs-2 m-2" type="password" placeholder="Hasło" required></div>
+                    <div><button class="login-button btn btn-primary" type="button">Zaloguj</button></div>
+                </form>
+            
+
+           
+                <form class=" m-5">
+                    <label class="title">Rejestracja:</label>
+                    <div class="col-xs-1 m-2"><input class="username-register-input form-control" type="text" placeholder="Nazwa użytkownika" required></div>
+                    <div class="col-xs-1 m-2"><input class="password-register-input form-control" type="password" placeholder="Hasło" required></div>
+                    <div><button class="register-button btn btn-success" type="button">Utworz konto</button></div>
+                </form>
+            
+        </div>
     </div>
+</div>
+    
+
 
 <script>
 
@@ -39,11 +71,11 @@
         fetch(`/User/Login?username=${user.name}&password=${user.password}`, {
             method: 'GET'
         })
-        .then(response => response.json())
-        .then(user => {
-            sessionStorage.setItem('token', user.token);
-            sessionStorage.setItem('userId', user.id);
-        })
+            .then(response => response.json())
+            .then(user => {
+                sessionStorage.setItem('token', user.token);
+                sessionStorage.setItem('userId', user.id);
+            })
     }
 
     function register() {
@@ -52,7 +84,7 @@
             name: usernameRegisterInput.value,
             password: passwordRegisterInput.value
         };
-        
+
         fetch(`/User/Register?username=${user.name}&password=${user.password}`, {
             method: 'POST'
         })
