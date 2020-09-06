@@ -46,6 +46,20 @@ namespace Food
                      ValidateIssuer = false,
                      ValidateAudience = false
                  };
+                 options.Events = new JwtBearerEvents
+                 {
+                     OnMessageReceived = context =>
+                     {
+                         var doesTokenCookieExist = context.Request.Cookies.Any(cookie => cookie.Key == "token");
+
+                         if (doesTokenCookieExist)
+                         {
+                             context.Token = context.Request.Cookies.First(cookie => cookie.Key == "token").Value;
+                         }
+
+                         return Task.CompletedTask;
+                     }
+                 };
              });
         }
 

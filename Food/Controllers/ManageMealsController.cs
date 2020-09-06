@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Food.Controllers
 {
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ManageMealsController : Controller
     {
         private readonly MealRepository mealRepository;
