@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Food.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ManageIngredientsController : Controller
     {
         private readonly IngredientRepository ingredientRepository;

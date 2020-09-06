@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Food.Controllers
 {
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class SearchMealController : Controller
     {
         private readonly IngredientRepository ingredientRepository;

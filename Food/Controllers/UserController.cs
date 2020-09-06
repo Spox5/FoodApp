@@ -42,10 +42,14 @@ namespace Food.Controllers
 
             if (user.PasswordHash.SequenceEqual(passwordHash))
             {
+                var token = GetJwtToken(user.Id);
+
+                Response.Cookies.Append("token", token);
+
                 return new UserViewModel
                 {
                     Id = user.Id,
-                    Token = GetJwtToken(user.Id)
+                    Token = token
                 };
             }
 
