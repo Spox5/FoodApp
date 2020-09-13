@@ -12,13 +12,13 @@
         @foreach (var meal in Model.Meals)
         {
         <label class="btn btn-outline-primary">
-            <input class="meal-input" value="@meal.Id" type="radio"> @meal.Name
+            <input class="meal-input" value="@meal.Id" name="meal" type="radio"> @meal.Name
         </label>
         }
                 
         <div class="meal-name-form">
             <input class="meal-name-input form-control" placeholder="Nowa nazwa posiłku">
-            <textarea class="meal-recipe-input form-control" placeholder="Nowy przepis"></textarea>
+            <textarea class="meal-recipe-input form-control w-50 mx-auto m-2" placeholder="Nowy przepis"></textarea>
             <input class="save-button btn btn-outline-primary m-2" type="button" value="Zapisz">
         </div>
 
@@ -60,6 +60,7 @@
     const editButton = document.querySelector('.edit-button')
     const deleteButton = document.querySelector('.delete-button')
     const editInput = document.querySelector('.meal-name-input')
+    const editInputRecipe = document.querySelector('.meal-recipe-input')
     const editForm = document.querySelector('.meal-name-form')
     const saveButton = document.querySelector('.save-button')
 
@@ -108,6 +109,7 @@
         const meal = {
             Id: parseInt(selectedMeal.value),
             Name: editInput.value,
+            Recipe: editInputRecipe.value,
             //userId: parseInt(window.sessionStorage.getItem("userId")),
             userId: 1
         }
