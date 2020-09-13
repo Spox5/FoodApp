@@ -46,7 +46,7 @@ namespace Food.Controllers
 
                 Response.Cookies.Append("token", token, new Microsoft.AspNetCore.Http.CookieOptions
                 {
-                    Expires = new DateTimeOffset(DateTime.Now.AddMinutes(1))
+                    Expires = new DateTimeOffset(DateTime.Now.AddMinutes(1000))
                 });
 
                 return new UserViewModel

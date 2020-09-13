@@ -10,17 +10,19 @@
 
         @foreach (var ingredient in Model)
         {
-        <label class="btn btn-outline-primary">
-            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-        </label>
+            <label class="btn btn-outline-primary">
+                @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+            </label>
         }
-    <div>
-        <button class="search-button btn btn-secondary" type="button">Wyszukaj</button>
-    </div>
-        
+        <div>
+            <button class="search-button btn btn-outline-success m-2" type="button">Wyszukaj</button>
+        </div>
+
     </div>
 
-    <div class="meal-result-container"></div>
+    <div class="meal-result-container">
+
+    </div>
 
 </div>
 
@@ -29,10 +31,11 @@
 
     const searchButton = document.querySelector('.search-button');
     const ingredientsContainer = document.querySelector('.ingredients');
+
     const mealResultContainer = document.querySelector('.meal-result-container');
+
     const ingredientsData = JSON.parse(document.querySelector('.search-meal-container').dataset.ingredients)
 
-    hideRecipeAtStart()
     bindEvents()
 
     function bindEvents() {
@@ -42,20 +45,51 @@
                     .filter(ingredient => ingredient.checked)
                     .map(ingredient => parseInt(ingredient.value))
 
+                var str = "Wyszukane posiłki: ";
 
-                mealResultContainer.innerHTML = "";
-                mealResultContainer.style.visibility = 'visible';
+                mealResultContainer.innerHTML = str.bold();
+
+                mealResultContainer.style.visibility = 'block';
+                mealResultContainer.className = "border-dark border-top m-4 pt-4";
+      
                 getMealsByIngredients(selectedIngredients)
             }
-        }
+
+    }
 
 
     function displayMealResult(meals) {
         for (const meal of meals) {
+            
+            const mealElementNameDiv = document.createElement('div');
+            const mealElementNameButton = document.createElement('button');
+            mealElementNameButton.className = "btn btn-outline-info m-2";
+            const mealElementIngredients = document.createElement('div');
+            const mealElementRecipe = document.createElement('div');
+            
+            mealElementNameButton.innerHTML = `${meal.name}.`;
+            mealElementNameDiv.appendChild(mealElementNameButton);
+            mealElementIngredients.innerHTML = `Skladniki: ${getMealIngredients(meal)}.`;
+            mealElementRecipe.innerHTML = `Przepis: ${meal.recipe}`;
 
-            const mealElement = document.createElement('div');
-            mealElement.innerHTML = `${meal.name}. Skladniki: ${getMealIngredients(meal)}. Przepis: ${meal.recipe}`;
-            mealResultContainer.appendChild(mealElement);
+            mealResultContainer.appendChild(mealElementNameDiv);
+            mealResultContainer.appendChild(mealElementIngredients);
+            mealResultContainer.appendChild(mealElementRecipe);
+
+            mealElementIngredients.style.display = 'none';
+            mealElementRecipe.style.display = 'none';
+
+            mealElementNameButton.onclick = () => {
+                
+                if (mealElementIngredients.style.display == 'none') {
+                    mealElementIngredients.style.display = 'block';
+                    mealElementRecipe.style.display = 'block';
+                }
+                else if (mealElementIngredients.style.display == 'block') {
+                    mealElementIngredients.style.display = 'none'
+                    mealElementRecipe.style.display = 'none'
+                }
+            }
         }
     }
 
@@ -85,10 +119,6 @@
 
     function getIngredientNameById(id) {
         return ingredientsData.find(ingredient => ingredient.id === id).name
-    }
-
-    function hideRecipeAtStart() {
-        mealResultContainer.style.visibility = 'hidden';
     }
 
 </script>

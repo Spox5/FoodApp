@@ -19,15 +19,15 @@
 }
 
 .title {
-    font-size: 20px;
+    font-size: 25px;
     margin-top: 15px;
     margin-bottom: 10px;
-    color: #e60000
+    color: #fca503
 }
 
-.meal-result-container {
-    border: 1px solid #00b300;
-    border-radius: 10px;
+.title-name {
+    font-size: 15px;
+    font-weight: bold
 }
 
 .login-text-form {
@@ -40,3 +40,5 @@
     align-items: center;
     justify-content: center;
 }
+
+

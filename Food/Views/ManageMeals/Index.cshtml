@@ -8,17 +8,17 @@
 
     <div class="title">Twoje posiłki:</div>
 
-    <form>
 
         @foreach (var meal in Model.Meals)
         {
         <label class="btn btn-outline-primary">
-            <input class="meal-input" value="@meal.Id" type="radio" required> @meal.Name
+            <input class="meal-input" value="@meal.Id" type="radio"> @meal.Name
         </label>
         }
                 
         <div class="meal-name-form">
-            <input class="meal-name-input form-control" type="text" placeholder="Nowa nazwa posiłku">
+            <input class="meal-name-input form-control" placeholder="Nowa nazwa posiłku">
+            <textarea class="meal-recipe-input form-control" placeholder="Nowy przepis"></textarea>
             <input class="save-button btn btn-outline-primary m-2" type="button" value="Zapisz">
         </div>
 
@@ -27,23 +27,22 @@
             <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń">
         </div>
         
-        </form>
 
-    <div class="ingredients">
+    <div class="ingredients border-dark border-top m-4 pt-4">
 
         <div class="title">Stwórz nowy posiłek</div>
 
-        <div><input class="input-field form-control w-25 mx-auto" type="text" placeholder="Nazwa nowego posiłku" required></div>
+        <div><input class="input-field form-control w-25 mx-auto m-2" placeholder="Nazwa nowego posiłku"></div>
         
         <div>
              @foreach (var ingredient in Model.Ingredients)
              {
              <label class="btn btn-outline-primary ingredients">
-                   <input class="ingredients-checkboxes" value="@ingredient.Id" type="checkbox" required /> @ingredient.Name
+                   <input class="ingredients-checkboxes" value="@ingredient.Id" type="checkbox"/> @ingredient.Name
              </label>
                 }
         </div>
-        <textarea class="input-meal-recipe-field form-control w-50 mx-auto" type="text" required></textarea>
+        <textarea class="input-meal-recipe-field form-control w-50 mx-auto m-2" rows="5" placeholder="Przepis na nowy posiłek"></textarea>
 
         <button class="add-button btn btn-outline-success" type="button">Dodaj</button>
 
