@@ -28,25 +28,143 @@
         </div>
         
 
-    <div class="ingredients border-dark border-top m-4 pt-4">
+        <div class="ingredients border-dark border-top m-4 pt-4">
 
-        <div class="title">Stwórz nowy posiłek</div>
+            <div class="title">Stwórz nowy posiłek</div>
 
-        <div><input class="input-field form-control w-25 mx-auto m-2" placeholder="Nazwa nowego posiłku"></div>
-        
-        <div>
-             @foreach (var ingredient in Model.Ingredients)
-             {
-             <label class="btn btn-outline-primary ingredients">
-                   <input class="ingredients-checkboxes" value="@ingredient.Id" type="checkbox"/> @ingredient.Name
-             </label>
+            <div><input class="input-field form-control w-25 mx-auto m-2" placeholder="Nazwa nowego posiłku"></div>
+
+            <div class="ingredients-fruits m-3">
+                <div style="font-weight: bold">Owoce</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 1)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
+
+            </div>
+
+            <div class="ingredients-vegetables m-3">
+                <div style="font-weight: bold">Warzywa</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 2)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            <div class="ingredients-meat m-3">
+                <div style="font-weight: bold">Mięso</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 3)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            <div class="ingredients-fish m-3">
+                <div style="font-weight: bold">Ryby</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 4)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            <div class="ingredients-pasta m-3">
+                <div style="font-weight: bold">Kasze i makarony</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 5)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            <div class="ingredients-spieces m-3">
+                <div style="font-weight: bold">Przyprawy</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 6)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            <div class="ingredients-dairy m-3">
+                <div style="font-weight: bold">Nabiał</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 7)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            <div class="ingredients-bread m-3">
+                <div style="font-weight: bold">Pieczywo</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 9)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            <div class="ingredients-other m-3">
+                <div style="font-weight: bold">Inne</div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    @if (ingredient.TypeId == 10)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+
+            @*<div>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    <label class="btn btn-outline-primary ingredients">
+                        <input class="ingredients-checkboxes" value="@ingredient.Id" type="checkbox" /> @ingredient.Name
+                    </label>
+                }
+            </div>*@
+            <textarea class="input-meal-recipe-field form-control w-50 mx-auto m-2" rows="5" placeholder="Przepis na nowy posiłek"></textarea>
+
+            <button class="add-button btn btn-outline-success" type="button">Dodaj</button>
+
         </div>
-        <textarea class="input-meal-recipe-field form-control w-50 mx-auto m-2" rows="5" placeholder="Przepis na nowy posiłek"></textarea>
-
-        <button class="add-button btn btn-outline-success" type="button">Dodaj</button>
-
-    </div>
 
 </div>
 

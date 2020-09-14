@@ -8,12 +8,162 @@
 
     <div class="ingredients">
 
-        @foreach (var ingredient in Model)
-        {
-            <label class="btn btn-outline-primary">
-                @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-            </label>
-        }
+
+        <div class="ingredients-fruits m-3">
+
+            <button class="button-show-ingredients-fruits btn btn-success">Owoce</button>
+
+            <div class="div-show-ingredients-fruits">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 1)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+
+        </div>
+
+        <div class="ingredients-vegetables m-3">
+
+            <button class="button-show-ingredients-vegetables btn btn-success">Warzywa</button>
+
+            <div class="div-show-ingredients-vegetables">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 2)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+        </div>
+
+        <div class="ingredients-meat m-3">
+
+            <button class="button-show-ingredients-meat btn btn-success">Mięso</button>
+
+            <div class="div-show-ingredients-meat">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 3)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+        </div>
+
+        <div class="ingredients-fish m-3">
+
+            <button class="button-show-ingredients-fish btn btn-success">Ryby</button>
+
+            <div class="div-show-ingredients-fish">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 4)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+        </div>
+
+        <div class="ingredients-pasta m-3">
+
+            <button class="button-show-ingredients-pasta btn btn-success">Kasze i makarony</button>
+
+            <div class="div-show-ingredients-pasta">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 5)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+        </div>
+
+        <div class="ingredients-spices m-3">
+
+            <button class="button-show-ingredients-spices btn btn-success">Przyprawy</button>
+
+            <div class="div-show-ingredients-spices">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 6)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+        </div>
+
+        <div class="ingredients-dairy m-3">
+
+            <button class="button-show-ingredients-dairy btn btn-success">Nabiał</button>
+
+            <div class="div-show-ingredients-dairy">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 7)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+        </div>
+
+        <div class="ingredients-bread m-3">
+
+            <button class="button-show-ingredients-bread btn btn-success">Pieczywo</button>
+
+            <div class="div-show-ingredients-bread">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 9)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+                    </div>
+        </div>
+
+        <div class="ingredients-other m-3">
+
+            <button class="button-show-ingredients-other btn btn-success">Inne</button>
+            
+            <div class="div-show-ingredients-other">
+                @foreach (var ingredient in Model)
+                {
+                    @if (ingredient.TypeId == 10)
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                }
+            </div>
+            
+        </div>
+
         <div>
             <button class="search-button btn btn-outline-success m-2" type="button">Wyszukaj</button>
         </div>
@@ -28,6 +178,32 @@
 
 
 <script>
+    const showButtonIngredientsFruits = document.querySelector('.button-show-ingredients-fruits');
+    const divShowIngredientsFruits = document.querySelector('.div-show-ingredients-fruits')
+
+    const showButtonIngredientsVegetables = document.querySelector('.button-show-ingredients-vegetables');
+    const divShowIngredientsVegetables = document.querySelector('.div-show-ingredients-vegetables')
+
+    const showButtonIngredientsMeat = document.querySelector('.button-show-ingredients-meat');
+    const divShowIngredientsMeat = document.querySelector('.div-show-ingredients-meat')
+
+    const showButtonIngredientsFish = document.querySelector('.button-show-ingredients-fish');
+    const divShowIngredientsFish = document.querySelector('.div-show-ingredients-fish')
+
+    const showButtonIngredientsPasta = document.querySelector('.button-show-ingredients-pasta');
+    const divShowIngredientsPasta = document.querySelector('.div-show-ingredients-pasta')
+
+    const showButtonIngredientsSpices = document.querySelector('.button-show-ingredients-spices');
+    const divShowIngredientsSpices = document.querySelector('.div-show-ingredients-spices')
+
+    const showButtonIngredientsDairy = document.querySelector('.button-show-ingredients-dairy');
+    const divShowIngredientsDairy = document.querySelector('.div-show-ingredients-dairy')
+
+    const showButtonIngredientsBread = document.querySelector('.button-show-ingredients-bread');
+    const divShowIngredientsBread = document.querySelector('.div-show-ingredients-bread')
+
+    const showButtonIngredientsOther = document.querySelector('.button-show-ingredients-other');
+    const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other')
 
     const searchButton = document.querySelector('.search-button');
     const ingredientsContainer = document.querySelector('.ingredients');
@@ -39,22 +215,83 @@
     bindEvents()
 
     function bindEvents() {
-            searchButton.onclick = () => {
-                const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
-                const selectedIngredients = ingredients
-                    .filter(ingredient => ingredient.checked)
-                    .map(ingredient => parseInt(ingredient.value))
+        //    searchButton.onclick = () => {
+        //        const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
+        //        const selectedIngredients = ingredients
+        //            .filter(ingredient => ingredient.checked)
+        //            .map(ingredient => parseInt(ingredient.value))
 
-                var str = "Wyszukane posiłki: ";
+        //        var str = "Wyszukane posiłki: ";
 
-                mealResultContainer.innerHTML = str.bold();
+        //        mealResultContainer.innerHTML = str.bold();
 
-                mealResultContainer.style.visibility = 'block';
-                mealResultContainer.className = "border-dark border-top m-4 pt-4";
+        //        mealResultContainer.style.visibility = 'block';
+        //        mealResultContainer.className = "border-dark border-top m-4 pt-4";
       
-                getMealsByIngredients(selectedIngredients)
-            }
+        //        getMealsByIngredients(selectedIngredients)
+        //}
+        searchMealsAfterClick();
 
+        divShowIngredientsFruits.style.display = 'none'
+        divShowIngredientsVegetables.style.display = 'none'
+        divShowIngredientsMeat.style.display = 'none'
+        divShowIngredientsFish.style.display = 'none'
+        divShowIngredientsPasta.style.display = 'none'
+        divShowIngredientsSpices.style.display = 'none'
+        divShowIngredientsDairy.style.display = 'none'
+        divShowIngredientsBread.style.display = 'none'
+        divShowIngredientsOther.style.display = 'none'
+
+        //showIngredientsOther.onclick = () => {
+        //    if (divShowIngredientsOther.style.display == 'none') {
+        //        divShowIngredientsOther.style.display = 'block';
+        //    }
+        //    else if (divShowIngredientsOther.style.display == 'block') {
+        //        divShowIngredientsOther.style.display = 'none'
+        //    }
+        //}
+
+
+        displayIngredientsGroupAfterClick(showButtonIngredientsFruits, divShowIngredientsFruits)
+        displayIngredientsGroupAfterClick(showButtonIngredientsVegetables, divShowIngredientsVegetables)
+        displayIngredientsGroupAfterClick(showButtonIngredientsMeat, divShowIngredientsMeat)
+        displayIngredientsGroupAfterClick(showButtonIngredientsFish, divShowIngredientsFish)
+        displayIngredientsGroupAfterClick(showButtonIngredientsPasta, divShowIngredientsPasta)
+        displayIngredientsGroupAfterClick(showButtonIngredientsSpices, divShowIngredientsSpices)
+        displayIngredientsGroupAfterClick(showButtonIngredientsDairy, divShowIngredientsDairy)
+        displayIngredientsGroupAfterClick(showButtonIngredientsBread, divShowIngredientsBread)
+        displayIngredientsGroupAfterClick(showButtonIngredientsOther, divShowIngredientsOther)
+
+    }
+
+    function searchMealsAfterClick() {
+        searchButton.onclick = () => {
+            const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
+            const selectedIngredients = ingredients
+                .filter(ingredient => ingredient.checked)
+                .map(ingredient => parseInt(ingredient.value))
+
+            var str = "Wyszukane posiłki: ";
+
+            mealResultContainer.innerHTML = str.bold();
+
+            mealResultContainer.style.visibility = 'block';
+            mealResultContainer.className = "border-dark border-top m-4 pt-4";
+
+            getMealsByIngredients(selectedIngredients)
+        }
+    }
+
+    function displayIngredientsGroupAfterClick(button, divOfIngredients) {
+
+        button.onclick = () => {
+            if (divOfIngredients.style.display == 'none') {
+                divOfIngredients.style.display = 'block';
+            }
+            else if (divOfIngredients.style.display == 'block') {
+                divOfIngredients.style.display = 'none'
+            }
+        }
     }
 
 
