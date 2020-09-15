@@ -6,123 +6,12 @@
 
     <div class="title">Twoje składniki (usunąć można tylko składniki zapisane przez użytkownika:</div>
 
-    @*<div class="ingredients-fruits m-3">
-        <div style="font-weight: bold">Owoce</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 1)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>
-
-    <div class="ingredients-vegetables m-3">
-        <div style="font-weight: bold">Warzywa</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 2)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>
-
-    <div class="ingredients-meat m-3">
-        <div style="font-weight: bold">Mięso</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 3)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>
-
-    <div class="ingredients-fish m-3">
-        <div style="font-weight: bold">Ryby</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 4)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>
-
-    <div class="ingredients-pasta m-3">
-        <div style="font-weight: bold">Kasze i makarony</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 5)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>
-
-    <div class="ingredients-spieces m-3">
-        <div style="font-weight: bold">Przyprawy</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 6)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>
-
-    <div class="ingredients-dairy m-3">
-        <div style="font-weight: bold">Nabiał</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 7)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>
-
-    <div class="ingredients-bread m-3">
-        <div style="font-weight: bold">Pieczywo</div>
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.TypeId == 9)
-            {
-                <label class="btn btn-outline-primary">
-                    <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
-                </label>
-            }
-
-        }
-    </div>*@
 
     <div class="ingredients-other m-3">
         <div style="font-weight: bold">Inne</div>
         @foreach (var ingredient in Model)
         {
-            if (ingredient.TypeId == 10)
+            if (ingredient.CategoryId == 11) ///////////warunek do zmiany
             {
                 <label class="btn btn-outline-primary">
                     <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
@@ -172,7 +61,7 @@
         var ingredient = {
             //tu działa parser małe litery pierwsze na wielkie
             name: addIngredientName.value,
-            typeId: 10,
+            categoryId: 11,
             //userId: parseInt(window.sessionStorage.getItem("userId"))
             userId: 1
         };

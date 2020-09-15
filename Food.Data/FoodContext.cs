@@ -7,7 +7,8 @@ namespace Food.Data
     {
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Meal> Meals { get; set; }
-        public DbSet<IngredientType> IngredientTypes { get; set; }
+        public DbSet<IngredientCategory> IngredientCategories { get; set; }
+        public DbSet<MealCategory> MealCategory { get; set; }
         public DbSet<User> Users { get; set; }
 
         public FoodContext(DbContextOptions<FoodContext> dbContextOptions) : base(dbContextOptions) { }

@@ -9,14 +9,14 @@
     <div class="ingredients">
 
 
-        <div class="ingredients-fruits m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-fruits btn btn-success">Owoce</button>
+            <button class="button-show-ingredients-fruits btn btn-success w-25">Owoce</button>
 
-            <div class="div-show-ingredients-fruits">
+            <div class="div-show-ingredients-fruits m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 1)
+                    @if (ingredient.CategoryId == 2) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -27,14 +27,14 @@
 
         </div>
 
-        <div class="ingredients-vegetables m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-vegetables btn btn-success">Warzywa</button>
+            <button class="button-show-ingredients-vegetables btn btn-success w-25">Warzywa</button>
 
-            <div class="div-show-ingredients-vegetables">
+            <div class="div-show-ingredients-vegetables m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 2)
+                    @if (ingredient.CategoryId == 3) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -44,14 +44,14 @@
                     </div>
         </div>
 
-        <div class="ingredients-meat m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-meat btn btn-success">Mięso</button>
+            <button class="button-show-ingredients-meat btn btn-success w-25">Mięso</button>
 
-            <div class="div-show-ingredients-meat">
+            <div class="div-show-ingredients-meat m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 3)
+                    @if (ingredient.CategoryId == 4) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -61,14 +61,14 @@
                     </div>
         </div>
 
-        <div class="ingredients-fish m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-fish btn btn-success">Ryby</button>
+            <button class="button-show-ingredients-fish btn btn-success w-25">Ryby</button>
 
-            <div class="div-show-ingredients-fish">
+            <div class="div-show-ingredients-fish m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 4)
+                    @if (ingredient.CategoryId == 6) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -78,14 +78,14 @@
                     </div>
         </div>
 
-        <div class="ingredients-pasta m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-pasta btn btn-success">Kasze i makarony</button>
+            <button class="button-show-ingredients-pasta btn btn-success w-25">Kasze i makarony</button>
 
-            <div class="div-show-ingredients-pasta">
+            <div class="div-show-ingredients-pasta m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 5)
+                    @if (ingredient.CategoryId == 7) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -95,14 +95,14 @@
                     </div>
         </div>
 
-        <div class="ingredients-spices m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-spices btn btn-success">Przyprawy</button>
+            <button class="button-show-ingredients-spices btn btn-success w-25">Przyprawy</button>
 
-            <div class="div-show-ingredients-spices">
+            <div class="div-show-ingredients-spices m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 6)
+                    @if (ingredient.CategoryId == 8) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -112,14 +112,14 @@
                     </div>
         </div>
 
-        <div class="ingredients-dairy m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-dairy btn btn-success">Nabiał</button>
+            <button class="button-show-ingredients-dairy btn btn-success w-25">Nabiał</button>
 
-            <div class="div-show-ingredients-dairy">
+            <div class="div-show-ingredients-dairy m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 7)
+                    @if (ingredient.CategoryId == 9) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -129,14 +129,14 @@
                     </div>
         </div>
 
-        <div class="ingredients-bread m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-bread btn btn-success">Pieczywo</button>
+            <button class="button-show-ingredients-bread btn btn-success w-25">Pieczywo</button>
 
-            <div class="div-show-ingredients-bread">
+            <div class="div-show-ingredients-bread m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 9)
+                    @if (ingredient.CategoryId == 10) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">
@@ -146,14 +146,14 @@
                     </div>
         </div>
 
-        <div class="ingredients-other m-3">
+        <div class="m-3">
 
-            <button class="button-show-ingredients-other btn btn-success">Inne</button>
+            <button class="button-show-ingredients-other btn btn-success w-25">Inne</button>
             
-            <div class="div-show-ingredients-other">
+            <div class="div-show-ingredients-other m-2">
                 @foreach (var ingredient in Model)
                 {
-                    @if (ingredient.TypeId == 10)
+                    @if (ingredient.CategoryId == 11) //// warunek do zmiany
                     {
                         <label class="btn btn-outline-primary">
                             @ingredient.Name <input value="@ingredient.Id" type="checkbox">

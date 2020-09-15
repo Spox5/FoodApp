@@ -9,21 +9,21 @@ using System.Text;
 
 namespace Food.Data.Repositories
 {
-    public class IngredientTypeRepository
+    public class IngredientCategoryRepository
     {
         private readonly FoodContext foodContext;
-        public IngredientTypeRepository(FoodContext foodContext)
+        public IngredientCategoryRepository(FoodContext foodContext)
         {
             this.foodContext = foodContext;
         }
-        public List<IngredientType> GetAll()
+        public List<IngredientCategory> GetAll()
         {
-            return foodContext.IngredientTypes.ToList();
+            return foodContext.IngredientCategories.ToList();
         }
 
-        public List<IngredientType> GetByUserId(int userId)
+        public List<IngredientCategory> GetByUserId(int userId)
         {
-            return foodContext.IngredientTypes
+            return foodContext.IngredientCategories
                 .Where(type => type.UserId == userId)
                 .ToList();
         }
@@ -36,21 +36,21 @@ namespace Food.Data.Repositories
         //        .ToList();
         //}
 
-        public void Add(IngredientType ingredientType)
+        public void Add(IngredientCategory ingredientType)
         {
-            foodContext.IngredientTypes.Add(ingredientType);
+            foodContext.IngredientCategories.Add(ingredientType);
             foodContext.SaveChanges();
         }
 
-        public void Update(IngredientType ingredientType)
+        public void Update(IngredientCategory ingredientType)
         {
-            foodContext.IngredientTypes.Update(ingredientType);
+            foodContext.IngredientCategories.Update(ingredientType);
             foodContext.SaveChanges();
         }
 
-        public void Delete(IngredientType ingredientType)
+        public void Delete(IngredientCategory ingredientType)
         {
-            foodContext.IngredientTypes.Remove(ingredientType);
+            foodContext.IngredientCategories.Remove(ingredientType);
             foodContext.SaveChanges();
         }
     }

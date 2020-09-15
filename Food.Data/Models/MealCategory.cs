@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Food.Data.Models
 {
-    public class IngredientType
+    public class MealCategory
     {
         public int Id { get; set; }
         public string Name { get; set; }
