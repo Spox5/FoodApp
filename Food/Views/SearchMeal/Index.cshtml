@@ -1,14 +1,45 @@
-﻿@model IEnumerable<Food.Data.Models.Ingredient>
+﻿@model Food.ViewModel.SearchMealViewModel
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<div class="main search-meal-container" data-ingredients='@Html.Raw(Json.Serialize(Model))'>
+<div class="main search-meal-container" data-ingredients='@Html.Raw(Json.Serialize(Model.Ingredients))'>
 
     <div class="title">Co masz w lodówce? Wybierz składniki z których chcesz skomponować posiłek.</div>
 
     <div class="ingredients">
 
-        <div class="m-3">
+        @foreach (var category in Model.Ingredients.GroupBy(ingredient => ingredient.CategoryId))
+        {
+            <div class="m-3">
+
+                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == category.Key).Name</button>
+
+                <div class="m-2">
+                    @foreach (var ingredient in category.ToList())
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
+                </div>
+
+            </div>
+        }
+
+        @if (!Model.Ingredients.Any(ingredient => ingredient.CategoryId == 4))
+        {
+            <div class="m-3">
+
+                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 4).Name</button>
+
+                <div class="m-2">
+                </div>
+
+            </div>
+        }
+
+
+        @*<div class="m-3">
 
             <button class="button-show-ingredients-fruits but but-ingredient-family">Owoce</button>
 
@@ -148,7 +179,7 @@
         <div class="m-3">
 
             <button class="button-show-ingredients-other but but-ingredient-family">Użytkownika</button>
-            
+
             <div class="div-show-ingredients-other m-2">
                 @foreach (var ingredient in Model)
                 {
@@ -160,8 +191,8 @@
                     }
                 }
             </div>
-            
-        </div>
+
+        </div>*@
 
         <div>
             <button class="search-button btn btn-outline-success m-2" type="button">Komponuj posiłki :)</button>
@@ -177,32 +208,35 @@
 
 
 <script>
-    const showButtonIngredientsFruits = document.querySelector('.button-show-ingredients-fruits');
-    const divShowIngredientsFruits = document.querySelector('.div-show-ingredients-fruits')
+    //const showButtonIngredientsFruits = document.querySelector('.button-show-ingredients-fruits');
+    //const divShowIngredientsFruits = document.querySelector('.div-show-ingredients-fruits')
 
-    const showButtonIngredientsVegetables = document.querySelector('.button-show-ingredients-vegetables');
-    const divShowIngredientsVegetables = document.querySelector('.div-show-ingredients-vegetables')
+    //const showButtonIngredientsVegetables = document.querySelector('.button-show-ingredients-vegetables');
+    //const divShowIngredientsVegetables = document.querySelector('.div-show-ingredients-vegetables')
 
-    const showButtonIngredientsMeat = document.querySelector('.button-show-ingredients-meat');
-    const divShowIngredientsMeat = document.querySelector('.div-show-ingredients-meat')
+    //const showButtonIngredientsMeat = document.querySelector('.button-show-ingredients-meat');
+    //const divShowIngredientsMeat = document.querySelector('.div-show-ingredients-meat')
 
-    const showButtonIngredientsFish = document.querySelector('.button-show-ingredients-fish');
-    const divShowIngredientsFish = document.querySelector('.div-show-ingredients-fish')
+    //const showButtonIngredientsFish = document.querySelector('.button-show-ingredients-fish');
+    //const divShowIngredientsFish = document.querySelector('.div-show-ingredients-fish')
 
-    const showButtonIngredientsPasta = document.querySelector('.button-show-ingredients-pasta');
-    const divShowIngredientsPasta = document.querySelector('.div-show-ingredients-pasta')
+    //const showButtonIngredientsPasta = document.querySelector('.button-show-ingredients-pasta');
+    //const divShowIngredientsPasta = document.querySelector('.div-show-ingredients-pasta')
 
-    const showButtonIngredientsSpices = document.querySelector('.button-show-ingredients-spices');
-    const divShowIngredientsSpices = document.querySelector('.div-show-ingredients-spices')
+    //const showButtonIngredientsSpices = document.querySelector('.button-show-ingredients-spices');
+    //const divShowIngredientsSpices = document.querySelector('.div-show-ingredients-spices')
 
-    const showButtonIngredientsDairy = document.querySelector('.button-show-ingredients-dairy');
-    const divShowIngredientsDairy = document.querySelector('.div-show-ingredients-dairy')
+    //const showButtonIngredientsDairy = document.querySelector('.button-show-ingredients-dairy');
+    //const divShowIngredientsDairy = document.querySelector('.div-show-ingredients-dairy')
 
-    const showButtonIngredientsBread = document.querySelector('.button-show-ingredients-bread');
-    const divShowIngredientsBread = document.querySelector('.div-show-ingredients-bread')
+    //const showButtonIngredientsBread = document.querySelector('.button-show-ingredients-bread');
+    //const divShowIngredientsBread = document.querySelector('.div-show-ingredients-bread')
 
-    const showButtonIngredientsOther = document.querySelector('.button-show-ingredients-other');
-    const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other')
+    //const showButtonIngredientsOther = document.querySelector('.button-show-ingredients-other');
+    //const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other')
+
+    const allIngredientsCategoriesButtons = document.querySelectorAll('.but-ingredient-family');
+    const divShowIngredientsOther = Array.from(allIngredientsCategoriesButtons).find(button => button.textContent == 'Uzytkownika').nextSibling.nextSibling
 
     const searchButton = document.querySelector('.search-button');
     const ingredientsContainer = document.querySelector('.ingredients');
@@ -220,25 +254,31 @@
 
         searchMealsAfterClick();
 
-        divShowIngredientsFruits.style.display = 'none'
-        divShowIngredientsVegetables.style.display = 'none'
-        divShowIngredientsMeat.style.display = 'none'
-        divShowIngredientsFish.style.display = 'none'
-        divShowIngredientsPasta.style.display = 'none'
-        divShowIngredientsSpices.style.display = 'none'
-        divShowIngredientsDairy.style.display = 'none'
-        divShowIngredientsBread.style.display = 'none'
-        divShowIngredientsOther.style.display = 'none'
+        //divShowIngredientsFruits.style.display = 'none'
+        //divShowIngredientsVegetables.style.display = 'none'
+        //divShowIngredientsMeat.style.display = 'none'
+        //divShowIngredientsFish.style.display = 'none'
+        //divShowIngredientsPasta.style.display = 'none'
+        //divShowIngredientsSpices.style.display = 'none'
+        //divShowIngredientsDairy.style.display = 'none'
+        //divShowIngredientsBread.style.display = 'none'
+        //divShowIngredientsOther.style.display = 'none'
 
-        displayIngredientsGroupAfterClick(showButtonIngredientsFruits, divShowIngredientsFruits)
-        displayIngredientsGroupAfterClick(showButtonIngredientsVegetables, divShowIngredientsVegetables)
-        displayIngredientsGroupAfterClick(showButtonIngredientsMeat, divShowIngredientsMeat)
-        displayIngredientsGroupAfterClick(showButtonIngredientsFish, divShowIngredientsFish)
-        displayIngredientsGroupAfterClick(showButtonIngredientsPasta, divShowIngredientsPasta)
-        displayIngredientsGroupAfterClick(showButtonIngredientsSpices, divShowIngredientsSpices)
-        displayIngredientsGroupAfterClick(showButtonIngredientsDairy, divShowIngredientsDairy)
-        displayIngredientsGroupAfterClick(showButtonIngredientsBread, divShowIngredientsBread)
-        displayIngredientsGroupAfterClick(showButtonIngredientsOther, divShowIngredientsOther)
+
+        for (const button of allIngredientsCategoriesButtons) {
+            button.nextSibling.nextSibling.style.display = 'none'
+            displayIngredientsGroupAfterClick(button, button.nextSibling.nextSibling)
+        }
+
+        //displayIngredientsGroupAfterClick(showButtonIngredientsFruits, divShowIngredientsFruits)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsVegetables, divShowIngredientsVegetables)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsMeat, divShowIngredientsMeat)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsFish, divShowIngredientsFish)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsPasta, divShowIngredientsPasta)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsSpices, divShowIngredientsSpices)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsDairy, divShowIngredientsDairy)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsBread, divShowIngredientsBread)
+        //displayIngredientsGroupAfterClick(showButtonIngredientsOther, divShowIngredientsOther)
 
     }
 

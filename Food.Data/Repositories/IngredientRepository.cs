@@ -7,10 +7,11 @@ using System.Text;
 
 namespace Food.Data.Repositories
 {
-
     public class IngredientRepository
     {
         private readonly FoodContext foodContext;
+        private const int GENERIC_USER_ID = 0;
+
         public IngredientRepository(FoodContext foodContext)
         {
             this.foodContext = foodContext;
@@ -20,10 +21,10 @@ namespace Food.Data.Repositories
             return foodContext.Ingredients.ToList();
         }
 
-        public List<Ingredient> GetByUserId(int userId)
+        public List<Ingredient> GetByUserIdAndAllGeneric(int userId)
         {
             return foodContext.Ingredients
-                .Where(ingredient => ingredient.UserId == userId)
+                .Where(ingredient => ingredient.UserId == userId || ingredient.UserId == GENERIC_USER_ID)
                 .ToList();
         }
 

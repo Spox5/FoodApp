@@ -30,9 +30,9 @@ namespace Food.Controllers
         [HttpGet]
         public IActionResult Index(int userID)
         {
-            var mealsIngredients = new SearchMealViewModel();
+            var mealsIngredients = new ManageMealViewModel();
             mealsIngredients.Meals = mealRepository.GetByUserId(userID);
-            mealsIngredients.Ingredients = ingredientRepository.GetByUserId(userID);
+            mealsIngredients.Ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userID);
 
 
 

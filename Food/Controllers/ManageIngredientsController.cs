@@ -21,7 +21,7 @@ namespace Food.Controllers
         }
         public IActionResult Index(int userId)
         {
-            var ingredients = ingredientRepository.GetByUserId(userId);
+            var ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userId);
 
             return View(ingredients);
         }

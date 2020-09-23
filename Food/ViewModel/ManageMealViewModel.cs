@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Food.ViewModel
 {
-    public class SearchMealViewModel
+    public class ManageMealViewModel
     {
+        public List<Meal> Meals {get; set;}
         public List<Ingredient> Ingredients { get; set; }
-        public List<IngredientCategory> IngredientCategories { get; set; }
     }
 }

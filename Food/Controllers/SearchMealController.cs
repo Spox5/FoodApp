@@ -16,19 +16,28 @@ namespace Food.Controllers
     {
         private readonly IngredientRepository ingredientRepository;
         private readonly MealRepository mealRepository;
+        private readonly IngredientCategoryRepository ingredientCategoryRepository;
 
-        public SearchMealController(IngredientRepository ingredientRepository, MealRepository mealRepository)
+        public SearchMealController(IngredientRepository ingredientRepository, MealRepository mealRepository, IngredientCategoryRepository ingredientCategoryRepository)
         {
             this.ingredientRepository = ingredientRepository;
             this.mealRepository = mealRepository;
+            this.ingredientCategoryRepository = ingredientCategoryRepository;
         }
 
         [HttpGet]
         public IActionResult Index(int userId)
         {
-            var ingredients = ingredientRepository.GetByUserId(userId);
+            var ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userId);
+            var ingredientCategories = ingredientCategoryRepository.GetAll();
 
-            return View(ingredients);
+            var searchViewModel = new SearchMealViewModel
+            {
+                Ingredients = ingredients,
+                IngredientCategories = ingredientCategories
+            };
+
+            return View(searchViewModel);
         }
 
         [HttpPost]

@@ -21,7 +21,7 @@ namespace Food
     public class Startup
     {
         //trusted_connection=true - jak serwer na innej maszynie to wyrzuciæ
-        private string connectionString = "Server=KOMPUTER-KARINA\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
+        private string connectionString = "Server=DESKTOP-D0B1296\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
         private const string securityKey = "gjknlfgdnjkl32423";
 
         public void ConfigureServices(IServiceCollection services)
@@ -31,6 +31,7 @@ namespace Food
             services.AddScoped<MealRepository>();
             services.AddScoped<IngredientRepository>();
             services.AddScoped<UserRepository>();
+            services.AddScoped<IngredientCategoryRepository>();
 
             services.AddAuthentication(options =>
             {
