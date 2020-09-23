@@ -4,14 +4,13 @@
 
 <div class="main search-meal-container" data-ingredients='@Html.Raw(Json.Serialize(Model))'>
 
-    <div class="title">Co masz w lodówce?</div>
+    <div class="title">Co masz w lodówce? Wybierz składniki z których chcesz skomponować posiłek.</div>
 
     <div class="ingredients">
 
-
         <div class="m-3">
 
-            <button class="button-show-ingredients-fruits btn btn-success w-25">Owoce</button>
+            <button class="button-show-ingredients-fruits but but-ingredient-family">Owoce</button>
 
             <div class="div-show-ingredients-fruits m-2">
                 @foreach (var ingredient in Model)
@@ -23,13 +22,13 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
 
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-vegetables btn btn-success w-25">Warzywa</button>
+            <button class="button-show-ingredients-vegetables but but-ingredient-family">Warzywa</button>
 
             <div class="div-show-ingredients-vegetables m-2">
                 @foreach (var ingredient in Model)
@@ -41,12 +40,12 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-meat btn btn-success w-25">Mięso</button>
+            <button class="button-show-ingredients-meat but but-ingredient-family">Mięso</button>
 
             <div class="div-show-ingredients-meat m-2">
                 @foreach (var ingredient in Model)
@@ -58,12 +57,12 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-fish btn btn-success w-25">Ryby</button>
+            <button class="button-show-ingredients-fish but but-ingredient-family">Ryby</button>
 
             <div class="div-show-ingredients-fish m-2">
                 @foreach (var ingredient in Model)
@@ -75,12 +74,12 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-pasta btn btn-success w-25">Kasze i makarony</button>
+            <button class="button-show-ingredients-pasta but but-ingredient-family">Kasze i makarony</button>
 
             <div class="div-show-ingredients-pasta m-2">
                 @foreach (var ingredient in Model)
@@ -92,12 +91,12 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-spices btn btn-success w-25">Przyprawy</button>
+            <button class="button-show-ingredients-spices but but-ingredient-family">Przyprawy</button>
 
             <div class="div-show-ingredients-spices m-2">
                 @foreach (var ingredient in Model)
@@ -109,12 +108,12 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-dairy btn btn-success w-25">Nabiał</button>
+            <button class="button-show-ingredients-dairy but but-ingredient-family">Nabiał</button>
 
             <div class="div-show-ingredients-dairy m-2">
                 @foreach (var ingredient in Model)
@@ -126,12 +125,12 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-bread btn btn-success w-25">Pieczywo</button>
+            <button class="button-show-ingredients-bread but but-ingredient-family">Pieczywo</button>
 
             <div class="div-show-ingredients-bread m-2">
                 @foreach (var ingredient in Model)
@@ -143,12 +142,12 @@
                         </label>
                     }
                 }
-                    </div>
+            </div>
         </div>
 
         <div class="m-3">
 
-            <button class="button-show-ingredients-other btn btn-success w-25">Inne</button>
+            <button class="button-show-ingredients-other but but-ingredient-family">Użytkownika</button>
             
             <div class="div-show-ingredients-other m-2">
                 @foreach (var ingredient in Model)
@@ -165,7 +164,7 @@
         </div>
 
         <div>
-            <button class="search-button btn btn-outline-success m-2" type="button">Wyszukaj</button>
+            <button class="search-button btn btn-outline-success m-2" type="button">Komponuj posiłki :)</button>
         </div>
 
     </div>
@@ -215,21 +214,10 @@
     bindEvents()
 
     function bindEvents() {
-        //    searchButton.onclick = () => {
-        //        const ingredients = Array.from(ingredientsContainer.querySelectorAll('input'));
-        //        const selectedIngredients = ingredients
-        //            .filter(ingredient => ingredient.checked)
-        //            .map(ingredient => parseInt(ingredient.value))
 
-        //        var str = "Wyszukane posiłki: ";
+        
+        displayMessegeIfDivIsEmpty(divShowIngredientsOther, "Brak własnych składników");
 
-        //        mealResultContainer.innerHTML = str.bold();
-
-        //        mealResultContainer.style.visibility = 'block';
-        //        mealResultContainer.className = "border-dark border-top m-4 pt-4";
-      
-        //        getMealsByIngredients(selectedIngredients)
-        //}
         searchMealsAfterClick();
 
         divShowIngredientsFruits.style.display = 'none'
@@ -242,16 +230,6 @@
         divShowIngredientsBread.style.display = 'none'
         divShowIngredientsOther.style.display = 'none'
 
-        //showIngredientsOther.onclick = () => {
-        //    if (divShowIngredientsOther.style.display == 'none') {
-        //        divShowIngredientsOther.style.display = 'block';
-        //    }
-        //    else if (divShowIngredientsOther.style.display == 'block') {
-        //        divShowIngredientsOther.style.display = 'none'
-        //    }
-        //}
-
-
         displayIngredientsGroupAfterClick(showButtonIngredientsFruits, divShowIngredientsFruits)
         displayIngredientsGroupAfterClick(showButtonIngredientsVegetables, divShowIngredientsVegetables)
         displayIngredientsGroupAfterClick(showButtonIngredientsMeat, divShowIngredientsMeat)
@@ -262,6 +240,12 @@
         displayIngredientsGroupAfterClick(showButtonIngredientsBread, divShowIngredientsBread)
         displayIngredientsGroupAfterClick(showButtonIngredientsOther, divShowIngredientsOther)
 
+    }
+
+    function displayMessegeIfDivIsEmpty(checkedDiv, message) {
+        if (!$(checkedDiv).children().length > 0) {
+            checkedDiv.innerHTML = message;
+        }
     }
 
     function searchMealsAfterClick() {

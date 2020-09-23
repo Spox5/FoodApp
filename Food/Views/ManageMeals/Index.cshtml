@@ -6,27 +6,41 @@
 
 <div class="main">
 
-    <div class="title">Twoje posiłki (usunąć można tylko posiłki zapisane przez użytkownika:</div>
+    <div class="title">Dodane przez Ciebie posiłki:</div>
 
 
-    @foreach (var meal in Model.Meals)
-    {
-        if (meal.CategoryId == 6)
+    <div class="meals-other m-3">
+        @foreach (var meal in Model.Meals)
         {
-            <label class="btn btn-outline-primary">
-                <input class="meal-input" value="@meal.Id" name="meal" type="radio"> @meal.Name
-            </label>
-        }
+            if (meal.CategoryId == 6)
+            {
+                <label class="btn btn-outline-primary">
+                    <input class="meal-input" value="@meal.Id" name="meal" type="radio"> @meal.Name
+                </label>
+            }
 
-    }
+        }
+    </div>
 
     <div class="meal-name-form">
-        <input class="meal-name-input form-control" placeholder="Nowa nazwa posiłku">
-        <textarea class="meal-recipe-input form-control w-50 mx-auto m-2" placeholder="Nowy przepis"></textarea>
+
+            <div class="m-3">
+                <small class="form-text text-muted mb-1">Podaj nową nazwę posiłku.</small>
+                <input class="meal-name-input form-control w-50 mx-auto" placeholder="Nowa nazwa posiłku">
+
+            </div>
+
+        
+
+            <div class="m-3">
+                <small class="form-text text-muted mb-1">Skoryguj przepis.</small>
+                <textarea class="meal-recipe-input form-control w-50 mx-auto" placeholder="Nowy przepis"></textarea>
+            </div>
+
         <input class="save-button btn btn-outline-primary m-2" type="button" value="Zapisz">
     </div>
 
-    <div>
+    <div class="edit-delete-buttons">
         <input class="edit-button btn btn-outline-warning m-2" type="button" value="Edytuj">
         <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń">
     </div>
@@ -36,127 +50,177 @@
 
         <div class="title">Stwórz nowy posiłek</div>
 
-        <div><input class="input-field form-control w-25 mx-auto m-2" placeholder="Nazwa nowego posiłku"></div>
+        <div class="m-4">
+            <small class="form-text text-muted mb-1">Wpisz nazwę dla nowego posiłku.</small>
+            <input class="input-field form-control w-50 mx-auto m-2" placeholder="Nazwa nowego posiłku">
+        </div>
 
-        <div class="ingredients-fruits m-3">
-            <div style="font-weight: bold">Owoce</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 2) ///////////warunek do zmiany
+        <div class="m-2">
+
+            <button class="button-show-ingredients-fruits btn btn-success w-25">Owoce</button>
+
+            <div class="div-show-ingredients-fruits m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 2) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
 
         </div>
 
-        <div class="ingredients-vegetables m-3">
-            <div style="font-weight: bold">Warzywa</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 3) ///////////warunek do zmiany
+        <div class="ingredients-vegetables m-2">
+
+            <button class="button-show-ingredients-vegetables btn btn-success w-25">Warzywa</button>
+
+            <div class="div-show-ingredients-vegetables m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 3) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <div class="ingredients-meat m-3">
-            <div style="font-weight: bold">Mięso</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 4) ///////////warunek do zmiany
+        <div class="ingredients-meat m-2">
+
+            <button class="button-show-ingredients-meat btn btn-success w-25">Mięso</button>
+
+            <div class="div-show-ingredients-meat m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 4) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <div class="ingredients-fish m-3">
-            <div style="font-weight: bold">Ryby</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 6) ///////////warunek do zmiany
+        <div class="ingredients-fish m-2">
+
+            <button class="button-show-ingredients-fish btn btn-success w-25">Ryby</button>
+
+            <div class="div-show-ingredients-fish m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 6) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <div class="ingredients-pasta m-3">
-            <div style="font-weight: bold">Kasze i makarony</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 7) ///////////warunek do zmiany
+        <div class="ingredients-pasta m-2">
+
+            <button class="button-show-ingredients-pasta btn btn-success w-25">Kasze i makarony</button>
+
+            <div class="div-show-ingredients-pasta m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 7) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <div class="ingredients-spieces m-3">
-            <div style="font-weight: bold">Przyprawy</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 8) ///////////warunek do zmiany
+        <div class="ingredients-spieces m-2">
+
+            <button class="button-show-ingredients-spices btn btn-success w-25">Przyprawy</button>
+
+            <div class="div-show-ingredients-spices m-2">
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 8) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <div class="ingredients-dairy m-3">
-            <div style="font-weight: bold">Nabiał</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 9) ///////////warunek do zmiany
+        <div class="ingredients-dairy m-2">
+
+            <button class="button-show-ingredients-dairy btn btn-success w-25">Nabiał</button>
+
+            <div class="div-show-ingredients-dairy m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 9) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <div class="ingredients-bread m-3">
-            <div style="font-weight: bold">Pieczywo</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 10) ///////////warunek do zmiany
+        <div class="ingredients-bread m-2">
+
+            <button class="button-show-ingredients-bread btn btn-success w-25">Pieczywo</button>
+
+            <div class="div-show-ingredients-bread m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 10) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <div class="ingredients-other m-3">
-            <div style="font-weight: bold">Inne</div>
-            @foreach (var ingredient in Model.Ingredients)
-            {
-                @if (ingredient.CategoryId == 11) ///////////warunek do zmiany
+        <div class="ingredients-other m-2">
+
+            <button class="button-show-ingredients-other btn btn-success w-25">Użytkownika</button>
+
+            <div class="div-show-ingredients-other m-2">
+
+                @foreach (var ingredient in Model.Ingredients)
                 {
-                    <label class="btn btn-outline-primary">
-                        @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                    </label>
+                    @if (ingredient.CategoryId == 11) ///////////warunek do zmiany
+                    {
+                        <label class="btn btn-outline-primary">
+                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                        </label>
+                    }
                 }
-            }
+            </div>
         </div>
 
-        <textarea class="input-meal-recipe-field form-control w-50 mx-auto m-2" rows="5" placeholder="Przepis na nowy posiłek"></textarea>
+        <div class="m-4">
+            <small class="form-text text-muted mb-1">Wpisz przepis dla nowego posiłku nie używając klawisza Enter.</small>
+            <textarea class="input-meal-recipe-field form-control w-50 mx-auto m-2" rows="5" placeholder="Przepis na nowy posiłek"></textarea>
+        </div>
 
         <button class="add-button btn btn-outline-success" type="button">Dodaj</button>
 
@@ -166,6 +230,36 @@
 
 
 <script>
+    const mealsOther = document.querySelector('.meals-other');
+    const divEditDeletebuttons = document.querySelector('.edit-delete-buttons')
+
+    const showButtonIngredientsFruits = document.querySelector('.button-show-ingredients-fruits');
+    const divShowIngredientsFruits = document.querySelector('.div-show-ingredients-fruits')
+
+    const showButtonIngredientsVegetables = document.querySelector('.button-show-ingredients-vegetables');
+    const divShowIngredientsVegetables = document.querySelector('.div-show-ingredients-vegetables')
+
+    const showButtonIngredientsMeat = document.querySelector('.button-show-ingredients-meat');
+    const divShowIngredientsMeat = document.querySelector('.div-show-ingredients-meat')
+
+    const showButtonIngredientsFish = document.querySelector('.button-show-ingredients-fish');
+    const divShowIngredientsFish = document.querySelector('.div-show-ingredients-fish')
+
+    const showButtonIngredientsPasta = document.querySelector('.button-show-ingredients-pasta');
+    const divShowIngredientsPasta = document.querySelector('.div-show-ingredients-pasta')
+
+    const showButtonIngredientsSpices = document.querySelector('.button-show-ingredients-spices');
+    const divShowIngredientsSpices = document.querySelector('.div-show-ingredients-spices')
+
+    const showButtonIngredientsDairy = document.querySelector('.button-show-ingredients-dairy');
+    const divShowIngredientsDairy = document.querySelector('.div-show-ingredients-dairy')
+
+    const showButtonIngredientsBread = document.querySelector('.button-show-ingredients-bread');
+    const divShowIngredientsBread = document.querySelector('.div-show-ingredients-bread')
+
+    const showButtonIngredientsOther = document.querySelector('.button-show-ingredients-other');
+    const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other')
+
 
     const ingredientsContainer = document.querySelector('.ingredients')
     const addButton = document.querySelector('.add-button')
@@ -187,6 +281,49 @@
         editButton.onclick = displayOrHideEditForm
         saveButton.onclick = updateMeal
         deleteButton.onclick = deleteMeal
+
+        displayMessegeIfDivIsEmpty(mealsOther, "Brak własnych posiłków");
+
+        displayMessegeIfDivIsEmpty(divShowIngredientsOther, "Brak własnych składników");
+
+        divShowIngredientsFruits.style.display = 'none'
+        divShowIngredientsVegetables.style.display = 'none'
+        divShowIngredientsMeat.style.display = 'none'
+        divShowIngredientsFish.style.display = 'none'
+        divShowIngredientsPasta.style.display = 'none'
+        divShowIngredientsSpices.style.display = 'none'
+        divShowIngredientsDairy.style.display = 'none'
+        divShowIngredientsBread.style.display = 'none'
+        divShowIngredientsOther.style.display = 'none'
+
+        displayIngredientsGroupAfterClick(showButtonIngredientsFruits, divShowIngredientsFruits)
+        displayIngredientsGroupAfterClick(showButtonIngredientsVegetables, divShowIngredientsVegetables)
+        displayIngredientsGroupAfterClick(showButtonIngredientsMeat, divShowIngredientsMeat)
+        displayIngredientsGroupAfterClick(showButtonIngredientsFish, divShowIngredientsFish)
+        displayIngredientsGroupAfterClick(showButtonIngredientsPasta, divShowIngredientsPasta)
+        displayIngredientsGroupAfterClick(showButtonIngredientsSpices, divShowIngredientsSpices)
+        displayIngredientsGroupAfterClick(showButtonIngredientsDairy, divShowIngredientsDairy)
+        displayIngredientsGroupAfterClick(showButtonIngredientsBread, divShowIngredientsBread)
+        displayIngredientsGroupAfterClick(showButtonIngredientsOther, divShowIngredientsOther)
+    }
+
+    function displayMessegeIfDivIsEmpty(checkedDiv, message) {
+        if (!$(checkedDiv).children().length > 0) {
+            checkedDiv.innerHTML = message;
+            divEditDeletebuttons.style.display = 'none';
+        }
+    }
+
+    function displayIngredientsGroupAfterClick(button, divOfIngredients) {
+
+        button.onclick = () => {
+            if (divOfIngredients.style.display == 'none') {
+                divOfIngredients.style.display = 'block';
+            }
+            else if (divOfIngredients.style.display == 'block') {
+                divOfIngredients.style.display = 'none'
+            }
+        }
     }
 
     function addMeal() {

@@ -27,9 +27,17 @@ namespace Food.Controllers
         }
 
         [HttpPost]
-        public void AddIngredient([FromBody]Ingredient ingredient)
+        public bool AddIngredient([FromBody]Ingredient ingredient)
         {
+            var existingIngredient = ingredientRepository.GetByName(ingredient.Name);
+            if (existingIngredient != null)
+            {
+                return false;
+            }
+
             ingredientRepository.Add(ingredient);
+
+            return true;
         }
 
         [HttpPatch]

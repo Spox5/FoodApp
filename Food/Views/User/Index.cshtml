@@ -4,45 +4,56 @@
 
 
 <div class="col-md-12 centered">
+    <div class="alert alert-success">
+        <strong>Gratulacje!</strong> Udało Ci się utworzyć nowe konto. Teraz możesz zacząć korzystać z Asystenta Jedzeniowego.
+    </div>
     <div class="row align-items-center ">
         <div class="col-md-6 text-center border-danger border-right">
-            
+
             Jeżeli masz problem z pomysłem na obiad, śniadanie, kolację, przekąskę lub deser, to ta aplikacja prawdopodobnie
             pomoże Ci go rozwiązać. To naprawdę proste bardzo proste - wybierasz składniki jakimi dyspanujesz a po chwili
             otrzymujesz przepisy na posiłki, jakie można z nich upichcić. Nieważne czy aktualnie Twoja lodówka jest zaopatrzona
             tylko w masło i mleko, czy też jest wypełniona pobrzegi. Baza danych posiada wiele przepisów, które i tak będziesz mógł
             zrealizować - od najaprostrzych do najbardziej skomplikowanych. Tyczy się to zarówno obiadów, jak i mniejszych posiłków.
             Dodatkową opcją jest możliwość dodawania, edytowania czy usuwania własnych składników oraz całych posiłków. Jeżeli
-            masz przepis na Twoją ulubioną sałatkę, a nie ma jej w bazie, możesz go bez problemu dodać. Zarejestruj się i 
+            masz przepis na Twoją ulubioną sałatkę, a nie ma jej w bazie, możesz go bez problemu dodać. Zarejestruj się i
             zobacz jakie to proste!
-            
+
         </div>
 
         <div class="col-md-6 text-center">
-            
-                <form class="m-5">
-                    <label class="title">Logowanie:</label>
-                    <div><input class="username-input form-control col-xs-2 m-2" type="text" placeholder="Nazwa użytkownika" required></div>
-                    <div><input class="password-input form-control col-xs-2 m-2" type="password" placeholder="Hasło" required></div>
-                    <div><button class="login-button btn btn-primary" type="button">Zaloguj</button></div>
-                </form>
-            
 
-           
-                <form class=" m-5">
-                    <label class="title">Rejestracja:</label>
-                    <div class="col-xs-1 m-2"><input class="username-register-input form-control" type="text" placeholder="Nazwa użytkownika" required></div>
-                    <div class="col-xs-1 m-2"><input class="password-register-input form-control" type="password" placeholder="Hasło" required></div>
-                    <div><button class="register-button btn btn-success" type="button">Utworz konto</button></div>
-                </form>
-            
+            <form class="m-5">
+                <label class="title">Logowanie:</label>
+                <div><input class="username-input form-control col-xs-2 m-2" type="text" placeholder="Nazwa użytkownika" required></div>
+                <div><input class="password-input form-control col-xs-2 m-2" type="password" placeholder="Hasło" required></div>
+                <div><button class="login-button btn btn-primary" type="button">Zaloguj</button></div>
+            </form>
+
+
+            <form class=" m-5">
+                <label class="title">Rejestracja:</label>
+                <div class="col-xs-1 m-2">
+                    <input id="UserName" class="username-register-input form-control" type="text" placeholder="Nazwa użytkownika" required>
+                    <small class="form-text username-register-info register-form-info"></small>
+                </div>
+
+                <div class="col-xs-1 m-2">
+                    <input class="password-register-input form-control" type="password" placeholder="Hasło" required>
+                    <small class="form-text password-register-info register-form-info"></small>
+                </div>
+                <div><button class="register-button btn btn-success" type="button">Utworz konto</button></div>
+            </form>
+
         </div>
     </div>
 </div>
-    
-
+   
 
 <script>
+    const alertSuccess = document.querySelector('.alert');
+    const usernameRegisterInfo = document.querySelector('.username-register-info');
+    const passwordRegisterInfo = document.querySelector('.password-register-info');
 
     const loginButton = document.querySelector('.login-button');
     const usernameInput = document.querySelector('.username-input');
@@ -55,8 +66,13 @@
     bindEvents();
 
     function bindEvents() {
-        loginButton.onclick = login
-        registerButton.onclick = register
+        alertSuccess.style.display = 'none';
+        loginButton.onclick = login;
+        registerButton.onclick = () => {
+            hideInfos();
+            register();
+            
+        }
     }
 
     function login() {
@@ -90,14 +106,28 @@
         })
         .then(response => response.json())
         .then(isRegistered => {
-            if (isRegistered) {
-                registerButton.textContent = "Zarejstrowano"
+            if (isRegistered == 0) {
+                alertSuccess.style.display = 'block';
+
             }
-            else {
-                registerButton.textContent = "Nie Zarejestrowano"
+            else if (isRegistered == 1) {
+                usernameRegisterInfo.innerHTML = "Użytkownik o nazwie \"" + usernameRegisterInput.value + "\" już istnieje.";
+            }
+
+            else if (isRegistered == 2) {
+                passwordRegisterInfo.innerHTML = "Hasło musi zawierać co najmniej 5 znaków w tym jedną cyfrę";
+            }
+            else if (isRegistered == 3) {
+                usernameRegisterInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
             }
             
         })
+    }
+
+    function hideInfos() {
+        alertSuccess.style.display = 'none';
+        usernameRegisterInfo.innerHTML = "";
+        passwordRegisterInfo.innerHTML = "";
     }
 
 </script>

@@ -25,5 +25,19 @@ namespace Food.Data.Repositories
             foodContext.Users.Add(user);
             foodContext.SaveChanges();
         }
+
+        public bool CheckUserNameAvailability(string userName)
+        {
+            System.Threading.Thread.Sleep(200);
+            var SearchData = foodContext.Users.Where(x => x.Name == userName).SingleOrDefault();
+            if (SearchData != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

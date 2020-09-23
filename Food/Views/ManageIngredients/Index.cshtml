@@ -2,13 +2,17 @@
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Gratulacje!</strong> Udało Ci się dodać nowy składnik do bazy.
+</div>
 <div class="main">
 
-    <div class="title">Twoje składniki (usunąć można tylko składniki zapisane przez użytkownika:</div>
+    <div class="title">Utworzone przez Ciebie składniki:</div>
 
 
     <div class="ingredients-other m-3">
-        <div style="font-weight: bold">Inne</div>
+
         @foreach (var ingredient in Model)
         {
             if (ingredient.CategoryId == 11) ///////////warunek do zmiany
@@ -22,17 +26,21 @@
     </div>
 
     <div>
-        <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń składnik">
+        <button class="delete-button but but-delete m-2"><span>Usuń składnik</span></button>
+        @*<input class="delete-button btn btn-outline-danger m-2 but" type="button" value="Usuń składnik">*@
     </div>
 
     <div class="ingredient-name-form">
         <input class="save-button" type="button" value="Zapisz">
     </div>
 
-    <div class="title border-dark border-top m-4 pt-4">
-        Dodaj nowy składnik do Twojej bazy
+    <div class="border-dark border-top mt-4 pt-4">
+        <div class="title">Dodaj nowy składnik do Twojej bazy</div>
 
-        <input class="input-field form-control w-25 mx-auto m-2" placeholder="Nazwa nowego składnika">
+
+            <input class="input-field form-control w-50 mx-auto m-2" placeholder="Nazwa nowego składnika">
+            <small class="form-text register-form-info"></small>
+
         <input class="add-button btn btn-outline-success m-2" type="button" value="Dodaj składnik">
 
     </div>
@@ -40,7 +48,10 @@
 </div>
 
 <script>
+    const alertSuccess = document.querySelector('.alert');
+    const ingredientAddInfo = document.querySelector('.register-form-info');
 
+    const ingredientsOther = document.querySelector('.ingredients-other');
     const addButton = document.querySelector('.add-button');
     const addIngredientName = document.querySelector('.input-field');
     const deleteButton = document.querySelector('.delete-button');
@@ -53,8 +64,21 @@
     bindEvents();
 
     function bindEvents() {
-        addButton.onclick = addIngredient
+
+        displayMessegeIfDivIsEmpty(ingredientsOther, "Brak własnych składników");
+        alertSuccess.style.display = 'none';
+
+        addButton.onclick = () => {
+            hideInfos();
+            addIngredient();
+        }
         deleteButton.onclick = deleteIngredient
+    }
+
+    function displayMessegeIfDivIsEmpty(checkedDiv, message) {
+        if (!$(checkedDiv).children().length > 0) {
+            checkedDiv.innerHTML = message;
+        }
     }
 
     function addIngredient() {
@@ -74,10 +98,17 @@
             body: JSON.stringify(ingredient)
 
         })
+        .then(response => response.json())
+        .then(isAdded => {
+            if (!isAdded)
+                ingredientAddInfo.innerHTML = "Składnik o nazwie \"" + ingredient.name + "\" już istnieje. Dodaj inny."
+            else {
+                alertSuccess.style.display = 'block';
+            }
+                
+        })
 
-        setTimeout(function () {
-            window.location.reload();
-        }, 500); 
+        
 
     }
 
@@ -111,6 +142,11 @@
 
     function hideEditForm() {
         editForm.style.display = 'none'
+    }
+
+    function hideInfos() {
+        alertSuccess.style.display = 'none';
+        ingredientAddInfo.innerHTML = "";
     }
 
 </script>

@@ -14,7 +14,7 @@
     margin-top: 40px;
     font-size: 15px;
     text-align: center;
-    width: 90%;
+    
 
 }
 
@@ -41,4 +41,81 @@
     justify-content: center;
 }
 
+.register-form-info {
+    
+    font-weight: bold;
+    color: tomato;
+}
 
+
+
+.but {
+    display: inline-block;
+    color: transparent;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    user-select: none;
+    background-color: transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+
+.but span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: padding 0.5s;
+}
+
+.but span:after {
+    
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+}
+
+.but:hover span {       
+    padding-right: 20px;
+    color: white;
+    
+}
+
+.but:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.but-delete {
+    border-color: tomato;
+    color: tomato;
+}
+
+.but-delete:hover {
+    background-color: tomato;
+}
+
+.but-delete span:after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f1b8";
+    font-weight: 600;
+}
+
+.but-ingredient-family {
+    width: 250px;
+    background-color: #28a745;
+    color: white;
+    transition: 0.5s;
+}
+
+.but-ingredient-family:hover {
+    width: 400px;
+    transition: 0.5s;
+}

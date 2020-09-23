@@ -1,4 +1,5 @@
-﻿using Food.Data.Models;
+﻿using Food.Data;
+using Food.Data.Models;
 using Food.Data.Repositories;
 using Food.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -60,18 +62,24 @@ namespace Food.Controllers
         }
 
         [HttpPost]
-        public bool Register(string username, string password)
+        public int Register(string username, string password)
         {
-            var isPasswordCorrect = password.Length > 6 && password.Any(character => char.IsUpper(character));
-            if (isPasswordCorrect)
-            {
-                return false;
-            }
-
             var existingUSer = userRepository.GetByName(username);
             if (existingUSer != null)
             {
-                return false;
+                return 1;
+            }
+
+            var pass = password;
+            if (pass.Length < 5 || !pass.Any(character => char.IsDigit(character)))
+            {
+                return 2;
+            }
+
+            var name = username;
+            if (name == null || !name.Any(character => char.IsLetter(character)))
+            {
+                return 3;
             }
 
             (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
@@ -84,9 +92,13 @@ namespace Food.Controllers
             };
 
             userRepository.Add(user);
+            var registeredUserId = userRepository.GetByName(user.Name).Id;
 
-            return true;
+
+            return 0;
         }
+
+
 
         [HttpGet]
         public ActionResult Logout()
