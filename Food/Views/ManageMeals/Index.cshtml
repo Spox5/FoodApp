@@ -15,7 +15,7 @@
             if (meal.CategoryId == 6)
             {
                 <label class="btn btn-outline-primary">
-                    <input class="meal-input" value="@meal.Id" name="meal" type="radio"> @meal.Name
+                    <input class="meal-input" name="meal"  value="@meal.Id" type="radio"> @meal.Name
                 </label>
             }
 
@@ -29,7 +29,6 @@
                 <input class="meal-name-input form-control w-50 mx-auto" placeholder="Nowa nazwa posiłku">
 
             </div>
-
         
 
             <div class="m-3">
@@ -40,7 +39,7 @@
         <input class="save-button btn btn-outline-primary m-2" type="button" value="Zapisz">
     </div>
 
-    <div class="edit-delete-buttons">
+    <div>
         <input class="edit-button btn btn-outline-warning m-2" type="button" value="Edytuj">
         <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń">
     </div>
@@ -85,170 +84,6 @@
             </div>
         }
 
-
-
-        @*<div class="m-2">
-
-            <button class="button-show-ingredients-fruits btn btn-success w-25">Owoce</button>
-
-            <div class="div-show-ingredients-fruits m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 2) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-
-        </div>
-
-        <div class="ingredients-vegetables m-2">
-
-            <button class="button-show-ingredients-vegetables btn btn-success w-25">Warzywa</button>
-
-            <div class="div-show-ingredients-vegetables m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 3) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="ingredients-meat m-2">
-
-            <button class="button-show-ingredients-meat btn btn-success w-25">Mięso</button>
-
-            <div class="div-show-ingredients-meat m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 4) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="ingredients-fish m-2">
-
-            <button class="button-show-ingredients-fish btn btn-success w-25">Ryby</button>
-
-            <div class="div-show-ingredients-fish m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 6) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="ingredients-pasta m-2">
-
-            <button class="button-show-ingredients-pasta btn btn-success w-25">Kasze i makarony</button>
-
-            <div class="div-show-ingredients-pasta m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 7) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="ingredients-spieces m-2">
-
-            <button class="button-show-ingredients-spices btn btn-success w-25">Przyprawy</button>
-
-            <div class="div-show-ingredients-spices m-2">
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 8) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="ingredients-dairy m-2">
-
-            <button class="button-show-ingredients-dairy btn btn-success w-25">Nabiał</button>
-
-            <div class="div-show-ingredients-dairy m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 9) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="ingredients-bread m-2">
-
-            <button class="button-show-ingredients-bread btn btn-success w-25">Pieczywo</button>
-
-            <div class="div-show-ingredients-bread m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 10) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="ingredients-other m-2">
-
-            <button class="button-show-ingredients-other btn btn-success w-25">Użytkownika</button>
-
-            <div class="div-show-ingredients-other m-2">
-
-                @foreach (var ingredient in Model.Ingredients)
-                {
-                    @if (ingredient.CategoryId == 11) ///////////warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>*@
-
         <div class="m-4">
             <small class="form-text text-muted mb-1">Wpisz przepis dla nowego posiłku nie używając klawisza Enter.</small>
             <textarea class="input-meal-recipe-field form-control w-50 mx-auto m-2" rows="5" placeholder="Przepis na nowy posiłek"></textarea>
@@ -263,40 +98,11 @@
 
 <script>
     const mealsOther = document.querySelector('.meals-other');
-    const divEditDeletebuttons = document.querySelector('.edit-delete-buttons')
-
-    //const showButtonIngredientsFruits = document.querySelector('.button-show-ingredients-fruits');
-    //const divShowIngredientsFruits = document.querySelector('.div-show-ingredients-fruits')
-
-    //const showButtonIngredientsVegetables = document.querySelector('.button-show-ingredients-vegetables');
-    //const divShowIngredientsVegetables = document.querySelector('.div-show-ingredients-vegetables')
-
-    //const showButtonIngredientsMeat = document.querySelector('.button-show-ingredients-meat');
-    //const divShowIngredientsMeat = document.querySelector('.div-show-ingredients-meat')
-
-    //const showButtonIngredientsFish = document.querySelector('.button-show-ingredients-fish');
-    //const divShowIngredientsFish = document.querySelector('.div-show-ingredients-fish')
-
-    //const showButtonIngredientsPasta = document.querySelector('.button-show-ingredients-pasta');
-    //const divShowIngredientsPasta = document.querySelector('.div-show-ingredients-pasta')
-
-    //const showButtonIngredientsSpices = document.querySelector('.button-show-ingredients-spices');
-    //const divShowIngredientsSpices = document.querySelector('.div-show-ingredients-spices')
-
-    //const showButtonIngredientsDairy = document.querySelector('.button-show-ingredients-dairy');
-    //const divShowIngredientsDairy = document.querySelector('.div-show-ingredients-dairy')
-
-    //const showButtonIngredientsBread = document.querySelector('.button-show-ingredients-bread');
-    //const divShowIngredientsBread = document.querySelector('.div-show-ingredients-bread')
-
-    //const showButtonIngredientsOther = document.querySelector('.button-show-ingredients-other');
-    //const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other')
 
     const allIngredientsCategoriesButtons = document.querySelectorAll('.but-ingredient-family');
     const divShowIngredientsOther = Array.from(allIngredientsCategoriesButtons).find(button => button.textContent == 'Uzytkownika').nextSibling.nextSibling
 
-    const ingredientsData = JSON.parse(document.querySelector('.manage-meal-container').dataset.ingredients)
-
+    const ingredientsData = JSON.parse(document.querySelector('.manage-meals-container').dataset.ingredients)
 
     const ingredientsContainer = document.querySelector('.ingredients')
     const addButton = document.querySelector('.add-button')
@@ -319,44 +125,28 @@
         saveButton.onclick = updateMeal
         deleteButton.onclick = deleteMeal
 
-        
-
         displayMessegeIfDivIsEmpty(mealsOther, "Brak własnych posiłków");
+        hideButtonsIfDivIsEmpty(mealsOther, deleteButton, editButton);
 
         displayMessegeIfDivIsEmpty(divShowIngredientsOther, "Brak własnych składników");
-
-        //divShowIngredientsFruits.style.display = 'none'
-        //divShowIngredientsVegetables.style.display = 'none'
-        //divShowIngredientsMeat.style.display = 'none'
-        //divShowIngredientsFish.style.display = 'none'
-        //divShowIngredientsPasta.style.display = 'none'
-        //divShowIngredientsSpices.style.display = 'none'
-        //divShowIngredientsDairy.style.display = 'none'
-        //divShowIngredientsBread.style.display = 'none'
-        //divShowIngredientsOther.style.display = 'none'
 
         for (const button of allIngredientsCategoriesButtons) {
             button.nextSibling.nextSibling.style.display = 'none'
             displayIngredientsGroupAfterClick(button, button.nextSibling.nextSibling)
         }
 
-        //displayIngredientsGroupAfterClick(showButtonIngredientsFruits, divShowIngredientsFruits)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsVegetables, divShowIngredientsVegetables)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsMeat, divShowIngredientsMeat)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsFish, divShowIngredientsFish)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsPasta, divShowIngredientsPasta)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsSpices, divShowIngredientsSpices)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsDairy, divShowIngredientsDairy)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsBread, divShowIngredientsBread)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsOther, divShowIngredientsOther)
     }
 
     function displayMessegeIfDivIsEmpty(checkedDiv, message) {
         if (!$(checkedDiv).children().length > 0) {
             checkedDiv.innerHTML = message;
+        }
+    }
+
+    function hideButtonsIfDivIsEmpty(checkedDiv, deleteButton, editButton) {
+        if (!$(checkedDiv).children().length > 0) {
             deleteButton.style.display = 'none';
             editButton.style.display = 'none';
-            //divEditDeletebuttons.style.display = 'none';
         }
     }
 
@@ -423,20 +213,17 @@
         setTimeout(function () {
             window.location.reload();
         }, 500); 
-
     }
 
 
     function deleteMeal() {
         const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked)
 
-
         const meal = {
             id: parseInt(selectedMeal.value),
             name: 'fds',
             userId: 1
         }
-
 
         fetch("/ManageMeals/Delete", {
             method: 'DELETE',
@@ -451,6 +238,7 @@
         }, 500); 
     }
 
+
     function displayOrHideEditForm() {
         if (editForm.style.display == 'none') {
             editForm.style.display = 'block'
@@ -459,7 +247,6 @@
             editForm.style.display = 'none'
         }
     }
-
 
 </script>
 
