@@ -15,7 +15,7 @@
 
         @foreach (var ingredient in Model)
         {
-            if (ingredient.CategoryId == 11) ///////////warunek do zmiany
+            if (ingredient.CategoryId == 15) ///////////warunek do zmiany
             {
                 <label class="btn btn-outline-primary">
                     <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio"> @ingredient.Name
@@ -27,7 +27,6 @@
 
     <div>
         <button class="delete-button but but-delete m-2"><span>Usuń składnik</span></button>
-        @*<input class="delete-button btn btn-outline-danger m-2 but" type="button" value="Usuń składnik">*@
     </div>
 
     <div class="ingredient-name-form">
@@ -78,6 +77,7 @@
     function displayMessegeIfDivIsEmpty(checkedDiv, message) {
         if (!$(checkedDiv).children().length > 0) {
             checkedDiv.innerHTML = message;
+            deleteButton.style.display = 'none';
         }
     }
 

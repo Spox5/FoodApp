@@ -12,7 +12,7 @@
         {
             <div class="m-3">
 
-                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == category.Key).Name</button>
+                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == category.Key)?.Name</button>
 
                 <div class="m-2">
                     @foreach (var ingredient in category.ToList())
@@ -26,11 +26,11 @@
             </div>
         }
 
-        @if (!Model.Ingredients.Any(ingredient => ingredient.CategoryId == 4))
+        @if (!Model.Ingredients.Any(ingredient => ingredient.CategoryId == 15))
         {
             <div class="m-3">
 
-                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 4).Name</button>
+                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 15).Name</button>
 
                 <div class="m-2">
                 </div>

@@ -10,5 +10,6 @@ namespace Food.ViewModel
     {
         public List<Meal> Meals {get; set;}
         public List<Ingredient> Ingredients { get; set; }
+        public List<IngredientCategory> IngredientCategories { get; set; }
     }
 }

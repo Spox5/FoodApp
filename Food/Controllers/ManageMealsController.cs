@@ -18,23 +18,32 @@ namespace Food.Controllers
     {
         private readonly MealRepository mealRepository;
         private readonly IngredientRepository ingredientRepository;
+        private readonly IngredientCategoryRepository ingredientCategoryRepository;
 
 
-        public ManageMealsController(MealRepository mealRepository, IngredientRepository ingredientRepository)
+        public ManageMealsController(MealRepository mealRepository, IngredientRepository ingredientRepository, IngredientCategoryRepository ingredientCategoryRepository)
         {
             this.mealRepository = mealRepository;
             this.ingredientRepository = ingredientRepository;
+            this.ingredientCategoryRepository = ingredientCategoryRepository;
         }
 
 
         [HttpGet]
         public IActionResult Index(int userID)
         {
+            //var mealsIngredients = new ManageMealViewModel();
+            //mealsIngredients.Meals = mealRepository.GetByUserId(userID);
+            //mealsIngredients.Ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userID);
+
+
+
+            //return View(mealsIngredients);
+
             var mealsIngredients = new ManageMealViewModel();
             mealsIngredients.Meals = mealRepository.GetByUserId(userID);
             mealsIngredients.Ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userID);
-
-
+            mealsIngredients.IngredientCategories = ingredientCategoryRepository.GetAll();
 
             return View(mealsIngredients);
         }
