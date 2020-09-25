@@ -2,6 +2,7 @@
     background-color: white;
 }
 
+
 .header {
     padding: 20px;
     text-align: center;
@@ -10,13 +11,13 @@
     color: #00b300;
 }
 
+
 .main {
     margin-top: 40px;
     font-size: 15px;
     text-align: center;
-    
-
 }
+
 
 .title {
     font-size: 25px;
@@ -25,28 +26,28 @@
     color: #fca503
 }
 
+
 .title-name {
     font-size: 15px;
     font-weight: bold
 }
 
+
 .login-text-form {
-    
     text-align: center;
 }
 
+
 .centered {
-    
     align-items: center;
     justify-content: center;
 }
 
+
 .register-form-info {
-    
     font-weight: bold;
     color: tomato;
 }
-
 
 
 .but {
@@ -65,48 +66,46 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+    .but span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: padding 0.5s;
+    }
 
+        .but span:after {
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+        }
 
-.but span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: padding 0.5s;
-}
+    .but:hover span {
+        padding-right: 25px;
+        color: white;
+    }
 
-.but span:after {
-    
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-}
+        .but:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
 
-.but:hover span {       
-    padding-right: 20px;
-    color: white;
-    
-}
-
-.but:hover span:after {
-    opacity: 1;
-    right: 0;
-}
 
 .but-delete {
     border-color: tomato;
     color: tomato;
 }
 
-.but-delete:hover {
-    background-color: tomato;
-}
+    .but-delete:hover {
+        background-color: tomato;
+    }
 
-.but-delete span:after {
-    font-family: "Font Awesome 5 Free";
-    content: "\f1b8";
-    font-weight: 600;
-}
+    .but-delete span:after {
+        font-family: "Font Awesome 5 Free";
+        content: "\f1b8";
+        font-weight: 600;
+    }
+
 
 .but-ingredient-family {
     width: 250px;
@@ -115,11 +114,43 @@
     transition: 0.5s;
 }
 
-.but-ingredient-family:hover {
-    width: 400px;
-    transition: 0.5s;
+    .but-ingredient-family:hover {
+        width: 400px;
+        transition: 0.5s;
+    }
+
+
+.but-ingredient-family-fruits span:after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f5d1";
+    font-weight: 600;
 }
 
 *:focus {
     outline: 0 !important;
 }
+
+
+.but-login {
+    background-color: #007bff;
+    color: white;
+}
+
+    .but-login span:after {
+        font-family: "Font Awesome 5 Free";
+        content: "\f2f6";
+        font-weight: 600;
+    }
+
+
+.but-register {
+    background-color: #28a745;
+    color: white;
+}
+
+    .but-register span:after {
+        font-family: "Font Awesome 5 Free";
+        content: "\f2b5";
+        font-weight: 200;
+    }
+

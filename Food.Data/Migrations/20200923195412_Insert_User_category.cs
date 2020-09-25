@@ -8,7 +8,7 @@ namespace Food.Data.Migrations
         {
             migrationBuilder.Sql(@"
                 INSERT INTO [Food].[dbo].[IngredientCategories] ([Name])
-                VALUES ('Uzytkownika');
+                VALUES ('Użytkownika');
             ");
         }
 

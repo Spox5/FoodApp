@@ -40,6 +40,16 @@ namespace Food.Controllers
                 return NotFound();
             }
 
+            if (username.Length < 1)
+            {
+                return NotFound();
+            }
+
+            if (password.Length < 1)
+            {
+                return NotFound();
+            }
+
             var passwordHash = GetHash(password, user.PasswordSalt);
 
             if (user.PasswordHash.SequenceEqual(passwordHash))
@@ -70,14 +80,12 @@ namespace Food.Controllers
                 return 1;
             }
 
-            var pass = password;
-            if (pass.Length < 5 || !pass.Any(character => char.IsDigit(character)))
+            if (password.Length < 5 || !password.Any(character => char.IsDigit(character)))
             {
                 return 2;
             }
 
-            var name = username;
-            if (name == null || !name.Any(character => char.IsLetter(character)))
+            if (username == null || !username.Any(character => char.IsLetter(character)))
             {
                 return 3;
             }

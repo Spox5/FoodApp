@@ -26,11 +26,11 @@
             </div>
         }
 
-        @if (!Model.Ingredients.Any(ingredient => ingredient.CategoryId == 15))
+        @if (!Model.Ingredients.Any(ingredient => ingredient.CategoryId == 9)) //warunek do zmiany
         {
             <div class="m-3">
 
-                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 15).Name</button>
+                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 9).Name</button>
 
                 <div class="m-2">
                 </div>
