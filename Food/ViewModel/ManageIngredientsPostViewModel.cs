@@ -11,3 +11,4 @@ namespace Food.ViewModel
         public int UserId { get; set; }
     }
 }
+

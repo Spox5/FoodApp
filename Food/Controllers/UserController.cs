@@ -37,17 +37,29 @@ namespace Food.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return new UserViewModel
+                {
+                    Success = false,
+                    ErrorCode = 1
+                };
             }
 
             if (username.Length < 1)
             {
-                return NotFound();
+                return new UserViewModel
+                {
+                    Success = false,
+                    ErrorCode = 2
+                };
             }
 
-            if (password.Length < 1)
+            if (string.IsNullOrEmpty(password) || password.Length < 1)
             {
-                return NotFound();
+                return new UserViewModel
+                {
+                    Success = false,
+                    ErrorCode = 3
+                };
             }
 
             var passwordHash = GetHash(password, user.PasswordSalt);
@@ -64,11 +76,16 @@ namespace Food.Controllers
                 return new UserViewModel
                 {
                     Id = user.Id,
-                    Token = token
+                    Token = token,
+                    Success = true
                 };
             }
 
-            return NotFound();
+            return new UserViewModel
+            {
+                Success = false,
+                ErrorCode = 4
+            };
         }
 
         [HttpPost]
@@ -114,6 +131,12 @@ namespace Food.Controllers
             HttpContext.Response.Cookies.Delete("token");
 
             return Redirect($"/{nameof(UserController).Replace("Controller", "")}");
+        }
+
+        [HttpGet]
+        public bool ValidateUsername(string username)
+        {
+            return !userRepository.DoesUserExist(username);
         }
 
         private byte[] GetHash(string password, byte[] salt)

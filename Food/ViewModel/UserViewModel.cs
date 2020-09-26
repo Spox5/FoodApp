@@ -9,5 +9,7 @@ namespace Food.ViewModel
     {
         public int Id { get; set; }
         public string Token { get; set; }
+        public bool Success { get; set; }
+        public int ErrorCode { get; set; }
     }
 }

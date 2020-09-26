@@ -26,8 +26,9 @@ namespace Food.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int userId)
+        public IActionResult Index()
         {
+            var userId = int.Parse(HttpContext.User.Identity.Name);
             var ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userId);
             var ingredientCategories = ingredientCategoryRepository.GetAll();
 

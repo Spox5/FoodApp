@@ -4,7 +4,7 @@
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 
-<div class="main manage-meals-container" data-ingredients='@Html.Raw(Json.Serialize(Model.Ingredients))'>
+<div class="main manage-meals-container" data-ingredients='@Html.Raw(Json.Serialize(Model.Ingredients))' data-meals='@Html.Raw(Json.Serialize(Model.Meals))'>
 
     <div class="title">Dodane przez Ciebie posiłki:</div>
 
@@ -30,6 +30,12 @@
 
             </div>
         
+            <div class="edit-meal-checkboxes">
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    <div>@ingredient.Name <input type="checkbox" value="@ingredient.Id" /></div>
+                }
+            </div>
 
             <div class="m-3">
                 <small class="form-text text-muted mb-1">Skoryguj przepis.</small>
@@ -66,7 +72,7 @@
                         @foreach (var ingredient in category.ToList())
                         {
                             <label class="btn btn-outline-primary">
-                                @ingredient.Name <input value="@ingredient.Id" type="checkbox">
+                                @ingredient.Name <input class="ingredients-checkboxes" value="@ingredient.Id" type="checkbox">
                             </label>
                         }
                     </div>
@@ -106,6 +112,7 @@
     const divShowIngredientsOther = Array.from(allIngredientsCategoriesButtons).find(button => button.textContent == 'Uzytkownika').nextSibling.nextSibling
 
     const ingredientsData = JSON.parse(document.querySelector('.manage-meals-container').dataset.ingredients)
+    const mealsData = JSON.parse(document.querySelector('.manage-meals-container').dataset.meals)
 
     const ingredientsContainer = document.querySelector('.ingredients')
     const addButton = document.querySelector('.add-button')
@@ -117,6 +124,7 @@
     const editInputRecipe = document.querySelector('.meal-recipe-input')
     const editForm = document.querySelector('.meal-name-form')
     const saveButton = document.querySelector('.save-button')
+    const editFormCheckboxes = document.querySelectorAll('.edit-meal-checkboxes input')
 
     editForm.style.display = 'none'
     bindEvents();
@@ -201,8 +209,8 @@
             Id: parseInt(selectedMeal.value),
             Name: editInput.value,
             Recipe: editInputRecipe.value,
-            //userId: parseInt(window.sessionStorage.getItem("userId")),
-            userId: 1
+            categoryId: 6,
+            userId: parseInt(window.sessionStorage.getItem("userId"))
         }
 
         fetch("/ManageMeals/Update", {
@@ -224,8 +232,8 @@
 
         const meal = {
             id: parseInt(selectedMeal.value),
-            name: 'fds',
-            userId: 1
+            name: '',
+            userId: parseInt(window.sessionStorage.getItem("userId"))
         }
 
         fetch("/ManageMeals/Delete", {
@@ -245,12 +253,26 @@
     function displayOrHideEditForm() {
         if (editForm.style.display == 'none') {
             editForm.style.display = 'block'
+            initializeEditFormCheckboxes()
         }
         else if (editForm.style.display == 'block') {
             editForm.style.display = 'none'
         }
     }
 
+    function initializeEditFormCheckboxes() {
+        const selectedMealId = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked).value
+        const mealIngredientsIds = mealsData.find(meal => meal.id == selectedMealId).mealIngredients.map(mealIngredient => mealIngredient.ingredientId)
+
+        for (const checkbox of editFormCheckboxes) {
+            if (mealIngredientsIds.some(mealIngredient => mealIngredient == checkbox.value)) {
+                checkbox.checked = true
+            }
+            else {
+                checkbox.checked = false
+            }
+        }
+    }
 </script>
 
 

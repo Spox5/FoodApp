@@ -24,6 +24,7 @@ namespace Food.Data.Repositories
         public List<Meal> GetByUserId(int userId)
         {
             return foodContext.Meals
+                .Include(meal => meal.MealIngredients)
                 .Where(meal => meal.UserId == userId)
                 .ToList();
         }

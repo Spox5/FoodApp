@@ -73,6 +73,8 @@
             register();
             
         }
+        ///////////////
+        usernameRegisterInput.oninput = validateUsername
     }
 
     function login() {
@@ -87,10 +89,17 @@
         })
             .then(response => response.json())
             .then(user => {
-                localStorage.setItem('token', user.token);
-                localStorage.setItem('userId', user.id);
+                if (user.success) {
+                    localStorage.setItem('token', user.token);
+                    localStorage.setItem('userId', user.id);
 
-                window.location.href = "\searchmeal"
+                    window.location.href = "\searchmeal"
+                }
+                else {
+                    if (user.errorCode == 1) {
+                        alert('Brak uzytkownika o takiej nazwie')
+                    }
+                }
             })
     }
 
@@ -130,4 +139,13 @@
         passwordRegisterInfo.innerHTML = "";
     }
 
+    function validateUsername() {
+        fetch(`/User/ValidateUsername?username=${usernameRegisterInput.value}`)
+            .then(response => response.text())
+            .then(isValid => {
+                if (isValid == 'false') {
+                    alert('Nazwa uzytkownika jest zajeta')
+                }
+            })
+    }
 </script>

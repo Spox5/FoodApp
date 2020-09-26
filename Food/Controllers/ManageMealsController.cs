@@ -30,7 +30,7 @@ namespace Food.Controllers
 
 
         [HttpGet]
-        public IActionResult Index(int userID)
+        public IActionResult Index()
         {
             //var mealsIngredients = new ManageMealViewModel();
             //mealsIngredients.Meals = mealRepository.GetByUserId(userID);
@@ -39,7 +39,7 @@ namespace Food.Controllers
 
 
             //return View(mealsIngredients);
-
+            var userID = int.Parse(HttpContext.User.Identity.Name);
             var mealsIngredients = new ManageMealViewModel();
             mealsIngredients.Meals = mealRepository.GetByUserId(userID);
             mealsIngredients.Ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userID);

@@ -26,18 +26,9 @@ namespace Food.Data.Repositories
             foodContext.SaveChanges();
         }
 
-        public bool CheckUserNameAvailability(string userName)
+        public bool DoesUserExist(string userName)
         {
-            System.Threading.Thread.Sleep(200);
-            var SearchData = foodContext.Users.Where(x => x.Name == userName).SingleOrDefault();
-            if (SearchData != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return foodContext.Users.Any(x => x.Name == userName);
         }
     }
 }

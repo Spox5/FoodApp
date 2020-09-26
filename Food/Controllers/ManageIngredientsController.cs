@@ -19,8 +19,9 @@ namespace Food.Controllers
         {
             this.ingredientRepository = ingredientRepository;
         }
-        public IActionResult Index(int userId)
+        public IActionResult Index()
         {
+            var userId = int.Parse(HttpContext.User.Identity.Name);
             var ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userId);
 
             return View(ingredients);

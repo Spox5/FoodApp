@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -21,13 +22,18 @@ namespace Food
     public class Startup
     {
         //trusted_connection=true - jak serwer na innej maszynie to wyrzuciæ
-        private string connectionString = "Server=KOMPUTER-KARINA\\SQLEXPRESS;Database=Food;Trusted_Connection=True;";
         private const string securityKey = "gjknlfgdnjkl32423";
+        private Configuration configuration { get; set; }
+
+        public Startup(IConfiguration configuration)
+        {
+            this.configuration = configuration.GetSection("Configuration").Get<Configuration>();
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<FoodContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<FoodContext>(options => options.UseSqlServer(configuration.ConnectionString));
             services.AddScoped<MealRepository>();
             services.AddScoped<IngredientRepository>();
             services.AddScoped<UserRepository>();
@@ -96,7 +102,7 @@ namespace Food
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=ManageMeals}/{action=Index}/{userId=1}");
+                    pattern: "{controller=ManageMeals}/{action=Index}");
 
             });
             app.UseStaticFiles();
