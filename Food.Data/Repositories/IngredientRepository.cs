@@ -28,6 +28,13 @@ namespace Food.Data.Repositories
                 .ToList();
         }
 
+        public List<Ingredient> GetByUserId(int userId)
+        {
+            return foodContext.Ingredients
+                .Where(ingredient => ingredient.UserId == userId)
+                .ToList();
+        }
+
         public Ingredient GetByName(string name)
         {
             return foodContext.Ingredients.FirstOrDefault(ingredient => ingredient.Name == name);

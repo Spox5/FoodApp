@@ -28,17 +28,22 @@ namespace Food.Controllers
         }
 
         [HttpPost]
-        public bool AddIngredient([FromBody]Ingredient ingredient)
+        public int AddIngredient([FromBody]Ingredient ingredient)
         {
             var existingIngredient = ingredientRepository.GetByName(ingredient.Name);
+            
             if (existingIngredient != null)
             {
-                return false;
+                return 1;
+            }
+            if (ingredient.Name == null || !ingredient.Name.Any(character => char.IsLetter(character)))
+            {
+                return 2;
             }
 
             ingredientRepository.Add(ingredient);
 
-            return true;
+            return 0;
         }
 
         [HttpPatch]
@@ -51,6 +56,12 @@ namespace Food.Controllers
         public void DeleteIngredient([FromBody] Ingredient ingredient)
         {
             ingredientRepository.Delete(ingredient);
+        }
+
+        [HttpGet]
+        public List<Ingredient> GetIngredients(int userId)
+        {
+           return ingredientRepository.GetByUserId(userId);
         }
     }
 }

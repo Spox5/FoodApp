@@ -25,9 +25,17 @@
 
             <form class="m-5">
                 <label class="title">Logowanie:</label>
-                <div><input class="username-input form-control col-xs-2 m-2" type="text" placeholder="Nazwa użytkownika" required></div>
-                <div><input class="password-input form-control col-xs-2 m-2" type="password" placeholder="Hasło" required></div>
-                <div><button class="login-button but but-login" type="button"><span>Zaloguj</span></button></div>
+                <div>
+                    <input class="username-input form-control col-xs-2 m-2" type="text" placeholder="Nazwa użytkownika" required>
+                    <small class="form-text username-login-info registerAndLogin-form-info"></small>
+                </div>
+                <div>
+                    <input class="password-input form-control col-xs-2 m-2" type="password" placeholder="Hasło" required>
+                    <small class="form-text password-login-info registerAndLogin-form-info"></small>
+                </div>
+                <div>
+                    <button class="login-button but but-login" type="button"><span>Zaloguj</span></button>
+                </div>
             </form>
 
 
@@ -35,12 +43,12 @@
                 <label class="title">Rejestracja:</label>
                 <div class="col-xs-1 m-2">
                     <input id="UserName" class="username-register-input form-control" type="text" placeholder="Nazwa użytkownika" required>
-                    <small class="form-text username-register-info register-form-info"></small>
+                    <small class="form-text username-register-info registerAndLogin-form-info"></small>
                 </div>
 
                 <div class="col-xs-1 m-2">
                     <input class="password-register-input form-control" type="password" placeholder="Hasło" required>
-                    <small class="form-text password-register-info register-form-info"></small>
+                    <small class="form-text password-register-info registerAndLogin-form-info"></small>
                 </div>
                 <div><button class="register-button but but-register" type="button"><span>Utwórz konto</span></button></div>
             </form>
@@ -48,33 +56,52 @@
         </div>
     </div>
 </div>
-   
+
 
 <script>
     const alertSuccess = document.querySelector('.alert');
-    const usernameRegisterInfo = document.querySelector('.username-register-info');
-    const passwordRegisterInfo = document.querySelector('.password-register-info');
 
     const loginButton = document.querySelector('.login-button');
     const usernameInput = document.querySelector('.username-input');
+    const usernameLoginInfo = document.querySelector('.username-login-info');
     const passwordInput = document.querySelector('.password-input');
+    const passwordLoginInfo = document.querySelector('.password-login-info');
 
     const registerButton = document.querySelector('.register-button');
     const usernameRegisterInput = document.querySelector('.username-register-input');
+    const usernameRegisterInfo = document.querySelector('.username-register-info');
     const passwordRegisterInput = document.querySelector('.password-register-input');
+    const passwordRegisterInfo = document.querySelector('.password-register-info');
+
+    var typingTimer;
+    var doneTypingInterval = 2000;
 
     bindEvents();
 
     function bindEvents() {
         alertSuccess.style.display = 'none';
-        loginButton.onclick = login;
+        loginButton.onclick = () => {
+            hideInfos();
+            login();
+        }
         registerButton.onclick = () => {
             hideInfos();
             register();
-            
+
         }
         ///////////////
-        usernameRegisterInput.oninput = validateUsername
+        //usernameRegisterInput.oninput = validateUsername
+        waitUntilTypeAndCheck(usernameRegisterInput, usernameRegisterInfo, validateUsername);
+    }
+
+    function waitUntilTypeAndCheck(inputToCheck, fieldToClear, functionToExecute) {
+        inputToCheck.addEventListener('keyup', () => {
+            clearTimeout(typingTimer);
+            if (inputToCheck.value) {
+                fieldToClear.innerHTML = "";
+                typingTimer = setTimeout(functionToExecute, doneTypingInterval);
+            }
+        });
     }
 
     function login() {
@@ -97,7 +124,16 @@
                 }
                 else {
                     if (user.errorCode == 1) {
-                        alert('Brak uzytkownika o takiej nazwie')
+                        usernameLoginInfo.innerHTML = "Brak użytkownika o takiej nazwie.";
+                    }
+                    else if (user.errorCode == 2) {
+                        usernameLoginInfo.innerHTML = "Wpisz nazwę użytkownika.";
+                    }
+                    else if (user.errorCode == 3) {
+                        passwordLoginInfo.innerHTML = "Wpisz hasło.";
+                    }
+                    else if (user.errorCode == 4) {
+                        passwordLoginInfo.innerHTML = "Nieprawidłowe hasło";
                     }
                 }
             })
@@ -113,28 +149,30 @@
         fetch(`/User/Register?username=${user.name}&password=${user.password}`, {
             method: 'POST'
         })
-        .then(response => response.json())
-        .then(isRegistered => {
-            if (isRegistered == 0) {
-                alertSuccess.style.display = 'block';
+            .then(response => response.json())
+            .then(isRegistered => {
+                if (isRegistered == 0) {
+                    alertSuccess.style.display = 'block';
 
-            }
-            else if (isRegistered == 1) {
-                usernameRegisterInfo.innerHTML = "Użytkownik o nazwie \"" + usernameRegisterInput.value + "\" już istnieje.";
-            }
+                }
+                else if (isRegistered == 1) {
+                    usernameRegisterInfo.innerHTML = "Użytkownik o nazwie \"" + usernameRegisterInput.value + "\" już istnieje.";
+                }
 
-            else if (isRegistered == 2) {
-                passwordRegisterInfo.innerHTML = "Hasło musi zawierać co najmniej 5 znaków w tym jedną cyfrę";
-            }
-            else if (isRegistered == 3) {
-                usernameRegisterInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
-            }
-            
-        })
+                else if (isRegistered == 2) {
+                    passwordRegisterInfo.innerHTML = "Hasło musi zawierać co najmniej 5 znaków w tym jedną cyfrę";
+                }
+                else if (isRegistered == 3) {
+                    usernameRegisterInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
+                }
+
+            })
     }
 
     function hideInfos() {
         alertSuccess.style.display = 'none';
+        usernameLoginInfo.innerHTML = "";
+        passwordLoginInfo.innerHTML = "";
         usernameRegisterInfo.innerHTML = "";
         passwordRegisterInfo.innerHTML = "";
     }
@@ -144,7 +182,7 @@
             .then(response => response.text())
             .then(isValid => {
                 if (isValid == 'false') {
-                    alert('Nazwa uzytkownika jest zajeta')
+                    usernameRegisterInfo.innerHTML = "Taki użytkownik już istnieje.";
                 }
             })
     }

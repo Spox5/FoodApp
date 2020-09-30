@@ -49,9 +49,23 @@ namespace Food.Controllers
         }
 
         [HttpPost]
-        public void Add([FromBody] Meal meal)
+        public int Add([FromBody] Meal meal)
         {
+            var existingMeal = mealRepository.GetByName(meal.Name);
+
+            if (existingMeal != null)
+            {
+                return 1;
+            }
+
+            if (meal.Name == null || meal.Name.Any(character => char.IsLetter(character)))
+            {
+                return 2;
+            }
+
             mealRepository.Add(meal);
+
+            return 0;
         }
 
         [HttpPatch]
@@ -65,6 +79,12 @@ namespace Food.Controllers
         public void Delete([FromBody] Meal meal)
         {
             mealRepository.Delete(meal);
+        }
+
+        [HttpGet]
+        public List<Meal> GetMeals(int userId)
+        {
+            return mealRepository.GetByUserId(userId);
         }
     }
 }

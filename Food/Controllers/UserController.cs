@@ -119,7 +119,6 @@ namespace Food.Controllers
             userRepository.Add(user);
             var registeredUserId = userRepository.GetByName(user.Name).Id;
 
-
             return 0;
         }
 

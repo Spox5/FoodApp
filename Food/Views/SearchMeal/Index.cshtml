@@ -32,167 +32,11 @@
 
                 <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 9).Name</button>
 
-                <div class="m-2">
+                <div class="div-show-ingredients-other m-2">a
                 </div>
 
             </div>
         }
-
-
-        @*<div class="m-3">
-
-            <button class="button-show-ingredients-fruits but but-ingredient-family">Owoce</button>
-
-            <div class="div-show-ingredients-fruits m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 2) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-vegetables but but-ingredient-family">Warzywa</button>
-
-            <div class="div-show-ingredients-vegetables m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 3) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-meat but but-ingredient-family">Mięso</button>
-
-            <div class="div-show-ingredients-meat m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 4) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-fish but but-ingredient-family">Ryby</button>
-
-            <div class="div-show-ingredients-fish m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 6) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-pasta but but-ingredient-family">Kasze i makarony</button>
-
-            <div class="div-show-ingredients-pasta m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 7) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-spices but but-ingredient-family">Przyprawy</button>
-
-            <div class="div-show-ingredients-spices m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 8) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-dairy but but-ingredient-family">Nabiał</button>
-
-            <div class="div-show-ingredients-dairy m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 9) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-bread but but-ingredient-family">Pieczywo</button>
-
-            <div class="div-show-ingredients-bread m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 10) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="m-3">
-
-            <button class="button-show-ingredients-other but but-ingredient-family">Użytkownika</button>
-
-            <div class="div-show-ingredients-other m-2">
-                @foreach (var ingredient in Model)
-                {
-                    @if (ingredient.CategoryId == 11) //// warunek do zmiany
-                    {
-                        <label class="btn btn-outline-primary">
-                            @ingredient.Name <input value="@ingredient.Id" type="checkbox">
-                        </label>
-                    }
-                }
-            </div>
-
-        </div>*@
 
         <div>
             <button class="search-button btn btn-outline-success m-2" type="button">Komponuj posiłki :)</button>
@@ -208,35 +52,10 @@
 
 
 <script>
-    //const showButtonIngredientsFruits = document.querySelector('.button-show-ingredients-fruits');
-    //const divShowIngredientsFruits = document.querySelector('.div-show-ingredients-fruits')
-
-    //const showButtonIngredientsVegetables = document.querySelector('.button-show-ingredients-vegetables');
-    //const divShowIngredientsVegetables = document.querySelector('.div-show-ingredients-vegetables')
-
-    //const showButtonIngredientsMeat = document.querySelector('.button-show-ingredients-meat');
-    //const divShowIngredientsMeat = document.querySelector('.div-show-ingredients-meat')
-
-    //const showButtonIngredientsFish = document.querySelector('.button-show-ingredients-fish');
-    //const divShowIngredientsFish = document.querySelector('.div-show-ingredients-fish')
-
-    //const showButtonIngredientsPasta = document.querySelector('.button-show-ingredients-pasta');
-    //const divShowIngredientsPasta = document.querySelector('.div-show-ingredients-pasta')
-
-    //const showButtonIngredientsSpices = document.querySelector('.button-show-ingredients-spices');
-    //const divShowIngredientsSpices = document.querySelector('.div-show-ingredients-spices')
-
-    //const showButtonIngredientsDairy = document.querySelector('.button-show-ingredients-dairy');
-    //const divShowIngredientsDairy = document.querySelector('.div-show-ingredients-dairy')
-
-    //const showButtonIngredientsBread = document.querySelector('.button-show-ingredients-bread');
-    //const divShowIngredientsBread = document.querySelector('.div-show-ingredients-bread')
-
-    //const showButtonIngredientsOther = document.querySelector('.button-show-ingredients-other');
-    //const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other')
 
     const allIngredientsCategoriesButtons = document.querySelectorAll('.but-ingredient-family');
-    const divShowIngredientsOther = Array.from(allIngredientsCategoriesButtons).find(button => button.textContent == 'Uzytkownika').nextSibling.nextSibling
+
+    const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other');
 
     const searchButton = document.querySelector('.search-button');
     const ingredientsContainer = document.querySelector('.ingredients');
@@ -249,41 +68,19 @@
 
     function bindEvents() {
 
-        
         displayMessegeIfDivIsEmpty(divShowIngredientsOther, "Brak własnych składników");
 
         searchMealsAfterClick();
-
-        //divShowIngredientsFruits.style.display = 'none'
-        //divShowIngredientsVegetables.style.display = 'none'
-        //divShowIngredientsMeat.style.display = 'none'
-        //divShowIngredientsFish.style.display = 'none'
-        //divShowIngredientsPasta.style.display = 'none'
-        //divShowIngredientsSpices.style.display = 'none'
-        //divShowIngredientsDairy.style.display = 'none'
-        //divShowIngredientsBread.style.display = 'none'
-        //divShowIngredientsOther.style.display = 'none'
-
 
         for (const button of allIngredientsCategoriesButtons) {
             button.nextSibling.nextSibling.style.display = 'none'
             displayIngredientsGroupAfterClick(button, button.nextSibling.nextSibling)
         }
 
-        //displayIngredientsGroupAfterClick(showButtonIngredientsFruits, divShowIngredientsFruits)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsVegetables, divShowIngredientsVegetables)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsMeat, divShowIngredientsMeat)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsFish, divShowIngredientsFish)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsPasta, divShowIngredientsPasta)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsSpices, divShowIngredientsSpices)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsDairy, divShowIngredientsDairy)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsBread, divShowIngredientsBread)
-        //displayIngredientsGroupAfterClick(showButtonIngredientsOther, divShowIngredientsOther)
-
     }
 
     function displayMessegeIfDivIsEmpty(checkedDiv, message) {
-        if (!$(checkedDiv).children().length > 0) {
+        if (checkedDiv && checkedDiv.children.length <= 0) {
             checkedDiv.innerHTML = message;
         }
     }

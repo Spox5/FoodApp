@@ -37,6 +37,11 @@ namespace Food.Data.Repositories
                 .ToList();
         }
 
+        public Meal GetByName(string name)
+        {
+            return foodContext.Meals.FirstOrDefault(meal => meal.Name == name);
+        }
+
         public void Add(Meal meal)
         {
             foodContext.Meals.Add(meal);
