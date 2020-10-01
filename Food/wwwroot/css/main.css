@@ -154,3 +154,6 @@
         font-weight: 200;
     }
 
+.unseen {
+    display: none;
+}

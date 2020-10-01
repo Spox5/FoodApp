@@ -2,7 +2,7 @@
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<div class="alert alert-success alert-dismissible">
+<div class="alert alert-success alert-dismissible unseen">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Gratulacje!</strong> Udało Ci się dodać nowy składnik do bazy.
 </div>
@@ -12,17 +12,6 @@
 
 
     <div class="ingredients-other m-3">
-
-        @foreach (var ingredient in Model)
-        {
-            if (ingredient.CategoryId == 9) ///////////warunek do zmiany
-            {
-        <label class="btn btn-outline-primary">
-            @ingredient.Name <input class="ingredient-input" name="ingredient" value="@ingredient.Id" type="radio">
-        </label>
-            }
-
-        }
         
     </div>
 
@@ -58,26 +47,24 @@
 
     const userId = parseInt(window.localStorage.getItem("userId"));
 
+    getIngredients();
+
     bindEvents();
 
     function bindEvents() {
-
-        alertSuccess.style.display = 'none';
-        displayMessegeIfDivIsEmpty(ingredientsOther);
-        
+       
+        //displayMessegeIfDivIsEmpty(ingredientsOther);
 
         addButton.onclick = () => {
             hideInfos();
             addIngredient();
-
-
         }
         deleteButton.onclick = deleteIngredient
     }
 
     function displayMessegeIfDivIsEmpty(checkedDiv) {
         if (checkedDiv.children.length <= 0) {
-            checkedDiv.innerHTML = "Brak własnych posiłków";
+            checkedDiv.innerHTML = "Brak własnych składników";
             deleteButton.style.display = 'none';
         }
         else {
@@ -106,7 +93,7 @@
             .then(response => response.json())
             .then(isAdded => {
                 if (isAdded == 0)
-                    alertSuccess.style.display = 'block';
+                    alertSuccess.classList.remove('unseen');
 
                 else if (isAdded == 1) {
                     ingredientAddInfo.innerHTML = "Składnik o nazwie \"" + ingredient.name + "\" już istnieje. Dodaj inny."
@@ -126,7 +113,7 @@
 
         const ingredient = {
             id: parseInt(selectedIngredient.value),
-            name: 'daa',
+            name: '',
             userId: parseInt(window.localStorage.getItem("userId")),
             categoryId: 9
         }
@@ -138,10 +125,8 @@
             },
             body: JSON.stringify(ingredient)
         })
-            .then(getIngredients())
-        //setTimeout(function () {
-        //    window.location.reload();
-        //}, 500);
+            .then(() => getIngredients())
+
     }
 
     function getIngredients() {
@@ -169,12 +154,11 @@
                 }
                 displayMessegeIfDivIsEmpty(ingredientsOther)
             }
-                
             )
     }
 
     function hideInfos() {
-        alertSuccess.style.display = 'none';
+        alertSuccess.classList.add('unseen');
         ingredientAddInfo.innerHTML = "";
     }
 

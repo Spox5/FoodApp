@@ -3,7 +3,7 @@
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<div class="alert alert-success alert-dismissible">
+<div class="alert alert-success alert-dismissible unseen">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Gratulacje!</strong> Udało Ci się dodać nowy posiłek do bazy.
 </div>
@@ -13,7 +13,7 @@
 
 
     <div class="meals-other m-3">
-        @foreach (var meal in Model.Meals)
+        @*@foreach (var meal in Model.Meals)
         {
             if (meal.CategoryId == 6)
             {
@@ -22,7 +22,7 @@
         </label>
             }
 
-        }
+        }*@
     </div>
 
     <div class="meal-name-form">
@@ -53,8 +53,10 @@
     </div>
 
     <div>
-        <input class="edit-button btn btn-outline-warning m-2" type="button" value="Edytuj">
-        <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń">
+        <button class="edit-button btn btn-outline-warning m-2"><span>Edytuj składnik</span></button>
+        <button class="delete-button but but-delete m-2"><span>Usuń składnik</span></button>
+        @*<input class="edit-button btn btn-outline-warning m-2" type="button" value="Edytuj">
+        <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń">*@
     </div>
 
 
@@ -95,6 +97,7 @@
                 <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 9).Name</button>
 
                 <div class="div-show-ingredients-other m-2">
+
                 </div>
 
             </div>
@@ -121,7 +124,7 @@
     const mealsOther = document.querySelector('.meals-other');
 
     const allIngredientsCategoriesButtons = document.querySelectorAll('.but-ingredient-family');
-    //const divShowIngredientsOther = Array.from(allIngredientsCategoriesButtons).find(button => button.textContent == 'Uzytkownika').nextSibling.nextSibling
+    //const divShowIngredientsOther = Array.from(allIngredientsCategoriesButtons).find(button => button.textContent == 'Użytkownika').nextSibling.nextSibling
     const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other');
 
     const ingredientsData = JSON.parse(document.querySelector('.manage-meals-container').dataset.ingredients)
@@ -139,42 +142,64 @@
     const saveButton = document.querySelector('.save-button')
     const editFormCheckboxes = document.querySelectorAll('.edit-meal-checkboxes input')
 
+    const userId = parseInt(window.localStorage.getItem("userId"));
+
+    getMeals();
+
     editForm.style.display = 'none'
     bindEvents();
 
 
     function bindEvents() {
-        alertSuccess.style.display = 'none';
+        
 
         addButton.onclick = addMeal
         editButton.onclick = displayOrHideEditForm
         saveButton.onclick = updateMeal
         deleteButton.onclick = deleteMeal
 
-        displayMessegeIfDivIsEmpty(mealsOther, "Brak własnych posiłków");
-        hideButtonsIfDivIsEmpty(mealsOther, deleteButton, editButton);
+        //displayMessegeIfDivIsEmpty(mealsOther, "Brak własnych posiłków.");
 
-        displayMessegeIfDivIsEmpty(divShowIngredientsOther, "Brak własnych składników");
+        //displayMessegeIfDivIsEmpty(divShowIngredientsOther, "Brak włanych składników.");
+
+        
 
         for (const button of allIngredientsCategoriesButtons) {
             button.nextSibling.nextSibling.style.display = 'none'
             displayIngredientsGroupAfterClick(button, button.nextSibling.nextSibling)
         }
 
+        displayMessageIfUserIngredientsAreEmpty(divShowIngredientsOther)
+        //window.onload(displayMessageIfUserIngredientsAreEmpty(divShowIngredientsOther));
+
     }
 
     function displayMessegeIfDivIsEmpty(checkedDiv, message) {
-        if (checkedDiv && checkedDiv.children.length <= 0) {
+        if (checkedDiv.children.length <= 0) {
             checkedDiv.innerHTML = message;
-        }
-    }
-
-    function hideButtonsIfDivIsEmpty(checkedDiv, deleteButton, editButton) {
-        if (!$(checkedDiv).children().length > 0) {
             deleteButton.style.display = 'none';
             editButton.style.display = 'none';
         }
+        else {
+            editButton.style.display = 'block';
+            editButton.className = "edit-button btn btn-outline-warning m-1 mx-auto";
+            deleteButton.style.display = 'block';
+            deleteButton.className = "delete-button but but-delete m-1 mx-auto";
+        }
     }
+
+    function displayMessageIfUserIngredientsAreEmpty(checkedDiv) {
+        if (checkedDiv.children.length <= 0) {
+            checkedDiv.innerHTML = "Brak własnych składników";
+        }
+    }
+
+    //function hideButtonsIfDivIsEmpty(checkedDiv, deleteButton, editButton) {
+    //    if (!$(checkedDiv).children().length > 0) {
+    //        deleteButton.style.display = 'none';
+    //        editButton.style.display = 'none';
+    //    }
+    //}
 
     function displayIngredientsGroupAfterClick(button, divOfIngredients) {
 
@@ -195,9 +220,9 @@
             .map(ingredient => parseInt(ingredient.value))
         const meal = {
             name: addMealName.value,
-            categoryId: 6,
             userId: parseInt(window.localStorage.getItem("userId")),
             recipe: addMealRecipe.value,
+            categoryId: 6,
             mealIngredients: selectedIngredients.map(ingredient => ({ ingredientId: ingredient }))
         }
 
@@ -220,8 +245,8 @@
                 else if (isAdded == 2) {
                     mealAddInfo.innerHTML = "Nazwa posiłku musi posiadać co najmniej jedną literę."
                 }
+                getMeals(); 
             })
-        getMeals(); 
     }
 
 
@@ -252,12 +277,13 @@
 
 
     function deleteMeal() {
-        const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked)
+        const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked);
 
         const meal = {
             id: parseInt(selectedMeal.value),
             name: '',
-            userId: parseInt(window.sessionStorage.getItem("userId"))
+            userId: parseInt(window.localStorage.getItem("userId")),
+            categoryId: 6
         }
 
         fetch("/ManageMeals/Delete", {
@@ -267,10 +293,8 @@
             },
             body: JSON.stringify(meal)
         })
-
-        setTimeout(function () {
-            window.location.reload();
-        }, 500); 
+            .then(() => getMeals())
+         
     }
 
 
@@ -319,16 +343,25 @@
 
                 for (const meal of meals) {
                     const label = document.createElement('label');
-                    const checkbox = document.createElement('input');
-                    checkbox.setAttribute("type", "radio");
-                    label.className = "btn btn-outline-primary";
-                    label.innerHTML = ingredient.name;
-                    label.appendChild(checkbox);
+                    const radioButton = document.createElement('input');
+                    radioButton.setAttribute("type", "radio");
+                    radioButton.className = "meal-input m-1";
+                    radioButton.value = meal.id;
+                    radioButton.name = "meal";
+                    label.className = "btn btn-outline-primary m-1";
+                    label.innerHTML = meal.name;
+                    label.appendChild(radioButton);
 
                     divOthers.appendChild(label);
                 }
+                displayMessegeIfDivIsEmpty(mealsOther, "Brak własnych posiłków.")
             }
             )
+    }
+
+    function hideInfos() {
+        alertSuccess.classList.add('unseen');
+        mealAddInfo.innerHTML = "";
     }
 </script>
 
