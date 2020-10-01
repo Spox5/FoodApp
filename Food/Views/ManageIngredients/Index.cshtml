@@ -2,14 +2,24 @@
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<div class="alert alert-success alert-dismissible unseen">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<div class="alert-add-ingredient alert alert-success alert-dismissible unseen">
+    
     <strong>Gratulacje!</strong> Udało Ci się dodać nowy składnik do bazy.
 </div>
+
+<div class="alert-delete-ingredient alert alert-warning alert-dismissible unseen">
+    
+    Składnik został skasowany.
+</div>
+
+@*<div class="alert-delete-ingredient alert alert-warning alert-dismissible unseen">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Składnik został skasowany.
+</div>*@
+
 <div class="main">
 
     <div class="title">Utworzone przez Ciebie składniki:</div>
-
 
     <div class="ingredients-other m-3">
         
@@ -33,7 +43,8 @@
 </div>
 
 <script>
-    const alertSuccess = document.querySelector('.alert');
+    const alertAdd = document.querySelector('.alert-add-ingredient');
+    const alertDelete = document.querySelector('.alert-delete-ingredient');
     const ingredientAddInfo = document.querySelector('.register-form-info');
 
     const ingredientsOther = document.querySelector('.ingredients-other');
@@ -59,7 +70,10 @@
             hideInfos();
             addIngredient();
         }
-        deleteButton.onclick = deleteIngredient
+        deleteButton.onclick = () => {
+            hideInfos();
+            deleteIngredient();
+        }
     }
 
     function displayMessegeIfDivIsEmpty(checkedDiv) {
@@ -92,9 +106,11 @@
         })
             .then(response => response.json())
             .then(isAdded => {
-                if (isAdded == 0)
-                    alertSuccess.classList.remove('unseen');
-
+                if (isAdded == 0) {
+                    alertAdd.classList.remove('unseen');
+                    addIngredientName.value = "";
+                }
+                
                 else if (isAdded == 1) {
                     ingredientAddInfo.innerHTML = "Składnik o nazwie \"" + ingredient.name + "\" już istnieje. Dodaj inny."
                 }
@@ -125,7 +141,11 @@
             },
             body: JSON.stringify(ingredient)
         })
-            .then(() => getIngredients())
+            .then(() => {
+                getIngredients();
+                
+                alertDelete.classList.remove('unseen');
+            })
 
     }
 
@@ -158,7 +178,8 @@
     }
 
     function hideInfos() {
-        alertSuccess.classList.add('unseen');
+        alertAdd.classList.add('unseen');
+        alertDelete.classList.add('unseen');
         ingredientAddInfo.innerHTML = "";
     }
 
