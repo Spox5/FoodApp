@@ -32,13 +32,6 @@ namespace Food.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //var mealsIngredients = new ManageMealViewModel();
-            //mealsIngredients.Meals = mealRepository.GetByUserId(userID);
-            //mealsIngredients.Ingredients = ingredientRepository.GetByUserIdAndAllGeneric(userID);
-
-
-
-            //return View(mealsIngredients);
             var userID = int.Parse(HttpContext.User.Identity.Name);
             var mealsIngredients = new ManageMealViewModel();
             mealsIngredients.Meals = mealRepository.GetByUserId(userID);
@@ -58,7 +51,7 @@ namespace Food.Controllers
                 return 1;
             }
 
-            if (meal.Name == null || meal.Name.Any(character => char.IsLetter(character)))
+            if (meal.Name == null || !meal.Name.Any(character => char.IsLetter(character)))
             {
                 return 2;
             }
