@@ -106,6 +106,37 @@
         font-weight: 600;
     }
 
+.but-edit-meal {
+    border-color: #fca503;
+    color: #fca503;
+}
+
+    .but-edit-meal:hover {
+        background-color: #fca503;
+    }
+
+    .but-edit-meal span:after {
+        font-family: "Font Awesome 5 Free";
+        content: "\f044";
+        font-weight: 200;
+    }
+
+
+.but-add-or-search {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+    .but-add-or-search:hover {
+        background-color: #28a745;
+    }
+
+    .but-add-or-search span:after {
+        font-family: "Font Awesome 5 Free";
+        content: "\f0fe";
+        font-weight: 200;
+    }
+
 
 .but-ingredient-family {
     width: 250px;
@@ -119,12 +150,6 @@
         transition: 0.5s;
     }
 
-
-.but-ingredient-family-fruits span:after {
-    font-family: "Font Awesome 5 Free";
-    content: "\f5d1";
-    font-weight: 600;
-}
 
 *:focus {
     outline: 0 !important;
@@ -153,6 +178,8 @@
         content: "\f2b5";
         font-weight: 200;
     }
+
+
 
 .unseen {
     display: none;

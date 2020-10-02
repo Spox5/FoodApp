@@ -3,26 +3,27 @@
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<div class="alert alert-success alert-dismissible unseen">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<div class="alert-add-meal alert alert-success alert-dismissible unseen">
+
     <strong>Gratulacje!</strong> Udało Ci się dodać nowy posiłek do bazy.
 </div>
+
+<div class="alert-delete-meal alert alert-warning alert-dismissible unseen">
+
+    Posiłek został skasowany.
+</div>
+
+@*<div class="alert alert-success alert-dismissible unseen">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Gratulacje!</strong> Udało Ci się dodać nowy posiłek do bazy.
+</div>*@
 <div class="main manage-meals-container" data-ingredients='@Html.Raw(Json.Serialize(Model.Ingredients))' data-meals='@Html.Raw(Json.Serialize(Model.Meals))'>
 
     <div class="title">Dodane przez Ciebie posiłki:</div>
 
 
     <div class="meals-other m-3">
-        @*@foreach (var meal in Model.Meals)
-        {
-            if (meal.CategoryId == 6)
-            {
-        <label class="btn btn-outline-primary">
-            @meal.Name <input class="meal-input" name="meal" value="@meal.Id" type="radio">
-        </label>
-            }
 
-        }*@
     </div>
 
     <div class="meal-name-form">
@@ -38,7 +39,7 @@
                 @foreach (var ingredient in Model.Ingredients)
                 {
                 <label class="btn btn-sm btn-outline-info">
-                    @ingredient.Name <input type="checkbox" value="@ingredient.Id" />
+                    @ingredient.Name <input class="ingredients-checkboxes-edit-meal" type="checkbox" value="@ingredient.Id" />
                 </label>
                     
                 }
@@ -53,10 +54,8 @@
     </div>
 
     <div>
-        <button class="edit-button btn btn-outline-warning m-2"><span>Edytuj składnik</span></button>
+        <button class="edit-button but but-edit-meal m-2"><span>Edytuj składnik</span></button>
         <button class="delete-button but but-delete m-2"><span>Usuń składnik</span></button>
-        @*<input class="edit-button btn btn-outline-warning m-2" type="button" value="Edytuj">
-        <input class="delete-button btn btn-outline-danger m-2" type="button" value="Usuń">*@
     </div>
 
 
@@ -110,7 +109,7 @@
 
         <small class="form-text register-form-info"></small>
 
-        <button class="add-button btn btn-outline-success" type="button">Dodaj</button>
+        <button class="add-button but but-add-or-search"><span>Dodaj</span></button>
 
     </div>
 
@@ -118,7 +117,8 @@
 
 
 <script>
-    const alertSuccess = document.querySelector('.alert');
+    const alertAdd = document.querySelector('.alert-add-meal');
+    const alertDelete = document.querySelector('.alert-delete-meal');
     const mealAddInfo = document.querySelector('.register-form-info');
 
     const mealsOther = document.querySelector('.meals-other');
@@ -130,6 +130,7 @@
     const ingredientsData = JSON.parse(document.querySelector('.manage-meals-container').dataset.ingredients)
     const mealsData = JSON.parse(document.querySelector('.manage-meals-container').dataset.meals)
 
+    const ingredientsEditMealContainer = document.querySelector('.meal-name-form');
     const ingredientsContainer = document.querySelector('.ingredients')
     const addButton = document.querySelector('.add-button')
     const addMealName = document.querySelector('.input-field')
@@ -152,17 +153,19 @@
 
     function bindEvents() {
         
+        addButton.onclick = () => {
+            hideInfos();
+            addMeal();
+        }
 
-        addButton.onclick = addMeal
         editButton.onclick = displayOrHideEditForm
+
         saveButton.onclick = updateMeal
-        deleteButton.onclick = deleteMeal
 
-        //displayMessegeIfDivIsEmpty(mealsOther, "Brak własnych posiłków.");
-
-        //displayMessegeIfDivIsEmpty(divShowIngredientsOther, "Brak włanych składników.");
-
-        
+        deleteButton.onclick = () => {
+            hideInfos();
+            deleteMeal();
+        }
 
         for (const button of allIngredientsCategoriesButtons) {
             button.nextSibling.nextSibling.style.display = 'none'
@@ -170,7 +173,6 @@
         }
 
         displayMessageIfUserIngredientsAreEmpty(divShowIngredientsOther)
-        //window.onload(displayMessageIfUserIngredientsAreEmpty(divShowIngredientsOther));
 
     }
 
@@ -182,7 +184,7 @@
         }
         else {
             editButton.style.display = 'block';
-            editButton.className = "edit-button btn btn-outline-warning m-1 mx-auto";
+            editButton.className = "edit-button but but-edit-meal m-1 mx-auto";
             deleteButton.style.display = 'block';
             deleteButton.className = "delete-button but but-delete m-1 mx-auto";
         }
@@ -193,13 +195,6 @@
             checkedDiv.innerHTML = "Brak własnych składników";
         }
     }
-
-    //function hideButtonsIfDivIsEmpty(checkedDiv, deleteButton, editButton) {
-    //    if (!$(checkedDiv).children().length > 0) {
-    //        deleteButton.style.display = 'none';
-    //        editButton.style.display = 'none';
-    //    }
-    //}
 
     function displayIngredientsGroupAfterClick(button, divOfIngredients) {
 
@@ -236,8 +231,12 @@
 
             .then(response => response.json())
             .then(isAdded => {
-                if (isAdded == 0) 
-                    alertSuccess.style.display = 'block';
+                if (isAdded == 0) {
+                    addMealName.value = "";
+                    addMealRecipe.value = "";
+                    alertAdd.classList.remove('unseen');
+                }
+                    
                 else if (isAdded == 1) {
                     mealAddInfo.innerHTML = "Posiłek o nazwie \"" + meal.name + "\" już istnieje. Dodaj inny."
                 }
@@ -252,14 +251,22 @@
 
     function updateMeal() {
 
-        const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked)
+        const selectedMeal = Array.from(document.querySelectorAll('.meal-input')).find(meal => meal.checked);
+
+        const ingredients = Array.from(ingredientsEditMealContainer.querySelectorAll('.ingredients-checkboxes-edit-meal'));
+
+        const selectedIngredients = ingredients
+            .filter(ingredient => ingredient.checked)
+            .map(ingredient => parseInt(ingredient.value));
 
         const meal = {
-            Id: parseInt(selectedMeal.value),
-            Name: editInput.value,
-            Recipe: editInputRecipe.value,
+            id: parseInt(selectedMeal.value),
+            name: editInput.value,
+            userId: parseInt(window.localStorage.getItem("userId")),
+            recipe: editInputRecipe.value,
             categoryId: 6,
-            userId: parseInt(window.sessionStorage.getItem("userId"))
+            mealIngredients: selectedIngredients.map(ingredient => ({ ingredientId: ingredient }))
+            
         }
 
         fetch("/ManageMeals/Update", {
@@ -293,7 +300,10 @@
             },
             body: JSON.stringify(meal)
         })
-            .then(() => getMeals())
+            .then(() => {
+                alertDelete.classList.remove('unseen');
+                getMeals()
+            })
          
     }
 
@@ -360,7 +370,8 @@
     }
 
     function hideInfos() {
-        alertSuccess.classList.add('unseen');
+        alertAdd.classList.add('unseen');
+        alertDelete.classList.add('unseen');
         mealAddInfo.innerHTML = "";
     }
 </script>
