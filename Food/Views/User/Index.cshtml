@@ -23,35 +23,56 @@
 
         <div class="col-md-6 text-center">
 
-            <form class="m-5">
-                <label class="title">Logowanie:</label>
-                <div>
-                    <input class="username-input form-control col-xs-2 m-2" type="text" placeholder="Nazwa użytkownika" required>
-                    <small class="form-text username-login-info registerAndLogin-form-info"></small>
-                </div>
-                <div>
-                    <input class="password-input form-control col-xs-2 m-2" type="password" placeholder="Hasło" required>
-                    <small class="form-text password-login-info registerAndLogin-form-info"></small>
-                </div>
-                <div>
-                    <button class="login-button but but-login" type="button"><span>Zaloguj</span></button>
-                </div>
-            </form>
+                <div class="m-5">
+
+                    <label class="title">Logowanie:</label>
+
+                    <div class="m-2">
+                        <input class="username-input form-control col-xs-2" type="text" placeholder="Nazwa użytkownika">
+                        <small class="form-text username-login-info registerAndLogin-form-info"></small>
+                    </div>
 
 
-            <form class=" m-5">
-                <label class="title">Rejestracja:</label>
-                <div class="col-xs-1 m-2">
-                    <input id="UserName" class="username-register-input form-control" type="text" placeholder="Nazwa użytkownika" required>
-                    <small class="form-text username-register-info registerAndLogin-form-info"></small>
+                    <div class="m-2">
+                        <div class="input-group">
+
+                            <input class="password-input form-control border-right-0" type="password" placeholder="Hasło">
+                            <button class="show-password-login-button border-left-0 border" type="button"><i class="fas fa-eye"></i></button>
+
+                        </div>
+                        <small class="form-text password-login-info registerAndLogin-form-info"></small>
+                    </div>
+
+                    <div>
+                        <button class="login-button but but-login" type="button"><span>Zaloguj</span></button>
+                    </div>
+
                 </div>
 
-                <div class="col-xs-1 m-2">
-                    <input class="password-register-input form-control" type="password" placeholder="Hasło" required>
-                    <small class="form-text password-register-info registerAndLogin-form-info"></small>
+                <div class=" m-5">
+
+                    <label class="title">Rejestracja:</label>
+
+                    <div class="m-2">
+                        <input id="UserName" class="username-register-input form-control" type="text" placeholder="Nazwa użytkownika">
+                        <small class="form-text username-register-info registerAndLogin-form-info"></small>
+                    </div>
+
+                    <div class="m-2">
+                        <div class="input-group">
+
+                            <input class="password-register-input form-control" type="password" placeholder="Hasło">
+                            <button class="show-password-register-button border-left-0 border" type="button"><i class="fas fa-eye"></i></button>
+
+                        </div>
+                        <small class="form-text password-register-info registerAndLogin-form-info"></small>
+                    </div>
+
+                    <div>
+                        <button class="register-button but but-register" type="button"><span>Utwórz konto</span></button>
+                    </div>
+
                 </div>
-                <div><button class="register-button but but-register" type="button"><span>Utwórz konto</span></button></div>
-            </form>
 
         </div>
     </div>
@@ -65,12 +86,14 @@
     const usernameInput = document.querySelector('.username-input');
     const usernameLoginInfo = document.querySelector('.username-login-info');
     const passwordInput = document.querySelector('.password-input');
+    const showPasswordLoginButton = document.querySelector('.show-password-login-button');
     const passwordLoginInfo = document.querySelector('.password-login-info');
 
     const registerButton = document.querySelector('.register-button');
     const usernameRegisterInput = document.querySelector('.username-register-input');
     const usernameRegisterInfo = document.querySelector('.username-register-info');
     const passwordRegisterInput = document.querySelector('.password-register-input');
+    const showPasswordRegisterButton = document.querySelector('.show-password-register-button');
     const passwordRegisterInfo = document.querySelector('.password-register-info');
 
     var typingTimer;
@@ -79,11 +102,22 @@
     bindEvents();
 
     function bindEvents() {
+
         alertSuccess.style.display = 'none';
+
         loginButton.onclick = () => {
             hideInfos();
             login();
         }
+
+        showPasswordLoginButton.onclick = () => {
+            showHidePassword(passwordInput);
+        }
+
+        showPasswordRegisterButton.onclick = () => {
+            showHidePassword(passwordRegisterInput);
+        }
+
         registerButton.onclick = () => {
             hideInfos();
             register();
@@ -167,6 +201,14 @@
                 }
 
             })
+    }
+
+    function showHidePassword(passwordInput) {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        }
+        else
+            passwordInput.type = "password";
     }
 
     function hideInfos() {
