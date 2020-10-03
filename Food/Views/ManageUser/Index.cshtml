@@ -37,14 +37,23 @@
     const editButtonPassword = document.querySelector('.edit-button-password');
     const editPasswordInfo = document.querySelector('.password-edit-info');
     
-
+    const userId = parseInt(window.localStorage.getItem("userId"));
     const dataUser = document.querySelector('.main');
 
     bindEvents();
 
     function bindEvents() {
-        editButtonUsername.onclick = editUsername;
-        editButtonPassword.onclick = editPassword;
+        alertEditUser.style.display = 'none';
+
+        editButtonUsername.onclick = () => {
+            hideInfos();
+            editUsername();
+        }
+
+        editButtonPassword.onclick = () => {
+            hideInfos();
+            editPassword();
+        }
     }
 
  
@@ -82,7 +91,7 @@
                 else if (editErrors == 3) {
                     editUsernameInfo.innerHTML = "Taka nazwa użytkownika jest już zajęta.";
                 }
-                
+                getUser();
             })
     }
 
@@ -117,6 +126,24 @@
         else
             editPasswordInfo.innerHTML = "Hasła w obu polach nie pokrywają się. Sprawdź, czy dokładnie powtórzyłeś hasło.";
         
+    }
+
+    function getUser() {
+        fetch(`/ManageUser/GetUser?userId=${userId}`, {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(user => {
+                const title = document.querySelector('.title');
+                title.innerHTML = `Edytuj dane użytkownika ${user.name}.`;
+               
+            })
+    }
+
+    function hideInfos() {
+        alertEditUser.style.display = 'none';
+        editUsernameInfo.innerHTML = "";
+        editPasswordInfo.innerHTML = "";
     }
 
 </script>

@@ -56,6 +56,11 @@ namespace Food.Controllers
                 return 2;
             }
 
+            if (meal.Recipe == null || !meal.Recipe.Any(character => char.IsLetter(character)))
+            {
+                return 3;
+            }
+
             mealRepository.Add(meal);
 
             return 0;

@@ -30,6 +30,11 @@ namespace Food.Controllers
             return View(loggedUser);
         }
 
+        public User GetUser(int userId)
+        {
+            return userRepository.GetById(userId);
+        }
+
         [HttpPatch]
         public int UpdateUsername(int id, string username)
         {
@@ -57,6 +62,7 @@ namespace Food.Controllers
             return 0;
         }
 
+        [HttpPatch]
         public int UpdateUserPassword(int id, string password)
         {
 
@@ -75,7 +81,6 @@ namespace Food.Controllers
             userRepository.Update(userToEdit);
 
             return 0;
-
         }
 
         private (byte[], byte[]) GetPasswordHashAndSalt(string password)
