@@ -14,31 +14,34 @@
     <div class="m-4">
         <small class="form-text text-muted mb-1">Edytuj nazwę użytkownika.</small>
         <input class="input-field-username form-control w-25 mx-auto m-2">
+        <button class="edit-button-username but but-edit-meal m-2"><span>Zmień nazwę użytkownika</span></button>
     </div>
 
     <div class="m-4">
         <small class="form-text text-muted mb-1">Edytuj hasło.</small>
         <input class="input-field-password form-control w-25 mx-auto m-2" placeholder="Nowe hasło">
         <input class="input-field-possword-confirmation form-control w-25 mx-auto m-2" placeholder="Potwierdź hasło">
+        <button class="edit-button-password but but-edit-meal m-2"><span>Zmień hasło</span></button>
     </div>
 
-    <button class="edit-button but but-edit-meal m-2"><span>Edytuj dane</span></button>
+    
 
 </div>
 
 <script>
     const alertEditUser = document.querySelector('.alert-edit-user');
-    const editButton = document.querySelector('.edit-button');
+    const editButtonUsername = document.querySelector('.edit-button-username');
+    const editButtonPassword = document.querySelector('.edit-button-password');
     const dataUser = document.querySelector('.main');
 
     bindEvents();
 
     function bindEvents() {
-        editButton.onclick = editUsername
+        editButtonUsername.onclick = editUsername;
+        editButtonPassword.onclick = editPassword;
     }
 
-    
-
+ 
     function editUsername() {
         const newUsername = document.querySelector('.input-field-username').value;
 
@@ -47,11 +50,11 @@
             name: newUsername,
 
             @*isActive: '@Model.IsActive' == 'True'*@
-            isActive: dataUser.dataset.user.isActive
+            //isActive: dataUser.dataset.user.isActive
 
         }
 
-        fetch("/ManageUser/Update", {
+        fetch(`/ManageUser/UpdateUsername?id=${user.id}&username=${user.name}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -61,6 +64,27 @@
             .then(() => {
                 alertEditUser.classList.remove('unseen');
                 
+            })
+    }
+
+    function editPassword() {
+        const newPassword = document.querySelector('.input-field-password').value;
+
+        const user = {
+            id: parseInt(window.localStorage.getItem("userId")),
+            password: newPassword
+        };
+
+        fetch(`/ManageUser/UpdateUserPassword?id=${user.id}&password=${user.password}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(() => {
+                alertEditUser.classList.remove('unseen');
+
             })
 
     }

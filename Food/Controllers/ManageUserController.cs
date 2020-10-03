@@ -6,7 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Food.Data;
 
 namespace Food.Controllers
 {
@@ -27,10 +30,32 @@ namespace Food.Controllers
             return View(loggedUser);
         }
 
-        [HttpPatch]
-        public void Update([FromBody] User user)
+        public void UpdateUsername(int id, string username)
         {
-            userRepository.Update(user);
+            var userToEdit = userRepository.GetById(id);
+            userToEdit.Name = username;
+            userRepository.Update(userToEdit);
+        }
+
+        public void UpdateUserPassword(int id, string password)
+        {
+            var userToEdit = userRepository.GetById(id);
+
+            (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
+
+            userToEdit.PasswordSalt = passwordSalt;
+            userToEdit.PasswordHash = passwordHash;
+
+            userRepository.Update(userToEdit);
+
+        }
+
+        private (byte[], byte[]) GetPasswordHashAndSalt(string password)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                return (hmac.ComputeHash(Encoding.UTF8.GetBytes(password)), hmac.Key);
+            }
         }
     }
 }

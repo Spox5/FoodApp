@@ -91,8 +91,8 @@ namespace Food.Controllers
         [HttpPost]
         public int Register(string username, string password)
         {
-            var existingUSer = userRepository.GetByName(username);
-            if (existingUSer != null)
+            var existingUser = userRepository.GetByName(username);
+            if (existingUser != null)
             {
                 return 1;
             }
