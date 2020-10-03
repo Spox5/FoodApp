@@ -30,15 +30,41 @@ namespace Food.Controllers
             return View(loggedUser);
         }
 
-        public void UpdateUsername(int id, string username)
+        [HttpPatch]
+        public int UpdateUsername(int id, string username)
         {
             var userToEdit = userRepository.GetById(id);
+            var sameNameExistingUser = userRepository.GetByName(username);
+
+            if (username == null || !username.Any(character => char.IsLetter(character)))
+            {
+                return 1;
+            }
+
+            if (username == userToEdit.Name)
+            {
+                return 2;
+            }
+
+            if (sameNameExistingUser != null)
+            {
+                return 3;
+            }
+
             userToEdit.Name = username;
             userRepository.Update(userToEdit);
+
+            return 0;
         }
 
-        public void UpdateUserPassword(int id, string password)
+        public int UpdateUserPassword(int id, string password)
         {
+
+            if (password == null || password.Length < 5 || !password.Any(character => char.IsDigit(character)))
+            {
+                return 1;
+            }
+
             var userToEdit = userRepository.GetById(id);
 
             (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
@@ -47,6 +73,8 @@ namespace Food.Controllers
             userToEdit.PasswordHash = passwordHash;
 
             userRepository.Update(userToEdit);
+
+            return 0;
 
         }
 

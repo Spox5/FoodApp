@@ -97,7 +97,7 @@ namespace Food.Controllers
                 return 1;
             }
 
-            if (password.Length < 5 || !password.Any(character => char.IsDigit(character)))
+            if (password == null || password.Length < 5 || !password.Any(character => char.IsDigit(character)))
             {
                 return 2;
             }

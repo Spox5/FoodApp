@@ -4,7 +4,7 @@
 
 <div class="alert-edit-user alert alert-warning alert-dismissible unseen">
 
-    Dane uzytkownika zostały zmienione.
+    Dane użytkownika zostały zmienione.
 </div>
 
 <div class="main" data-user='@Html.Raw(Json.Serialize(Model))'>
@@ -13,7 +13,8 @@
 
     <div class="m-4">
         <small class="form-text text-muted mb-1">Edytuj nazwę użytkownika.</small>
-        <input class="input-field-username form-control w-25 mx-auto m-2">
+        <input class="input-field-username form-control w-25 mx-auto m-2" placeholder="Nowa nazwa użytkownika">
+        <small class="form-text username-edit-info registerAndLogin-form-info"></small>
         <button class="edit-button-username but but-edit-meal m-2"><span>Zmień nazwę użytkownika</span></button>
     </div>
 
@@ -21,17 +22,22 @@
         <small class="form-text text-muted mb-1">Edytuj hasło.</small>
         <input class="input-field-password form-control w-25 mx-auto m-2" placeholder="Nowe hasło">
         <input class="input-field-possword-confirmation form-control w-25 mx-auto m-2" placeholder="Potwierdź hasło">
+        <small class="form-text password-edit-info registerAndLogin-form-info"></small>
         <button class="edit-button-password but but-edit-meal m-2"><span>Zmień hasło</span></button>
     </div>
-
-    
 
 </div>
 
 <script>
     const alertEditUser = document.querySelector('.alert-edit-user');
+
     const editButtonUsername = document.querySelector('.edit-button-username');
+    const editUsernameInfo = document.querySelector('.username-edit-info');
+
     const editButtonPassword = document.querySelector('.edit-button-password');
+    const editPasswordInfo = document.querySelector('.password-edit-info');
+    
+
     const dataUser = document.querySelector('.main');
 
     bindEvents();
@@ -61,32 +67,56 @@
             },
             body: JSON.stringify(user)
         })
-            .then(() => {
-                alertEditUser.classList.remove('unseen');
+            .then(response => response.json())
+            .then(editErrors => {
+                if (editErrors == 0) {
+                    alertEditUser.classList.remove('unseen');
+                }
+                else if (editErrors == 1) {
+                    editUsernameInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
+                }
+
+                else if (editErrors == 2) {
+                    editUsernameInfo.innerHTML = "Nie zmieniłeś nazwy użytkownika.";
+                }
+                else if (editErrors == 3) {
+                    editUsernameInfo.innerHTML = "Taka nazwa użytkownika jest już zajęta.";
+                }
                 
             })
     }
 
     function editPassword() {
         const newPassword = document.querySelector('.input-field-password').value;
+        const newPasswordConfirmation = document.querySelector('.input-field-possword-confirmation').value;
 
-        const user = {
-            id: parseInt(window.localStorage.getItem("userId")),
-            password: newPassword
-        };
+        if (newPassword === newPasswordConfirmation) {
 
-        fetch(`/ManageUser/UpdateUserPassword?id=${user.id}&password=${user.password}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(() => {
-                alertEditUser.classList.remove('unseen');
+            const user = {
+                id: parseInt(window.localStorage.getItem("userId")),
+                password: newPassword
+            };
 
+            fetch(`/ManageUser/UpdateUserPassword?id=${user.id}&password=${user.password}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
             })
-
+                .then(response => response.json())
+                .then(editErrors => {
+                    if (editErrors == 0) {
+                        alertEditUser.classList.remove('unseen');
+                    }
+                    else if (editErrors == 1) {
+                        editPasswordInfo.innerHTML = "Hasło musi zawierać co najmniej 5 znaków w tym jedną cyfrę.";
+                    }
+                })
+        }
+        else
+            editPasswordInfo.innerHTML = "Hasła w obu polach nie pokrywają się. Sprawdź, czy dokładnie powtórzyłeś hasło.";
+        
     }
 
 </script>
