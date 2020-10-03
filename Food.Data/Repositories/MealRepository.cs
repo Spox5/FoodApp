@@ -50,6 +50,9 @@ namespace Food.Data.Repositories
 
         public void Update(Meal meal)
         {
+            //var ingredientsToRemove = foodContext.MealsIngredients.Where(x => x.MealId == meal.Id);
+            //foodContext.MealsIngredients.RemoveRange(ingredientsToRemove);
+            //foodContext.MealsIngredients.AddRange(meal.MealIngredients);
             foodContext.Meals.Update(meal);
             foodContext.SaveChanges();
         }

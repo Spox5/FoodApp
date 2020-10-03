@@ -121,6 +121,21 @@
         font-weight: 200;
     }
 
+.but-edit-save {
+    border-color: #17a2b8;
+    color: #17a2b8;
+}
+
+    .but-edit-save:hover {
+        background-color: #17a2b8;
+    }
+
+    .but-edit-save span:after {
+        font-family: "Font Awesome 5 Free";
+        content: "\f0c7";
+        font-weight: 200;
+    }
+
 
 .but-add-or-search {
     border-color: #28a745;

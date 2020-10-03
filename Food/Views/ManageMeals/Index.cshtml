@@ -28,29 +28,30 @@
 
     <div class="meal-name-form">
 
-            <div class="m-3">
-                <small class="form-text text-muted mb-1">Zmień istniejącą nazwę.</small>
-                <input class="meal-name-input form-control w-50 mx-auto">
+        <div class="m-3">
+            <small class="form-text text-muted mb-1">Zmień istniejącą nazwę.</small>
+            <input class="meal-name-input form-control w-50 mx-auto">
 
-            </div>
-        
-            <div class="edit-meal-checkboxes">
-                <div class="title-name">Składniki w wybranym posiłku:</div>
-                @foreach (var ingredient in Model.Ingredients)
-                {
+        </div>
+
+        <div class="edit-meal-checkboxes">
+            <div class="title-name">Składniki w wybranym posiłku:</div>
+            @foreach (var ingredient in Model.Ingredients)
+            {
                 <label class="btn btn-sm btn-outline-info">
                     @ingredient.Name <input class="ingredients-checkboxes-edit-meal" type="checkbox" value="@ingredient.Id" />
                 </label>
-                    
-                }
-            </div>
 
-            <div class="m-3">
-                <small class="form-text text-muted mb-1">Skoryguj istniejący przepis.</small>
-                <textarea class="meal-recipe-input form-control w-50 mx-auto" placeholder="Nowy przepis"></textarea>
-            </div>
+            }
+        </div>
 
-        <input class="save-button btn btn-outline-primary m-2" type="button" value="Zapisz">
+        <div class="m-3">
+            <small class="form-text text-muted mb-1">Skoryguj istniejący przepis.</small>
+            <textarea class="meal-recipe-input form-control w-50 mx-auto" placeholder="Nowy przepis"></textarea>
+        </div>
+
+
+        <button class="save-button but but-edit-save m-2"><span>Zapisz zmiany</span></button>
     </div>
 
     <div>
@@ -109,7 +110,7 @@
 
         <small class="form-text register-form-info"></small>
 
-        <button class="add-button but but-add-or-search"><span>Dodaj</span></button>
+        <button class="add-button but but-add-or-search"><span>Dodaj posiłek</span></button>
 
     </div>
 
@@ -265,7 +266,7 @@
             userId: parseInt(window.localStorage.getItem("userId")),
             recipe: editInputRecipe.value,
             categoryId: 6,
-            mealIngredients: selectedIngredients.map(ingredient => ({ ingredientId: ingredient }))
+            mealIngredients: selectedIngredients.map(ingredient => ({ ingredientId: ingredient, mealid: parseInt(selectedMeal.value) }))
             
         }
 

@@ -1,0 +1,68 @@
+﻿@model Food.Data.Models.User
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="alert-edit-user alert alert-warning alert-dismissible unseen">
+
+    Dane uzytkownika zostały zmienione.
+</div>
+
+<div class="main" data-user='@Html.Raw(Json.Serialize(Model))'>
+
+    <div class="title">Edytuj dane użytkownika @Model.Name</div>
+
+    <div class="m-4">
+        <small class="form-text text-muted mb-1">Edytuj nazwę użytkownika.</small>
+        <input class="input-field-username form-control w-25 mx-auto m-2">
+    </div>
+
+    <div class="m-4">
+        <small class="form-text text-muted mb-1">Edytuj hasło.</small>
+        <input class="input-field-password form-control w-25 mx-auto m-2" placeholder="Nowe hasło">
+        <input class="input-field-possword-confirmation form-control w-25 mx-auto m-2" placeholder="Potwierdź hasło">
+    </div>
+
+    <button class="edit-button but but-edit-meal m-2"><span>Edytuj dane</span></button>
+
+</div>
+
+<script>
+    const alertEditUser = document.querySelector('.alert-edit-user');
+    const editButton = document.querySelector('.edit-button');
+    const dataUser = document.querySelector('.main');
+
+    bindEvents();
+
+    function bindEvents() {
+        editButton.onclick = editUsername
+    }
+
+    
+
+    function editUsername() {
+        const newUsername = document.querySelector('.input-field-username').value;
+
+        const user = {
+            id: parseInt(window.localStorage.getItem("userId")),
+            name: newUsername,
+
+            @*isActive: '@Model.IsActive' == 'True'*@
+            isActive: dataUser.dataset.user.isActive
+
+        }
+
+        fetch("/ManageUser/Update", {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(() => {
+                alertEditUser.classList.remove('unseen');
+                
+            })
+
+    }
+
+</script>

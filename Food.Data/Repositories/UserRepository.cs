@@ -15,6 +15,11 @@ namespace Food.Data.Repositories
             this.foodContext = foodContext;
         }
 
+        public User GetById(int id)
+        {
+            return foodContext.Users.FirstOrDefault(user => user.Id == id);
+        }
+
         public User GetByName(string name)
         {
             return foodContext.Users.FirstOrDefault(user => user.Name == name);
@@ -23,6 +28,12 @@ namespace Food.Data.Repositories
         public void Add(User user)
         {
             foodContext.Users.Add(user);
+            foodContext.SaveChanges();
+        }
+
+        public void Update(User user)
+        {
+            foodContext.Users.Update(user);
             foodContext.SaveChanges();
         }
 
