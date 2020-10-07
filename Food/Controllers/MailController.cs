@@ -18,9 +18,9 @@ namespace Food.Controllers
         public void SendEmail(Guid g)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Joey Tribbiani", "asystentjedzeniowy@mateuszmusiela.it"));
+            message.From.Add(new MailboxAddress("Asystent jedzeniowy", "asystentjedzeniowy@mateuszmusiela.it"));
             message.To.Add(new MailboxAddress("Mrs. Chanandler Bong", "examplemail@mail.com"));
-            message.Subject = "How you doin'?";
+            message.Subject = "Aktywacja konta w aplikacji Asystent Jedzeniowy";
 
             message.Body = new TextPart("plain")
             {

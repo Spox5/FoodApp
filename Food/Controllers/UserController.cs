@@ -5,12 +5,15 @@ using Food.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Food.Controllers
 {
@@ -55,6 +58,7 @@ namespace Food.Controllers
                 return View(ViewData);
             }
         }
+
 
         [HttpGet]
         public ActionResult<UserViewModel> Login(string username, string password)
@@ -123,10 +127,12 @@ namespace Food.Controllers
             };
         }
 
+
         [HttpPost]
-        public int Register(string username, string password)
+        public int Register(string username, string password, string email)
         {
             var existingUser = userRepository.GetByName(username);
+
             if (existingUser != null)
             {
                 return 1;
@@ -140,6 +146,11 @@ namespace Food.Controllers
             if (username == null || !username.Any(character => char.IsLetter(character)))
             {
                 return 3;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                return 4;
             }
 
             (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
@@ -164,6 +175,13 @@ namespace Food.Controllers
             return 0;
         }
 
+        public static bool IsValidEmail(string email)
+        {
+            if (new EmailAddressAttribute().IsValid(email))
+                return true;
+
+            return false;
+        }
 
 
         [HttpGet]
@@ -174,11 +192,13 @@ namespace Food.Controllers
             return Redirect($"/{nameof(UserController).Replace("Controller", "")}");
         }
 
+
         [HttpGet]
         public bool ValidateUsername(string username)
         {
             return !userRepository.DoesUserExist(username);
         }
+
 
         private byte[] GetHash(string password, byte[] salt)
         {
@@ -196,6 +216,7 @@ namespace Food.Controllers
                 return (hmac.ComputeHash(Encoding.UTF8.GetBytes(password)), hmac.Key);
             }
         }
+
 
         private string GetJwtToken(int userId)
         {
@@ -215,5 +236,6 @@ namespace Food.Controllers
 
             return tokenHandler.WriteToken(token);
         }
+
     }
 }

@@ -60,6 +60,11 @@
                     </div>
 
                     <div class="m-2">
+                        <input class="email-register-input form-control" type="text" placeholder="Email">
+                        <small class="form-text email-register-info registerAndLogin-form-info"></small>
+                    </div>
+
+                    <div class="m-2">
                         <div class="input-group">
 
                             <input class="password-register-input form-control" type="password" placeholder="Hasło">
@@ -93,6 +98,8 @@
     const registerButton = document.querySelector('.register-button');
     const usernameRegisterInput = document.querySelector('.username-register-input');
     const usernameRegisterInfo = document.querySelector('.username-register-info');
+    const emailRegisterInput = document.querySelector('.email-register-input');
+    const emailRegisterInfo = document.querySelector('.email-register-info');
     const passwordRegisterInput = document.querySelector('.password-register-input');
     const showPasswordRegisterButton = document.querySelector('.show-password-register-button');
     const passwordRegisterInfo = document.querySelector('.password-register-info');
@@ -181,10 +188,11 @@
         var user = {
             //tu działa parser małe litery pierwsze na wielkie
             name: usernameRegisterInput.value,
+            email: emailRegisterInput.value,
             password: passwordRegisterInput.value
         };
 
-        fetch(`/User/Register?username=${user.name}&password=${user.password}`, {
+        fetch(`/User/Register?username=${user.name}&password=${user.password}&email=${user.email}`, {
             method: 'POST'
         })
             .then(response => response.json())
@@ -204,6 +212,9 @@
                 }
                 else if (isRegistered == 3) {
                     usernameRegisterInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
+                }
+                else if (isRegistered == 4) {
+                    emailRegisterInfo.innerHTML = "Adres e-mail jest niepoprawny.";
                 }
 
             })
