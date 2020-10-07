@@ -25,6 +25,11 @@ namespace Food.Data.Repositories
             return foodContext.Users.FirstOrDefault(user => user.Name == name);
         }
 
+        public User GetByEmail(string email)
+        {
+            return foodContext.Users.FirstOrDefault(user => user.Email == email);
+        }
+
         public User GetByGuid(Guid g)
         {
             return foodContext.Users.FirstOrDefault(user => user.guid == g);

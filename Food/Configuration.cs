@@ -7,9 +7,6 @@ namespace Food
     {
         public string ConnectionString { get; set; }
 
-        internal static IConfiguration GetSection(string v)
-        {
-            throw new NotImplementedException();
-        }
+        public string Server { get; set; }
     }
 }

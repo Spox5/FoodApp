@@ -10,16 +10,24 @@ namespace Food.Controllers
 {
     public class MailController : Controller
     {
+        private Configuration configuration;
+        public MailController(Configuration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public void SendEmail(Guid g)
+        public void SendEmail(Guid g, string email)
         {
+            
+
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Asystent jedzeniowy", "asystentjedzeniowy@mateuszmusiela.it"));
-            message.To.Add(new MailboxAddress("Mrs. Chanandler Bong", "examplemail@mail.com"));
+            message.To.Add(new MailboxAddress("", email));
             message.Subject = "Aktywacja konta w aplikacji Asystent Jedzeniowy";
 
             message.Body = new TextPart("plain")
@@ -37,7 +45,7 @@ namespace Food.Controllers
 
             using (var client = new SmtpClient())
             {
-                client.Connect("serwer", 465, MailKit.Security.SecureSocketOptions.Auto);
+                client.Connect(configuration.Server, 465, MailKit.Security.SecureSocketOptions.Auto);
 
                 // Note: only needed if the SMTP server requires authentication
                 client.Authenticate("login", "password");

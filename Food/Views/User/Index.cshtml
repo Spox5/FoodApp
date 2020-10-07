@@ -29,7 +29,7 @@
                     <label class="title">Logowanie:</label>
 
                     <div class="m-2">
-                        <input class="username-input form-control col-xs-2" type="text" placeholder="Nazwa użytkownika">
+                        <input class="username-input form-control col-xs-2" type="text" placeholder="Email lub nazwa użytkownika">
                         <small class="form-text username-login-info registerAndLogin-form-info"></small>
                     </div>
 
@@ -153,7 +153,7 @@
             password: passwordInput.value
         };
 
-        fetch(`/User/Login?username=${user.name}&password=${user.password}`, {
+        fetch(`/User/Login?usernameOrEmail=${user.name}&password=${user.password}`, {
             method: 'GET'
         })
             .then(response => response.json())

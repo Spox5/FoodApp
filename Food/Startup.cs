@@ -38,6 +38,7 @@ namespace Food
             services.AddScoped<IngredientRepository>();
             services.AddScoped<UserRepository>();
             services.AddScoped<IngredientCategoryRepository>();
+            services.AddSingleton<Configuration>(configuration);
 
             services.AddAuthentication(options =>
             {

@@ -61,9 +61,15 @@ namespace Food.Controllers
 
 
         [HttpGet]
-        public ActionResult<UserViewModel> Login(string username, string password)
+        public ActionResult<UserViewModel> Login(string usernameOrEmail, string password)
         {
-            var user = userRepository.GetByName(username);
+            User user;
+
+            if (usernameOrEmail.Contains('@'))
+                user = userRepository.GetByEmail(usernameOrEmail);
+            else
+                user = userRepository.GetByName(usernameOrEmail);
+
 
             if (user == null)
             {
@@ -74,7 +80,7 @@ namespace Food.Controllers
                 };
             }
 
-            if (username.Length < 1)
+            if (usernameOrEmail.Length < 1)
             {
                 return new UserViewModel
                 {
@@ -163,14 +169,15 @@ namespace Food.Controllers
                 PasswordHash = passwordHash,
                 IsActive = false,
                 PasswordSalt = passwordSalt,
-                guid = g
+                guid = g,
+                Email = email
             };
 
             userRepository.Add(user);
             var registeredUserId = userRepository.GetByName(user.Name).Id;
 
             MailController mail = new MailController();
-            mail.SendEmail(g);
+            mail.SendEmail(g, email);
 
             return 0;
         }
