@@ -1,0 +1,28 @@
+﻿
+
+@{ Layout = "~/Views/Shared/_LayoutWithoutNavigation.cshtml"; }
+
+<div class="main col-md-12 centered">
+    <div class="alert alert-success">
+        <strong>@ViewData["message"]</strong>
+    </div>
+
+    <button class="but but-redirect" type="button"><span>Wróć na stronę logowania</span></button>
+
+</div>
+
+<script>
+    const redirectButton = document.querySelector('.but-redirect');
+
+    bindEvents();
+
+    function bindEvents() {
+        redirectButton.onclick = goToLoginPage;
+    }
+
+    function goToLoginPage() {
+        window.location.href = "\Index";
+    }
+
+    
+</script>

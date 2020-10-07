@@ -5,7 +5,8 @@
 
 <div class="col-md-12 centered">
     <div class="alert alert-success">
-        <strong>Gratulacje!</strong> Udało Ci się utworzyć nowe konto. Teraz możesz zacząć korzystać z Asystenta Jedzeniowego.
+        <strong>Gratulacje!</strong> Udało Ci się utworzyć nowe konto. Na Twojego maila została wysłana wiadomość z linkiem aktywującym konto.
+        Po aktywacji możliwe będzie zalogowanie się.
     </div>
     <div class="row align-items-center ">
         <div class="col-md-6 text-center border-danger border-right">
@@ -167,6 +168,9 @@
                         passwordLoginInfo.innerHTML = "Wpisz hasło.";
                     }
                     else if (user.errorCode == 4) {
+                        passwordLoginInfo.innerHTML = "Użytkownik nieaktywny.";
+                    }
+                    else if (user.errorCode == 5) {
                         passwordLoginInfo.innerHTML = "Nieprawidłowe hasło";
                     }
                 }
@@ -187,7 +191,9 @@
             .then(isRegistered => {
                 if (isRegistered == 0) {
                     alertSuccess.style.display = 'block';
-
+                    usernameRegisterInput.value = "";
+                    passwordRegisterInput.value = "";
+                    window.scrollTo(0, 0);
                 }
                 else if (isRegistered == 1) {
                     usernameRegisterInfo.innerHTML = "Użytkownik o nazwie \"" + usernameRegisterInput.value + "\" już istnieje.";

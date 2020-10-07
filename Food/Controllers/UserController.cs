@@ -30,6 +30,32 @@ namespace Food.Controllers
             return View();
         }
 
+        
+        public ActionResult ActivateAccount(string g)
+        {
+            Guid guid = Guid.Parse(g);
+
+            var user = userRepository.GetByGuid(guid);
+
+            if (user.guid == guid && user.IsActive == false)
+            {
+                user.IsActive = true;
+                userRepository.Update(user);
+                ViewData["message"] = "Twoje konto zostało aktywowane. Możesz teraz się zalogować.";
+                return View(ViewData);
+            }
+            else if (user.IsActive == true)
+            {
+                ViewData["message"] = "To konto jest już aktywne.";
+                return View(ViewData);
+            }
+            else
+            {
+                ViewData["message"] = "Nie masz uprawnień do aktywacji tego konta.";
+                return View(ViewData);
+            }
+        }
+
         [HttpGet]
         public ActionResult<UserViewModel> Login(string username, string password)
         {
@@ -62,6 +88,15 @@ namespace Food.Controllers
                 };
             }
 
+            if (user.IsActive == false)
+            {
+                return new UserViewModel
+                {
+                    Success = false,
+                    ErrorCode = 4
+                };
+            }
+
             var passwordHash = GetHash(password, user.PasswordSalt);
 
             if (user.PasswordHash.SequenceEqual(passwordHash))
@@ -84,7 +119,7 @@ namespace Food.Controllers
             return new UserViewModel
             {
                 Success = false,
-                ErrorCode = 4
+                ErrorCode = 5
             };
         }
 
@@ -109,15 +144,22 @@ namespace Food.Controllers
 
             (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
 
+            Guid g = Guid.NewGuid();
+
             var user = new User
             {
                 Name = username,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
+                IsActive = false,
+                PasswordSalt = passwordSalt,
+                guid = g
             };
 
             userRepository.Add(user);
             var registeredUserId = userRepository.GetByName(user.Name).Id;
+
+            MailController mail = new MailController();
+            mail.SendEmail(g);
 
             return 0;
         }

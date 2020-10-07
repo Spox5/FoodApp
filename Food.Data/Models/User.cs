@@ -1,5 +1,8 @@
 ﻿
 
+using System;
+using System.Net.Mail;
+
 namespace Food.Data.Models
 {
     public class User
@@ -9,5 +12,6 @@ namespace Food.Data.Models
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public bool IsActive { get; set; }
+        public Guid guid { get; set; }
     }
 }

@@ -195,6 +195,20 @@
     }
 
 
+.but-redirect {
+    background-color: #17a2b8;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+
+    .but-redirect span:after {
+        font-family: "Font Awesome 5 Free";
+        content: "\f124";
+        font-weight: 600;
+    }
 
 .unseen {
     display: none;
