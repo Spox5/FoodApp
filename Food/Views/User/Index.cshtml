@@ -29,7 +29,7 @@
                     <label class="title">Logowanie:</label>
 
                     <div class="m-2">
-                        <input class="username-input form-control col-xs-2" type="text" placeholder="Email lub nazwa użytkownika">
+                        <input class="username-or-email-input form-control col-xs-2" type="text" placeholder="Email lub nazwa użytkownika">
                         <small class="form-text username-login-info registerAndLogin-form-info"></small>
                     </div>
 
@@ -89,7 +89,7 @@
     const alertSuccess = document.querySelector('.alert');
 
     const loginButton = document.querySelector('.login-button');
-    const usernameInput = document.querySelector('.username-input');
+    const usernameOrEmailInput = document.querySelector('.username-or-email-input');
     const usernameLoginInfo = document.querySelector('.username-login-info');
     const passwordInput = document.querySelector('.password-input');
     const showPasswordLoginButton = document.querySelector('.show-password-login-button');
@@ -134,6 +134,7 @@
         ///////////////
         //usernameRegisterInput.oninput = validateUsername
         waitUntilTypeAndCheck(usernameRegisterInput, usernameRegisterInfo, validateUsername);
+        waitUntilTypeAndCheck(emailRegisterInput, emailRegisterInfo, validateEmail);
     }
 
     function waitUntilTypeAndCheck(inputToCheck, fieldToClear, functionToExecute) {
@@ -149,7 +150,7 @@
     function login() {
         var user = {
             //tu działa parser małe litery pierwsze na wielkie
-            name: usernameInput.value,
+            name: usernameOrEmailInput.value,
             password: passwordInput.value
         };
 
@@ -206,14 +207,16 @@
                 else if (isRegistered == 1) {
                     usernameRegisterInfo.innerHTML = "Użytkownik o nazwie \"" + usernameRegisterInput.value + "\" już istnieje.";
                 }
-
                 else if (isRegistered == 2) {
-                    passwordRegisterInfo.innerHTML = "Hasło musi zawierać co najmniej 5 znaków w tym jedną cyfrę";
+                    emailRegisterInfo.innerHTML = "Użytkownik o adresie e-mail \"" + emailRegisterInput.value + "\" już istnieje.";
                 }
                 else if (isRegistered == 3) {
-                    usernameRegisterInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
+                    passwordRegisterInfo.innerHTML = "Hasło musi zawierać co najmniej 5 znaków w tym jedną cyfrę";
                 }
                 else if (isRegistered == 4) {
+                    usernameRegisterInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
+                }
+                else if (isRegistered == 5) {
                     emailRegisterInfo.innerHTML = "Adres e-mail jest niepoprawny.";
                 }
 
@@ -233,6 +236,7 @@
         usernameLoginInfo.innerHTML = "";
         passwordLoginInfo.innerHTML = "";
         usernameRegisterInfo.innerHTML = "";
+        emailRegisterInfo.innerHTML = "";
         passwordRegisterInfo.innerHTML = "";
     }
 
@@ -242,6 +246,16 @@
             .then(isValid => {
                 if (isValid == 'false') {
                     usernameRegisterInfo.innerHTML = "Taki użytkownik już istnieje.";
+                }
+            })
+    }
+
+    function validateEmail() {
+        fetch(`/User/ValidateEmail?email=${emailRegisterInput.value}`)
+            .then(response => response.text())
+            .then(isValid => {
+                if (isValid == 'false') {
+                    emailRegisterInfo.innerHTML = "Użytkownik o takim adresie e-mail już istnieje.";
                 }
             })
     }

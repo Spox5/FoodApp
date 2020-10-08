@@ -48,7 +48,7 @@ namespace Food.Controllers
                 client.Connect(configuration.Server, 465, MailKit.Security.SecureSocketOptions.Auto);
 
                 // Note: only needed if the SMTP server requires authentication
-                client.Authenticate("login", "password");
+                client.Authenticate(configuration.Log, configuration.Pas);
 
                 client.Send(message);
                 client.Disconnect(true);

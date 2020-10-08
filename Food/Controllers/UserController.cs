@@ -19,12 +19,14 @@ namespace Food.Controllers
 {
     public class UserController : Controller
     {
+        private Configuration configuration;
         private readonly UserRepository userRepository;
         private const string securityKey = "gjknlfgdnjkl32423";
         private const int tokenExpirationTimeInMinutes = 1000;
 
-        public UserController(UserRepository userRepository)
+        public UserController(UserRepository userRepository, Configuration configuration)
         {
+            this.configuration = configuration;
             this.userRepository = userRepository;
         }
 
@@ -137,26 +139,32 @@ namespace Food.Controllers
         [HttpPost]
         public int Register(string username, string password, string email)
         {
-            var existingUser = userRepository.GetByName(username);
+            var existingUserByEmail = userRepository.GetByEmail(email);
+            var existingUserByName = userRepository.GetByName(username);
 
-            if (existingUser != null)
+            if (existingUserByName != null)
             {
                 return 1;
             }
 
-            if (password == null || password.Length < 5 || !password.Any(character => char.IsDigit(character)))
+            if (existingUserByEmail != null)
             {
                 return 2;
             }
 
-            if (username == null || !username.Any(character => char.IsLetter(character)))
+            if (password == null || password.Length < 5 || !password.Any(character => char.IsDigit(character)))
             {
                 return 3;
             }
 
-            if (!IsValidEmail(email))
+            if (username == null || !username.Any(character => char.IsLetter(character)))
             {
                 return 4;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                return 5;
             }
 
             (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
@@ -176,7 +184,7 @@ namespace Food.Controllers
             userRepository.Add(user);
             var registeredUserId = userRepository.GetByName(user.Name).Id;
 
-            MailController mail = new MailController();
+            MailController mail = new MailController(configuration);
             mail.SendEmail(g, email);
 
             return 0;
@@ -204,6 +212,12 @@ namespace Food.Controllers
         public bool ValidateUsername(string username)
         {
             return !userRepository.DoesUserExist(username);
+        }
+
+        [HttpGet]
+        public bool ValidateEmail(string email)
+        {
+            return !userRepository.DoesUserExistByEmail(email);
         }
 
 

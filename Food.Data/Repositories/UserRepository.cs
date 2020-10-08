@@ -51,5 +51,10 @@ namespace Food.Data.Repositories
         {
             return foodContext.Users.Any(x => x.Name == userName);
         }
+
+        public bool DoesUserExistByEmail(string userEmail)
+        {
+            return foodContext.Users.Any(x => x.Email == userEmail);
+        }
     }
 }
