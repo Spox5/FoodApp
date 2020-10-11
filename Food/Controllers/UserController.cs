@@ -4,6 +4,7 @@ using Food.Data.Repositories;
 using Food.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MimeKit;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -162,9 +163,14 @@ namespace Food.Controllers
                 return 4;
             }
 
-            if (!IsValidEmail(email))
+            if (email == null)
             {
                 return 5;
+            }
+            
+            if (!IsValidEmail(email))
+            {
+                return 6;
             }
 
             (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(password);
@@ -185,10 +191,47 @@ namespace Food.Controllers
             var registeredUserId = userRepository.GetByName(user.Name).Id;
 
             MailController mail = new MailController(configuration);
-            mail.SendEmail(g, email);
+            mail.SendEmailRegistration(g, username, email);
 
             return 0;
         }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPatch]
+        public int ForgotPasswordSendNewPassword(string username, string email)
+        {
+            if (string.IsNullOrEmpty(username))
+                return 1;
+
+            if (string.IsNullOrEmpty(email))
+                return 2;
+
+            if (!IsValidEmail(email))
+                return 3;
+
+            var existingUserByEmail = userRepository.GetByEmail(email);
+
+            if (existingUserByEmail.Name != username)
+                return 4;
+
+            var newPassword = GenerateNewPassword();
+
+            (byte[] passwordHash, byte[] passwordSalt) = GetPasswordHashAndSalt(newPassword);
+            existingUserByEmail.PasswordSalt = passwordSalt;
+            existingUserByEmail.PasswordHash = passwordHash;
+
+            userRepository.Update(existingUserByEmail);
+
+            MailController mail = new MailController(configuration);
+            mail.SendEmailForgotPassword(email, newPassword);
+
+            return 0;
+        }
+
 
         public static bool IsValidEmail(string email)
         {
@@ -196,6 +239,62 @@ namespace Food.Controllers
                 return true;
 
             return false;
+        }
+
+        private static string GenerateNewPassword()
+        {
+            char[] Punctuations = "!@#$%^&*()_-+=[{]};:>|./?".ToCharArray();
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                int length = 8;
+                int numberOfNonAlphanumericCharacters = 1;
+
+                var byteBuffer = new byte[length];
+
+                rng.GetBytes(byteBuffer);
+
+                var count = 0;
+                var characterBuffer = new char[length];
+
+                for (var iter = 0; iter < length; iter++)
+                {
+                    var i = byteBuffer[iter] % 87;
+
+                    if (i < 10)
+                        characterBuffer[iter] = (char)('0' + i);
+
+                    else if (i < 36)
+                        characterBuffer[iter] = (char)('A' + i - 10);
+
+                    else if (i < 62)
+                        characterBuffer[iter] = (char)('a' + i - 36);
+
+                    else
+                        characterBuffer[iter] = Punctuations[i - 62];
+                        count++;
+                }
+
+                if (count >= numberOfNonAlphanumericCharacters)
+                    return new string(characterBuffer);
+
+                int j;
+                var rand = new Random();
+
+                for (j = 0; j < numberOfNonAlphanumericCharacters - count; j++)
+                {
+                    int k;
+                    do
+                    {
+                        k = rand.Next(0, length);
+                    }
+                    while (!char.IsLetterOrDigit(characterBuffer[k]));
+
+                    characterBuffer[k] = Punctuations[rand.Next(0, Punctuations.Length)];
+                }
+
+                return new string(characterBuffer);
+            }
         }
 
 

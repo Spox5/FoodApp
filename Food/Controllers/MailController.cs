@@ -21,7 +21,7 @@ namespace Food.Controllers
             return View();
         }
 
-        public void SendEmail(Guid g, string email)
+        public void SendEmailRegistration(Guid g, string username, string email)
         {
             
 
@@ -35,14 +35,42 @@ namespace Food.Controllers
 
                 Text = @"Witaj,
 
-                Dziękujemy za zarejestrowanie się w aplikacji Asystent Jedzeniowy. Aby aktywować Twoje konto i móc się zalogować,
-                kliknij proszę w poniższy link.
+                Dziękujemy za zarejestrowanie się w aplikacji Asystent Jedzeniowy.
+            
+                Aby aktywować Twoje konto i móc się zalogować,kliknij proszę w poniższy link.
 
-                https://localhost:5001/User/ActivateAccount?g=" + g
+                https://localhost:5001/User/ActivateAccount?g=" + g + 
+                
+                "Twoja nazwa konta to: " + username
 
                 
             };
 
+            ConnectServerAndSend(message);
+        }
+
+        public void SendEmailForgotPassword(string email, string newPassword)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Asystent jedzeniowy", "asystentjedzeniowy@mateuszmusiela.it"));
+            message.To.Add(new MailboxAddress("", email));
+            message.Subject = "Przypomnienie hasła w aplikacji Asystent Jedzeniowy";
+
+            message.Body = new TextPart("plain")
+            {
+
+                Text = @"Witaj,
+
+                Skorzystałeś z usługi przypomnienia hasła.
+                Twoje nowe hasło: " + newPassword
+
+            };
+
+            ConnectServerAndSend(message);
+        }
+
+        private void ConnectServerAndSend(MimeMessage message)
+        {
             using (var client = new SmtpClient())
             {
                 client.Connect(configuration.Server, 465, MailKit.Security.SecureSocketOptions.Auto);

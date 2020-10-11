@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Food.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace Food.Controllers
 {
@@ -60,6 +61,41 @@ namespace Food.Controllers
             userRepository.Update(userToEdit);
 
             return 0;
+        }
+
+        [HttpPatch]
+        public int UpdateUserEmail(int id, string email)
+        {
+            var userToEdit = userRepository.GetById(id);
+            var sameEmailExistingUser = userRepository.GetByEmail(email);
+
+            if (email == null)
+            {
+                return 1;
+            }
+
+            if (email == userToEdit.Email)
+            {
+                return 2;
+            }
+
+            if (sameEmailExistingUser != null)
+            {
+                return 3;
+            }
+
+            userToEdit.Email = email;
+            userRepository.Update(userToEdit);
+
+            return 0;
+        }
+
+        public static bool IsValidEmail(string email)
+        {
+            if (new EmailAddressAttribute().IsValid(email))
+                return true;
+
+            return false;
         }
 
         [HttpPatch]

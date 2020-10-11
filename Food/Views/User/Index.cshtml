@@ -24,31 +24,33 @@
 
         <div class="col-md-6 text-center">
 
-                <div class="m-5">
+            <div class="m-5">
 
-                    <label class="title">Logowanie:</label>
+                <label class="title">Logowanie:</label>
 
-                    <div class="m-2">
-                        <input class="username-or-email-input form-control col-xs-2" type="text" placeholder="Email lub nazwa użytkownika">
-                        <small class="form-text username-login-info registerAndLogin-form-info"></small>
-                    </div>
-
-
-                    <div class="m-2">
-                        <div class="input-group">
-
-                            <input class="password-input form-control border-right-0" type="password" placeholder="Hasło">
-                            <button class="show-password-login-button border-left-0 border" type="button"><i class="fas fa-eye"></i></button>
-
-                        </div>
-                        <small class="form-text password-login-info registerAndLogin-form-info"></small>
-                    </div>
-
-                    <div>
-                        <button class="login-button but but-login" type="button"><span>Zaloguj</span></button>
-                    </div>
-
+                <div class="m-2">
+                    <input class="username-or-email-input form-control col-xs-2" type="text" placeholder="Email lub nazwa użytkownika">
+                    <small class="form-text username-login-info registerAndLogin-form-info"></small>
                 </div>
+
+
+                <div class="m-2">
+                    <div class="input-group">
+
+                        <input class="password-input form-control border-right-0" type="password" placeholder="Hasło">
+                        <button class="show-password-login-button border-left-0 border" type="button"><i class="fas fa-eye"></i></button>
+
+                    </div>
+                    <small class="form-text password-login-info registerAndLogin-form-info"></small>
+                </div>
+
+                <div>
+                    <button class="login-button but but-login" type="button"><span>Zaloguj</span></button>
+                </div>
+
+                <a class="m-1" href="/User/ForgotPassword">Zapomniałem hasła</a>
+
+            </div>
 
                 <div class=" m-5">
 
@@ -217,6 +219,9 @@
                     usernameRegisterInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
                 }
                 else if (isRegistered == 5) {
+                    emailRegisterInfo.innerHTML = "Wpisz adres e-mail.";
+                }
+                else if (isRegistered == 6) {
                     emailRegisterInfo.innerHTML = "Adres e-mail jest niepoprawny.";
                 }
 
