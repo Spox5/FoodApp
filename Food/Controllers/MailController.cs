@@ -23,11 +23,9 @@ namespace Food.Controllers
 
         public void SendEmailRegistration(Guid g, string username, string email)
         {
-            
-
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Asystent jedzeniowy", "asystentjedzeniowy@mateuszmusiela.it"));
-            message.To.Add(new MailboxAddress("", email));
+            message.To.Add(new MailboxAddress(username, email));
             message.Subject = "Aktywacja konta w aplikacji Asystent Jedzeniowy";
 
             message.Body = new TextPart("plain")
@@ -36,13 +34,10 @@ namespace Food.Controllers
                 Text = @"Witaj,
 
                 Dziękujemy za zarejestrowanie się w aplikacji Asystent Jedzeniowy.
-            
+
                 Aby aktywować Twoje konto i móc się zalogować,kliknij proszę w poniższy link.
 
-                https://localhost:5001/User/ActivateAccount?g=" + g + 
-                
-                "Twoja nazwa konta to: " + username
-
+                https://localhost:5001/User/ActivateAccount?g=" + g
                 
             };
 
@@ -62,6 +57,7 @@ namespace Food.Controllers
                 Text = @"Witaj,
 
                 Skorzystałeś z usługi przypomnienia hasła.
+
                 Twoje nowe hasło: " + newPassword
 
             };

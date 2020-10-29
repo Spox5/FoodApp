@@ -12,14 +12,14 @@
     <div class="title">Edytuj dane użytkownika @Model.Name</div>
 
     <div class="m-4">
-        <small class="form-text text-muted mb-1">Edytuj nazwę użytkownika.</small>
+        <small class="form-text text-muted mb-1 actualUsername">Edytuj nazwę użytkownika (dotychczasowa nazwa: @Model.Name)</small>
         <input class="input-field-username form-control w-25 mx-auto m-2" placeholder="Nowa nazwa użytkownika">
         <small class="form-text username-edit-info registerAndLogin-form-info"></small>
         <button class="edit-button-username but but-edit-meal m-2"><span>Zmień nazwę</span></button>
     </div>
 
     <div class="m-4">
-        <small class="form-text text-muted mb-1">Edytuj email użytkownika.</small>
+        <small class="form-text text-muted mb-1 actualEmail">Edytuj email użytkownika (dotychczasowy email: @Model.Email)</small>
         <input class="input-field-email form-control w-25 mx-auto m-2" placeholder="Nowy email użytkownika">
         <small class="form-text email-edit-info registerAndLogin-form-info"></small>
         <button class="edit-button-email but but-edit-meal m-2"><span>Zmień email</span></button>
@@ -79,6 +79,11 @@
             editUsername();
         }
 
+        editButtonEmail.onclick = () => {
+            hideInfos();
+            editEmail();
+        }
+
         editButtonPassword.onclick = () => {
             hideInfos();
             editPassword();
@@ -131,7 +136,7 @@
             email: editEmailInput.value
         }
 
-    fetch(`/ManageUser/UpdateUserEmail?id=${user.id}&username=${user.email}`, {
+    fetch(`/ManageUser/UpdateUserEmail?id=${user.id}&email=${user.email}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -142,16 +147,16 @@
         .then(editErrors => {
             if (editErrors == 0) {
                 alertEditUser.classList.remove('unseen');
-                newUsername.value = "";
+                editEmailInput.value = "";
             }
             else if (editErrors == 1) {
-                editUsernameInfo.innerHTML = "Wpisz adres email.";
+                editEmailInfo.innerHTML = "Wpisz adres email.";
             }
             else if (editErrors == 2) {
-                editUsernameInfo.innerHTML = "Adres email jest taki sam jak ostatnio.";
+                editEmailInfo.innerHTML = "Adres email jest taki sam jak ostatnio.";
             }
             else if (editErrors == 3) {
-                editUsernameInfo.innerHTML = "Użytkownik o takim adresie email już istnieje.";
+                editEmailInfo.innerHTML = "Użytkownik o takim adresie email już istnieje.";
             }
             getUser();
         })
@@ -197,8 +202,12 @@
             .then(response => response.json())
             .then(user => {
                 const title = document.querySelector('.title');
-                title.innerHTML = `Edytuj dane użytkownika ${user.name}`;
+                const actualName = document.querySelector('.actualUsername');
+                const actualEmail = document.querySelector('.actualEmail');
 
+                title.innerHTML = `Edytuj dane użytkownika ${user.name}`;
+                actualName.innerHTML = `Edytuj nazwę użytkownika (dotychczasowa nazwa: ${user.name})`;
+                actualEmail.innerHTML = `Edytuj email użytkownika (dotychczasowy email: ${user.email})`;
             })
     }
 

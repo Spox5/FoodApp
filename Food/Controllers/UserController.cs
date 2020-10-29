@@ -202,21 +202,19 @@ namespace Food.Controllers
         }
 
         [HttpPatch]
-        public int ForgotPasswordSendNewPassword(string username, string email)
+        public int ForgotPasswordSendNewPassword(string email)
         {
-            if (string.IsNullOrEmpty(username))
-                return 1;
 
             if (string.IsNullOrEmpty(email))
-                return 2;
+                return 1;
 
             if (!IsValidEmail(email))
-                return 3;
+                return 2;
 
             var existingUserByEmail = userRepository.GetByEmail(email);
 
-            if (existingUserByEmail.Name != username)
-                return 4;
+            if (existingUserByEmail == null)
+                return 3;
 
             var newPassword = GenerateNewPassword();
 
