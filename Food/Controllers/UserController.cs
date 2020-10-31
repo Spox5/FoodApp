@@ -125,7 +125,8 @@ namespace Food.Controllers
                 {
                     Id = user.Id,
                     Token = token,
-                    Success = true
+                    Success = true,
+                    Name = user.Name
                 };
             }
 
@@ -184,7 +185,8 @@ namespace Food.Controllers
                 IsActive = false,
                 PasswordSalt = passwordSalt,
                 guid = g,
-                Email = email
+                Email = email,
+                RegisterAt = DateTime.UtcNow
             };
 
             userRepository.Add(user);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Food.Controllers;
 using Food.Data;
 using Food.Data.Repositories;
+using Food.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,7 @@ namespace Food
             services.AddScoped<UserRepository>();
             services.AddScoped<IngredientCategoryRepository>();
             services.AddSingleton<Configuration>(configuration);
+            services.AddHostedService<RemoveUnactiveUsersService>();
 
             services.AddAuthentication(options =>
             {

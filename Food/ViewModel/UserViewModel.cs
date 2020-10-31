@@ -8,6 +8,7 @@ namespace Food.ViewModel
     public class UserViewModel
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Token { get; set; }
         public bool Success { get; set; }
         public int ErrorCode { get; set; }

@@ -14,5 +14,6 @@ namespace Food.Data.Models
         public byte[] PasswordSalt { get; set; }
         public bool IsActive { get; set; }
         public Guid guid { get; set; }
+        public DateTime RegisterAt { get; set; }
     }
 }

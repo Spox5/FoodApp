@@ -41,7 +41,7 @@
                     <a href="/ManageUser" class="nav-link">Ustawienia<i class="fas fa-user ml-1"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/User/Logout" class="nav-link">Wyloguj<i class="fas fa-sign-out-alt ml-1"></i></a>
+                    <a href="/User/Logout" class="nav-link logout-link">Wyloguj<i class="fas fa-sign-out-alt ml-1"></i></a>
                 </li>
             </ul>
         </div>
@@ -49,5 +49,9 @@
     <div class="container">
         @RenderBody()
     </div>
+    <script>
+        var logoutLink = document.querySelector('.logout-link')
+        logoutLink.innerText = localStorage.getItem('userName')
+    </script>
 </body>
 </html>

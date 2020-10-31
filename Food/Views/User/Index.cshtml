@@ -164,6 +164,7 @@
                 if (user.success) {
                     localStorage.setItem('token', user.token);
                     localStorage.setItem('userId', user.id);
+                    localStorage.setItem('userName', user.name);
 
                     window.location.href = "\searchmeal"
                 }

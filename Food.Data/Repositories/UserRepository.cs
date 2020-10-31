@@ -35,6 +35,13 @@ namespace Food.Data.Repositories
             return foodContext.Users.FirstOrDefault(user => user.guid == g);
         }
 
+        public void RemoveUnactiveAndOlderThan(DateTime dataTime)
+        {
+            var usersToRemove = foodContext.Users.Where(user => user.RegisterAt < dataTime && !user.IsActive);
+            foodContext.Users.RemoveRange(usersToRemove);
+            foodContext.SaveChanges();
+        }
+
         public void Add(User user)
         {
             foodContext.Users.Add(user);

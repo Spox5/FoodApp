@@ -50,10 +50,19 @@ namespace Food.Data.Repositories
 
         public void Update(Meal meal)
         {
-            //var ingredientsToRemove = foodContext.MealsIngredients.Where(x => x.MealId == meal.Id);
-            //foodContext.MealsIngredients.RemoveRange(ingredientsToRemove);
-            //foodContext.MealsIngredients.AddRange(meal.MealIngredients);
-            foodContext.Meals.Update(meal);
+            var mealToUpdate = foodContext.Meals
+                .Include(meal => meal.MealIngredients)
+                .FirstOrDefault(existingMeal => existingMeal.Id == meal.Id);
+
+            mealToUpdate.CategoryId = meal.CategoryId;
+            mealToUpdate.Name = meal.Name;
+            mealToUpdate.Recipe = meal.Recipe;
+            mealToUpdate.UserId = meal.UserId;
+
+            mealToUpdate.MealIngredients.Clear();
+            mealToUpdate.MealIngredients.AddRange(meal.MealIngredients);
+
+            foodContext.Meals.Update(mealToUpdate);
             foodContext.SaveChanges();
         }
 
