@@ -98,6 +98,21 @@ namespace Food
                 }
             });
 
+            app.Use(async (context, nextTask) =>
+            {
+                var cspNonce = Guid.NewGuid().ToString("n").Substring(0, 20);
+
+                context.Items.Add("CspNonce", cspNonce);
+
+                var contentSecurityHeaderValue =
+                    $"script-src 'nonce-{cspNonce}'";
+
+                context.Response.Headers.Remove("Content-Security-Policy");
+                context.Response.Headers.Add("Content-Security-Policy", contentSecurityHeaderValue);
+
+                await nextTask.Invoke();
+            });
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
