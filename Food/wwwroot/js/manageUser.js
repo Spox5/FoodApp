@@ -1,89 +1,88 @@
-﻿export default function () {
-    const alertEditUser = document.querySelector('.alert-edit-user');
+﻿const alertEditUser = document.querySelector('.alert-edit-user');
 
-    const newUsername = document.querySelector('.input-field-username');
-    const editButtonUsername = document.querySelector('.edit-button-username');
-    const editUsernameInfo = document.querySelector('.username-edit-info');
+const newUsername = document.querySelector('.input-field-username');
+const editButtonUsername = document.querySelector('.edit-button-username');
+const editUsernameInfo = document.querySelector('.username-edit-info');
 
-    const editEmailInput = document.querySelector('.input-field-email');
-    const editButtonEmail = document.querySelector('.edit-button-email');
-    const editEmailInfo = document.querySelector('.email-edit-info');
+const editEmailInput = document.querySelector('.input-field-email');
+const editButtonEmail = document.querySelector('.edit-button-email');
+const editEmailInfo = document.querySelector('.email-edit-info');
 
-    const editPasswordInput = document.querySelector('.input-field-password');
-    const editPasswordShowButton = document.querySelector('.show-password-button');
-    const editPasswordConfirmationInput = document.querySelector('.input-field-password-confirmation');
-    const editPasswordConfirmationShowButton = document.querySelector('.show-confirm-password-button');
-    const editButtonPassword = document.querySelector('.edit-button-password');
-    const editPasswordInfo = document.querySelector('.password-edit-info');
+const editPasswordInput = document.querySelector('.input-field-password');
+const editPasswordShowButton = document.querySelector('.show-password-button');
+const editPasswordConfirmationInput = document.querySelector('.input-field-password-confirmation');
+const editPasswordConfirmationShowButton = document.querySelector('.show-confirm-password-button');
+const editButtonPassword = document.querySelector('.edit-button-password');
+const editPasswordInfo = document.querySelector('.password-edit-info');
 
-    const userId = parseInt(window.localStorage.getItem("userId"));
-    const dataUser = document.querySelector('.main');
+const userId = parseInt(window.localStorage.getItem("userId"));
+const dataUser = document.querySelector('.main');
 
-    bindEvents();
+bindEvents();
 
-    function bindEvents() {
+function bindEvents() {
 
-        editPasswordShowButton.onclick = () => {
-            showHidePassword(editPasswordInput);
-        }
-
-        editPasswordConfirmationShowButton.onclick = () => {
-            showHidePassword(editPasswordConfirmationInput);
-        }
-
-        editButtonUsername.onclick = () => {
-            hideInfos();
-            editUsername();
-        }
-
-        editButtonEmail.onclick = () => {
-            hideInfos();
-            editEmail();
-        }
-
-        editButtonPassword.onclick = () => {
-            hideInfos();
-            editPassword();
-        }
+    editPasswordShowButton.onclick = () => {
+        showHidePassword(editPasswordInput);
     }
 
+    editPasswordConfirmationShowButton.onclick = () => {
+        showHidePassword(editPasswordConfirmationInput);
+    }
 
-    function editUsername() {
+    editButtonUsername.onclick = () => {
+        hideInfos();
+        editUsername();
+    }
 
-        const user = {
-            id: parseInt(window.localStorage.getItem("userId")),
-            name: newUsername.value
+    editButtonEmail.onclick = () => {
+        hideInfos();
+        editEmail();
+    }
+
+    editButtonPassword.onclick = () => {
+        hideInfos();
+        editPassword();
+    }
+}
+
+
+function editUsername() {
+
+    const user = {
+        id: parseInt(window.localStorage.getItem("userId")),
+        name: newUsername.value
 
             @* isActive: '@Model.IsActive' == 'True' *@
             //isActive: dataUser.dataset.user.isActive
 
         }
 
-    fetch(`/ManageUser/UpdateUsername?id=${user.id}&username=${user.name}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    })
-        .then(response => response.json())
-        .then(editErrors => {
-            if (editErrors == 0) {
-                alertEditUser.classList.remove('unseen');
-                newUsername.value = "";
-            }
-            else if (editErrors == 1) {
-                editUsernameInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
-            }
+fetch(`/ManageUser/UpdateUsername?id=${user.id}&username=${user.name}`, {
+    method: 'PATCH',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+})
+    .then(response => response.json())
+    .then(editErrors => {
+        if (editErrors == 0) {
+            alertEditUser.classList.remove('unseen');
+            newUsername.value = "";
+        }
+        else if (editErrors == 1) {
+            editUsernameInfo.innerHTML = "Nazwa użytkownika musi zawierać minimum jedną literę";
+        }
 
-            else if (editErrors == 2) {
-                editUsernameInfo.innerHTML = "Nie zmieniłeś nazwy użytkownika.";
-            }
-            else if (editErrors == 3) {
-                editUsernameInfo.innerHTML = "Taka nazwa użytkownika jest już zajęta.";
-            }
-            getUser();
-        })
+        else if (editErrors == 2) {
+            editUsernameInfo.innerHTML = "Nie zmieniłeś nazwy użytkownika.";
+        }
+        else if (editErrors == 3) {
+            editUsernameInfo.innerHTML = "Taka nazwa użytkownika jest już zajęta.";
+        }
+        getUser();
+    })
 }
 
 function editEmail() {
@@ -180,5 +179,4 @@ function hideInfos() {
     alertEditUser.classList.add('unseen');
     editUsernameInfo.innerHTML = "";
     editPasswordInfo.innerHTML = "";
-}
 }

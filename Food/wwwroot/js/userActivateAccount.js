@@ -1,13 +1,11 @@
-﻿export default function () {
-    const redirectButton = document.querySelector('.but-redirect');
+﻿const redirectButton = document.querySelector('.but-redirect');
 
-    bindEvents();
+bindEvents();
 
-    function bindEvents() {
-        redirectButton.onclick = goToLoginPage;
-    }
+function bindEvents() {
+    redirectButton.onclick = goToLoginPage;
+}
 
-    function goToLoginPage() {
-        window.location.href = "\Index";
-    }
+function goToLoginPage() {
+    window.location.href = "\Index";
 }

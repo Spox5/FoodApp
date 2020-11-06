@@ -23,7 +23,7 @@
         </div>
     </header>
 
-    <nav class="navbar navbar-expand-sm navbar-light navibar">
+    <nav class="navigation navbar navbar-expand-sm navbar-light navibar">
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,9 +50,5 @@
     <div class="container">
         @RenderBody()
     </div>
-    <script>
-        var logoutLink = document.querySelector('.logout-link')
-        logoutLink.innerText = localStorage.getItem('userName')
-    </script>
 </body>
 </html>
