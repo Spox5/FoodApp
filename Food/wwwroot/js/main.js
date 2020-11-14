@@ -1,5 +1,5 @@
 ﻿async function loadScripts() {
-    if (document.querySelector('.manage-ingredient')) {
+    if (document.querySelector('.manage-ingredients')) {
         await import('./manageIngredients.js')
     }
     if (document.querySelector('.manage-meals-container')) {
