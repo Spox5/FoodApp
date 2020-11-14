@@ -14,7 +14,7 @@
 
                 <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == category.Key)?.Name</button>
 
-                <div class="m-2">
+                <div class="div-show-ingredients m-2 unseen">
                     @foreach (var ingredient in category.ToList())
                     {
                         <label class="btn btn-outline-primary">
@@ -26,13 +26,13 @@
             </div>
         }
 
-        @if (!Model.Ingredients.Any(ingredient => ingredient.CategoryId == 9)) //warunek do zmiany
+        @if (!Model.Ingredients.Any(ingredient => ingredient.CategoryId == 10)) //warunek do zmiany
         {
             <div class="m-3">
 
-                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 9).Name</button>
+                <button class="but but-ingredient-family">@Model.IngredientCategories.FirstOrDefault(ic => ic.Id == 10).Name</button>
 
-                <div class="div-show-ingredients-other m-2">a
+                <div class="div-show-ingredients-other m-2 unseen">
                 </div>
 
             </div>

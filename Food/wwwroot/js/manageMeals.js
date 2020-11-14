@@ -6,6 +6,7 @@ const mealsOther = document.querySelector('.meals-other');
 
 const allIngredientsCategoriesButtons = document.querySelectorAll('.but-ingredient-family');
 //const divShowIngredientsOther = Array.from(allIngredientsCategoriesButtons).find(button => button.textContent == 'Użytkownika').nextSibling.nextSibling
+const divShowIngredients = document.querySelector('.div-show-ingredients');
 const divShowIngredientsOther = document.querySelector('.div-show-ingredients-other');
 
 const ingredientsData = JSON.parse(document.querySelector('.manage-meals-container').dataset.ingredients)
@@ -28,7 +29,7 @@ const userId = parseInt(window.localStorage.getItem("userId"));
 
 getMeals();
 
-editForm.style.display = 'none'
+//editForm.style.display = 'none'
 bindEvents();
 
 
@@ -60,14 +61,14 @@ function bindEvents() {
 function displayMessegeIfDivIsEmpty(checkedDiv, message) {
     if (checkedDiv.children.length <= 0) {
         checkedDiv.innerHTML = message;
-        deleteButton.style.display = 'none';
-        editButton.style.display = 'none';
+        //deleteButton.style.display = 'none';
+        //editButton.style.display = 'none';
     }
     else {
-        editButton.style.display = 'block';
         editButton.className = "edit-button but but-edit-meal m-1 mx-auto";
-        deleteButton.style.display = 'block';
+        editButton.classList.remove("unseen");
         deleteButton.className = "delete-button but but-delete m-1 mx-auto";
+        deleteButton.classList.remove("unseen");
     }
 }
 
@@ -194,13 +195,13 @@ function deleteMeal() {
 
 
 function displayOrHideEditForm() {
-    if (editForm.style.display == 'none') {
-        editForm.style.display = 'block'
+    if (editForm.classList.contains("unseen")) {
+        editForm.classList.remove("unseen");
         initializeEditFormCheckboxes()
         initializeEditFormInputs()
     }
-    else if (editForm.style.display == 'block') {
-        editForm.style.display = 'none'
+    else {
+        editForm.classList.add("unseen");
     }
 }
 

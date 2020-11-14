@@ -13,13 +13,12 @@ const saveButton = document.querySelector('.save-button');
 
 const userId = parseInt(window.localStorage.getItem("userId"));
 
-getIngredients();
-
 bindEvents();
 
 function bindEvents() {
 
     //displayMessegeIfDivIsEmpty(ingredientsOther);
+    getIngredients();
 
     addButton.onclick = () => {
         hideInfos();
@@ -33,12 +32,13 @@ function bindEvents() {
 
 function displayMessegeIfDivIsEmpty(checkedDiv) {
     if (checkedDiv.children.length <= 0) {
+        checkedDiv.classList.remove("unseen");
         checkedDiv.innerHTML = "Brak własnych składników.";
         deleteButton.style.display = 'none';
     }
     else {
-
-        deleteButton.style.display = 'block';
+        checkedDiv.classList.remove("unseen");
+        deleteButton.classList.remove("unseen");
         deleteButton.className = "delete-button but but-delete mx-auto";
     }
 }

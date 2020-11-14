@@ -18,7 +18,7 @@ function bindEvents() {
     searchMealsAfterClick();
 
     for (const button of allIngredientsCategoriesButtons) {
-        button.nextSibling.nextSibling.style.display = 'none'
+        //button.nextSibling.nextSibling.style.display = 'none'
         displayIngredientsGroupAfterClick(button, button.nextSibling.nextSibling)
     }
 
@@ -51,11 +51,11 @@ function searchMealsAfterClick() {
 function displayIngredientsGroupAfterClick(button, divOfIngredients) {
 
     button.onclick = () => {
-        if (divOfIngredients.style.display == 'none') {
-            divOfIngredients.style.display = 'block';
+        if (divOfIngredients.classList.contains("unseen")) {
+            divOfIngredients.classList.remove("unseen");
         }
-        else if (divOfIngredients.style.display == 'block') {
-            divOfIngredients.style.display = 'none'
+        else {
+            divOfIngredients.classList.add("unseen");
         }
     }
 }

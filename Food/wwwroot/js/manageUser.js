@@ -51,10 +51,9 @@ function editUsername() {
 
     const user = {
         id: parseInt(window.localStorage.getItem("userId")),
-        name: newUsername.value
-
-            @* isActive: '@Model.IsActive' == 'True' *@
-            //isActive: dataUser.dataset.user.isActive
+        name: newUsername.value,
+        //isActive: '@Model.IsActive' == 'True'
+        //isActive: dataUser.dataset.user.isActive
 
         }
 

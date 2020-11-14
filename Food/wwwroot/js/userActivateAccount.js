@@ -7,5 +7,5 @@ function bindEvents() {
 }
 
 function goToLoginPage() {
-    window.location.href = "\Index";
+    window.location.href = "/";
 }

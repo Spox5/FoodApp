@@ -1,2 +1,2 @@
 ﻿var logoutLink = document.querySelector('.logout-link')
-logoutLink.innerText = localStorage.getItem('userName')
+logoutLink.innerText = "Wyloguj (" + localStorage.getItem('userName') + ")"

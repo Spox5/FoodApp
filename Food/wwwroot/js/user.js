@@ -23,8 +23,6 @@ bindEvents();
 
 function bindEvents() {
 
-    alertSuccess.style.display = 'none';
-
     loginButton.onclick = () => {
         hideInfos();
         login();
@@ -76,7 +74,7 @@ function login() {
                 localStorage.setItem('userId', user.id);
                 localStorage.setItem('userName', user.name);
 
-                window.location.href = "\searchmeal"
+                window.location.href = "/searchmeal"
             }
             else {
                 if (user.errorCode == 1) {
@@ -112,7 +110,7 @@ function register() {
         .then(response => response.json())
         .then(isRegistered => {
             if (isRegistered == 0) {
-                alertSuccess.style.display = 'block';
+                alertSuccess.classList.remove("unseen");
                 usernameRegisterInput.value = "";
                 emailRegisterInput.value = "";
                 passwordRegisterInput.value = "";
@@ -149,7 +147,7 @@ function showHidePassword(passwordInput) {
 }
 
 function hideInfos() {
-    alertSuccess.style.display = 'none';
+    alertSuccess.classList.add("unseen");
     usernameLoginInfo.innerHTML = "";
     passwordLoginInfo.innerHTML = "";
     usernameRegisterInfo.innerHTML = "";
