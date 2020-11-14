@@ -16,7 +16,6 @@ namespace Food.Data.Migrations
                 INSERT INTO [Food].[dbo].[IngredientCategories] ([Name])
                 VALUES ('Mięso');
 
-
                 INSERT INTO [Food].[dbo].[IngredientCategories] ([Name])
                 VALUES ('Ryby');
 
@@ -31,6 +30,9 @@ namespace Food.Data.Migrations
 
                 INSERT INTO [Food].[dbo].[IngredientCategories] ([Name])
                 VALUES ('Pieczywo');
+
+                INSERT INTO [Food].[dbo].[IngredientCategories] ([Name])
+                VALUES ('Inne');
             ");
         }
 

@@ -72,7 +72,8 @@ function displayMealResult(meals) {
 
         mealElementNameButton.innerHTML = `${meal.name}.`;
         mealElementNameDiv.appendChild(mealElementNameButton);
-        mealElementIngredients.innerHTML = `Skladniki: ${getMealIngredients(meal)}.`;
+        //mealElementIngredients.innerHTML = `Skladniki: ${getMealIngredients(meal)}.`;
+        mealElementIngredients.innerHTML = `Skladniki: ${meal.ingredients}.`;
         mealElementRecipe.innerHTML = `Przepis: ${meal.recipe}`;
 
         mealResultContainer.appendChild(mealElementNameDiv);
