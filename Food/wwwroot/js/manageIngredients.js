@@ -48,7 +48,7 @@ function addIngredient() {
         //tu działa parser małe litery pierwsze na wielkie
         name: addIngredientName.value,
         userId: parseInt(window.localStorage.getItem("userId")),
-        categoryId: 9
+        categoryId: 10
     };
 
     fetch("/ManageIngredients/AddIngredient", {
